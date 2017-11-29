@@ -1,0 +1,40 @@
+.navigation {
+    float: right;
+    margin: 20px;
+    position: fixed;
+    top: 100px;
+    right: 0;
+    ul {
+        padding: 0px;
+    }
+    li {
+        list-style: none;
+        font-size: 1.2rem;
+        text-align: right;
+        padding: 5px 5px;
+        font-family: $headingFont;
+        a {
+            color: $mainWhite;
+            text-decoration: none;
+            transition: font-size 0.4s ease-in-out;
+            &:hover {
+                font-size: 1.6rem;
+            }
+        }
+        // .circle {
+        //     width: 10px;
+        //     height: 10px;
+        //     border: 1px white solid;
+        //     border-radius: 10px;
+        //     display: inline-block;
+        //     position: relative;
+        //     top: 50%;
+        //     transform: translateY(50%);
+        // }
+    }
+
+    // active style
+    .current {
+        font-size: 1.6rem;
+    }
+}

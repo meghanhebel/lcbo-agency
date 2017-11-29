@@ -48,20 +48,6 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <h1>Wine is Fine</h1>
-          <nav>
-            <ul>
-              <li>
-                <NavLink to="/pantry" activeClassName="active">Pantry</NavLink>
-              </li>
-              <li>
-                <NavLink to="/search" activeClassName="active">Search</NavLink>
-              </li>
-              <li>
-                <NavLink to="/results" activeClassName="active">Results</NavLink>
-              </li>
-            </ul>
-          </nav>
           <Switch>
             {console.log('here')}
             <Route exact path="/" component={Home} />
