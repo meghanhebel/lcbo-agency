@@ -8,6 +8,7 @@ import Home from './components/Home.js';
 import Pantry from './components/Pantry.js';
 import Results from './components/Results.js';
 import Search from './components/Search.js';
+import LogIn from './components/LogIn.js'
 
 var config = {
   apiKey: 'AIzaSyAxBftb2LL5DfmTV6tYBuM96SPXG74M8h8',
@@ -25,6 +26,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      login: {},
       user: false,
       pantry: []
     }
@@ -38,11 +40,12 @@ class App extends React.Component {
       for (let test in tests) {
         // console.log(test);
       }
-      // this.setState({
-      //   blah blah blah
-      // })
+      
+
     });
+
   }
+
 
   render() {
     return (
@@ -50,6 +53,7 @@ class App extends React.Component {
         <div>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={LogIn} />
             <Route exact path="/pantry" component={Pantry} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/results" component={Results} />
