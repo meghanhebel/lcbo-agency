@@ -13,7 +13,7 @@ export default class Navigation extends React.Component {
                             <div className="circle"></div>
                         </li>
                         <li>
-                            <NavLink to ="/search"
+                            <NavLink to ="/marketplace"
                                 activeClassName = "current">Search Marketplace</NavLink>
                             <div className="circle"></div>
                         </li>
