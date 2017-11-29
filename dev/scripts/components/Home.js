@@ -1,6 +1,7 @@
 import React from 'react';
 import Heading from './Heading'
 import MainWineImage from './MainWineImage'
+import LogIn from './LogIn'
 
 class Home extends React.Component {
     render() {
@@ -8,6 +9,7 @@ class Home extends React.Component {
             <div className="home">
                 <Heading />
                 <MainWineImage />
+                <LogIn />
             </div>
         );
     }
