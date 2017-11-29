@@ -4,11 +4,10 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-router-dom';
 
-import Home from './components/Home.js';
-import Pantry from './components/Pantry.js';
-import Results from './components/Results.js';
-import Search from './components/Search.js';
-import LogIn from './components/LogIn.js'
+import Home from './components/Home';
+import Pantry from './components/Pantry';
+import MarketPlace from './components/MarketPlace'
+import LogIn from './components/LogIn'
 
 var config = {
   apiKey: 'AIzaSyAxBftb2LL5DfmTV6tYBuM96SPXG74M8h8',
@@ -39,9 +38,7 @@ class App extends React.Component {
       // console.log(tests);
       for (let test in tests) {
         // console.log(test);
-      }
-      
-
+      } 
     });
 
   }
@@ -54,9 +51,8 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={LogIn} />
+            <Route exact path="/marketplace" component={MarketPlace} />
             <Route exact path="/pantry" component={Pantry} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/results" component={Results} />
             <Route render={() => <p>Page not found :(</p>} />
           </Switch>
         </div>
