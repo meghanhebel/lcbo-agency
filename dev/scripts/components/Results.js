@@ -19,9 +19,13 @@ class Results extends React.Component {
                 dataType: 'json',
                 q: `wine+${searchParams}`,
                 where_not: 'is_dead,is_discontinued',
+                per_page: 10,
                 access_key
             }
         }).then((res) => {
+            console.log(res.data.pager);
+            console.log(res.data.pager.next_page_path);
+            // previous_page_path null if page is 1
             console.log(res.data.result);
             this.setState({
                 wines: res.data.result
