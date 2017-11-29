@@ -34,9 +34,9 @@ class App extends React.Component {
     const wineApp = firebase.database().ref();
     wineApp.on('value', (snapshot) => {
       let tests = snapshot.val();
-      console.log(tests);
+      // console.log(tests);
       for (let test in tests) {
-        console.log(test);
+        // console.log(test);
       }
       // this.setState({
       //   blah blah blah
@@ -48,7 +48,25 @@ class App extends React.Component {
     return (
       <Router>
         <div>
+<<<<<<< HEAD
+=======
+          <h1>Wine is Fine</h1>
+          <nav>
+            <ul>
+              <li>
+                <NavLink to="/pantry" activeClassName="active">Pantry</NavLink>
+              </li>
+              <li>
+                <NavLink to="/search" activeClassName="active">Search</NavLink>
+              </li>
+              <li>
+                <NavLink to="/results" activeClassName="active">Results</NavLink>
+              </li>
+            </ul>
+          </nav>
+>>>>>>> 9767295ced79d58addee144cde9a5cad01b39417
           <Switch>
+            {console.log('here')}
             <Route exact path="/" component={Home} />
             <Route exact path="/pantry" component={Pantry} />
             <Route exact path="/search" component={Search} />
