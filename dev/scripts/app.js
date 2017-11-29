@@ -49,7 +49,6 @@ class App extends React.Component {
       <Router>
         <div>
           <Switch>
-            {console.log('here')}
             <Route exact path="/" component={Home} />
             <Route exact path="/pantry" component={Pantry} />
             <Route exact path="/search" component={Search} />

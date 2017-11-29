@@ -6,8 +6,15 @@ class Results extends React.Component {
     constructor() {
         super();
         this.state = {
-            wines: []
+            wineResults: [],
+            currentPageResults: [],
+            startWineIndex: 0,
+            endWineIndex: 4,
+            pageIndex: 1
         }
+        this.getPageResults = this.getPageResults.bind(this);
+        this.nextPageResults = this.nextPageResults.bind(this);
+        this.previousPageResults = this.previousPageResults.bind(this);
     }
 
     componentDidMount() {
@@ -19,14 +26,54 @@ class Results extends React.Component {
                 dataType: 'json',
                 q: `wine+${searchParams}`,
                 where_not: 'is_dead,is_discontinued',
+                per_page: 100,
                 access_key
             }
         }).then((res) => {
+            console.log(res.data.pager);
+            console.log(res.data.pager.next_page_path);
+            // previous_page_path null if page is 1
             console.log(res.data.result);
             this.setState({
-                wines: res.data.result
+                wineResults: res.data.result.filter(wine => wine.primary_category === "Wine")
             });
+            this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
+
         });
+    }
+    getPageResults(start, end) {
+        console.log('end index ',this.state.endWineIndex);
+        console.log('start,end ',start, end);
+        if (this.state.wineResults.length > this.state.endWineIndex) {
+            this.setState({
+                currentPageResults: this.state.wineResults.slice(start, end+1)
+            });
+            console.log('page made');
+            console.log(this.state.currentPageResults);
+        } else {
+            console.log('ERROR: not enough wines in wineResults');
+            // call API again here ?
+        }
+    }
+
+    nextPageResults() {
+        this.setState({
+            startWineIndex: this.state.startWineIndex + 4,
+            endWineIndex: this.state.endWineIndex + 4
+        });
+        return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
+    }
+
+    previousPageResults() {
+        if (this.state.startWineIndex - 4 >= 0) {
+            this.setState({
+                startWineIndex: this.state.startWineIndex - 4,
+                endWineIndex: this.state.endWineIndex - 4
+            });
+            return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
+        } else {
+            console.log('ERROR ');
+        }
     }
     
     render() {
@@ -34,7 +81,7 @@ class Results extends React.Component {
             <div className='searchResults'>
                 <h1>Results</h1>
                 <ul>
-                {this.state.wines.map((wine) => {
+                {this.state.currentPageResults.map((wine) => {
                     const secondCateg = wine.secondary_category;
                     let typeWine = '';
                         if (secondCateg.match(/Red/)) {
@@ -46,8 +93,6 @@ class Results extends React.Component {
                         }
                     return (
                         <div key={wine.id} className={`wineResult ${typeWine}`}>
-                        {(wine.primary_category === 'Wine') ? 
-                        // need this to filter out anything that is NOT primary category Wine
                         <li>
                             <img src={wine.image_thumb_url} alt={`image of ${wine.name}, a ${wine.secondary_category}`}/>
                             <figcaption>
@@ -64,10 +109,13 @@ class Results extends React.Component {
                             <NavLink to="/pantry"><button>Add to pantry</button></NavLink>
                             </figcaption>
                         </li> 
-                        : '' } 
                     </div>
                 )})}
                 </ul>
+                <div className="resultsPageNav">
+                    <button className="previous" onClick={this.previousPageResults}>previous</button>
+                    <button className="next" onClick={this.nextPageResults}>next</button>
+                </div>
             </div>
         );
     }
