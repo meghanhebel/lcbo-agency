@@ -5,3 +5,20 @@ body {
     font-family: $bodyFont;
     text-align: center;
 }
+
+
+// CLASSES
+
+.heading_med_white {
+    font-family: $headingFont;
+    font-size: 1.4rem;
+}
+
+// Component 
+
+.icon_wine_main {
+    margin: 0px auto;
+    display: block;
+    width: 20%;
+    height: atuo;
+}
