@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-router-dom';
 
-class Results extends React.Component {
+export default class Results extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -120,5 +120,3 @@ class Results extends React.Component {
         );
     }
 }
-
-export default Results;
