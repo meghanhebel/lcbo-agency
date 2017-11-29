@@ -25,14 +25,25 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      login: {},
-      user: false,
+      userID: '',
       pantry: []
     }
   }
 
+
+
   componentDidMount() {
+    
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(user)
+      this.setState({
+        userID: user.uid
+      })
+    });
+
+    
     const wineApp = firebase.database().ref();
+    
     wineApp.on('value', (snapshot) => {
       let tests = snapshot.val();
       // console.log(tests);
@@ -48,10 +59,9 @@ class App extends React.Component {
     return (
       <Router>
         <div>
+          <LogIn  />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={LogIn} />
-            <Route exact path="/marketplace" component={MarketPlace} />
             <Route exact path="/pantry" component={Pantry} />
             <Route render={() => <p>Page not found :(</p>} />
           </Switch>
