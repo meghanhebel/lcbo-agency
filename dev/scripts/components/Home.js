@@ -8,6 +8,7 @@ class Home extends React.Component {
             <div className="home">
                 <Heading />
                 <MainWineImage />
+                <LogIn />
             </div>
         );
     }
