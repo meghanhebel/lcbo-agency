@@ -4,30 +4,28 @@ import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-rou
 export default class Navigation extends React.Component {
     render() {
         return(
-            <Router>
-                <nav>
+
+                <nav className="navigation">
                     <ul>
                         <li>
-                            <NavLink exact to="/pantry"
-                                activeClassName = "current"
-                                activeStyle = {{color: 'green'}}>Pantry</NavLink>
-                            <span className="circle"></span>
+                            <NavLink to="/pantry"
+                                activeClassName = "current">Pantry</NavLink>
+                            <div className="circle"></div>
                         </li>
                         <li>
-                            <NavLink exact to ="/search"
-                                activeClassName = "current"
-                                activeStyle = {{color: 'green'}}>Search Marketplace</NavLink>
-                            <span className="circle"></span>
+                            <NavLink to ="/search"
+                                activeClassName = "current">Search Marketplace</NavLink>
+                            <div className="circle"></div>
                         </li>
                         <li>
                             <NavLink exact to="/"
-                                activeClassName = "current"
-                                activeStyle = {{color: 'green'}}>Logout</NavLink>
-                            <span className="circle"></span>
+                                activeClassName = "current">Logout</NavLink>
+                            <div className="circle"></div>
                         </li>
                     </ul>
                 </nav>
-            </Router>
+
+               
         )
     }
 }

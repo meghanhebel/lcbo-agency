@@ -1,12 +1,15 @@
 import React from 'react';
 import Navigation from './Navigation'
+import Heading from './Heading'
+import MainWineImage from './MainWineImage'
 
 class Search extends React.Component {
     render() {
         return (
-            <div>
-                <h1>Search</h1>
+            <div className="clearfix">
                 <Navigation />
+                <Heading />
+                <MainWineImage />
             </div>
         );
     }
