@@ -4,11 +4,10 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-router-dom';
 
-import Home from './components/Home.js';
-import Pantry from './components/Pantry.js';
-import Results from './components/Results.js';
-import Search from './components/Search.js';
-import LogIn from './components/LogIn.js'
+import Home from './components/Home';
+import Pantry from './components/Pantry';
+import MarketPlace from './components/MarketPlace'
+import LogIn from './components/LogIn'
 
 var config = {
   apiKey: 'AIzaSyAxBftb2LL5DfmTV6tYBuM96SPXG74M8h8',
@@ -26,14 +25,25 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      login: {},
-      user: false,
+      userID: '',
       pantry: []
     }
   }
 
+
+
   componentDidMount() {
+    
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log(user)
+      this.setState({
+        userID: user.uid
+      })
+    });
+
+    
     const wineApp = firebase.database().ref();
+    
     wineApp.on('value', (snapshot) => {
       let tests = snapshot.val();
       // console.log(tests);
@@ -48,12 +58,11 @@ class App extends React.Component {
     return (
       <Router>
         <div>
+          <LogIn  />
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={LogIn} />
             <Route exact path="/pantry" component={Pantry} />
-            <Route exact path="/search" component={Search} />
-            <Route exact path="/results" component={Results} />
+            <Route exact path ="/marketplace" component = {MarketPlace}/>
             <Route render={() => <p>Page not found :(</p>} />
           </Switch>
         </div>

@@ -3,10 +3,11 @@ import Navigation from './Navigation'
 import Heading from './Heading'
 import MainWineImage from './MainWineImage'
 
-class Search extends React.Component {
+export default class Search extends React.Component {
+
     render() {
         return (
-            <div className="clearfix">
+            <div className="clearfix search">
                 <Navigation />
                 <Heading />
                 <MainWineImage />
@@ -14,5 +15,3 @@ class Search extends React.Component {
         );
     }
 }
-
-export default Search;

@@ -68,11 +68,11 @@ export default class LogIn extends React.Component {
             }
         )
     }
-    passUserData() {
-        let userData = this.state.logIn;
-        return this.props.userInfo(userData)
+    // passUserData() {
+    //     let userData = this.state.logIn;
+    //     return this.props.userInfo(userData)
 
-    }
+    // }
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             
@@ -89,7 +89,10 @@ export default class LogIn extends React.Component {
                     }
                 });
             }
-        })        
+            
+            
+        })
+        // setTimeout(function(){this.props.userId(this.state.logIn)}.bind(this),1000);       
     }
 
    

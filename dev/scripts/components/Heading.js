@@ -5,6 +5,10 @@ export default class Heading extends React.Component {
         super();
     }
 
+    // componentDidMount() {
+    //     {this.props.thisFunction(2)}
+    // }
+
     render() {
         return(
             <div className="heading">
