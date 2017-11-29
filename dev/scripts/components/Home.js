@@ -1,10 +1,13 @@
 import React from 'react';
+import Heading from './Heading'
+import MainWineImage from './MainWineImage'
 
 class Home extends React.Component {
     render() {
         return (
-            <div>
-                <h1>Home</h1>
+            <div className="home">
+                <Heading />
+                <MainWineImage />
             </div>
         );
     }

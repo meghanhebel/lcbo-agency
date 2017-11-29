@@ -36,9 +36,9 @@ class App extends React.Component {
     const wineApp = firebase.database().ref();
     wineApp.on('value', (snapshot) => {
       let tests = snapshot.val();
-      console.log(tests);
+      // console.log(tests);
       for (let test in tests) {
-        console.log(test);
+        // console.log(test);
       }
       
 
@@ -51,8 +51,6 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <h1>Wine is Fine</h1>
-
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={LogIn} />
