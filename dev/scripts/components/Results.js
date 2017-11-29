@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, NavLink, Switch} from 'react-router-dom';
 
 export default class Results extends React.Component {
     constructor() {
@@ -15,32 +15,34 @@ export default class Results extends React.Component {
         this.getPageResults = this.getPageResults.bind(this);
         this.nextPageResults = this.nextPageResults.bind(this);
         this.previousPageResults = this.previousPageResults.bind(this);
+        this.addToPantry = this.addToPantry.bind(this);
     }
 
-    componentDidMount() {
-        let searchParams = '';
-        // this variable to be filled with whatever the user enters
-        const access_key = 'MDo5ODRjMDU2Ni1kNTBhLTExZTctYjFmYS1lN2UwOGZlNzE3OWY6WFJBVXV1Q2FkWDdBUkQ5aUtxc0ZYejl3ZTVCaDU0emFYRG56';
-        axios.get(`http://lcboapi.com/products?`, {
-            params: {
-                dataType: 'json',
-                q: `wine+${searchParams}`,
-                where_not: 'is_dead,is_discontinued',
-                per_page: 100,
-                access_key
-            }
-        }).then((res) => {
-            console.log(res.data.pager);
-            console.log(res.data.pager.next_page_path);
-            // previous_page_path null if page is 1
-            console.log(res.data.result);
-            this.setState({
-                wineResults: res.data.result.filter(wine => wine.primary_category === "Wine")
-            });
-            this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
+    // componentDidMount() {
+    //     let searchParams = '';
+    //     // this variable to be filled with whatever the user enters
+    //     const access_key = 'MDo5ODRjMDU2Ni1kNTBhLTExZTctYjFmYS1lN2UwOGZlNzE3OWY6WFJBVXV1Q2FkWDdBUkQ5aUtxc0ZYejl3ZTVCaDU0emFYRG56';
+    //     axios.get(`http://lcboapi.com/products?`, {
+    //         params: {
+    //             dataType: 'json',
+    //             // q: `wine+${searchParams}`,
+    //             q: ['wine'],
+    //             where_not: 'is_dead,is_discontinued',
+    //             per_page: 100,
+    //             access_key
+    //         }
+    //     }).then((res) => {
+    //         console.log(res.data.pager);
+    //         console.log(res.data.pager.next_page_path);
+    //         // previous_page_path null if page is 1
+    //         console.log(res.data.result);
+    //         this.setState({
+    //             wineResults: res.data.result.filter(wine => wine.primary_category === "Wine")
+    //         });
+    //         this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
 
-        });
-    }
+    //     });
+    // }
     getPageResults(start, end) {
         console.log('end index ',this.state.endWineIndex);
         console.log('start,end ',start, end);
@@ -58,22 +60,32 @@ export default class Results extends React.Component {
 
     nextPageResults() {
         this.setState({
-            startWineIndex: this.state.startWineIndex + 4,
-            endWineIndex: this.state.endWineIndex + 4
+            startWineIndex: this.state.startWineIndex + 5,
+            endWineIndex: this.state.endWineIndex + 5
         });
         return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
     }
 
     previousPageResults() {
-        if (this.state.startWineIndex - 4 >= 0) {
+        if (this.state.startWineIndex - 5 >= 0) {
             this.setState({
-                startWineIndex: this.state.startWineIndex - 4,
-                endWineIndex: this.state.endWineIndex - 4
+                startWineIndex: this.state.startWineIndex - 5,
+                endWineIndex: this.state.endWineIndex - 5
             });
             return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
         } else {
             console.log('ERROR ');
         }
+    }
+
+    addToPantry(wine) {
+        // push to firebase  by wine id
+        // push to front of array of all users wines (so when load, goes to most recent first)
+        // when delete it, need to grab from array and also from fb
+        // [product id, product id, product id]
+        // key of div is also product id 
+        // all info of wine, plus add notes and rating but empty 
+        console.log('wine', wine);
     }
     
     render() {
@@ -106,16 +118,18 @@ export default class Results extends React.Component {
                                 {/* nested ternary-- if wine has a description OR a style 
                                     --> check if it has desc, display that, else style
                                     --> if it doesnt have either, display nothing */}
-                            <NavLink to="/pantry"><button>Add to pantry</button></NavLink>
+                            <NavLink to="/pantry"><button onClick={() => {this.addToPantry(wine)}}>Add to pantry</button></NavLink>
                             </figcaption>
                         </li> 
                     </div>
                 )})}
                 </ul>
-                <div className="resultsPageNav">
+                <footer>
+                    <NavLink to="/pantry">Pantry</NavLink>
                     <button className="previous" onClick={this.previousPageResults}>previous</button>
                     <button className="next" onClick={this.nextPageResults}>next</button>
-                </div>
+                    <NavLink to="/">Log Out</NavLink>
+                </footer>
             </div>
         );
     }

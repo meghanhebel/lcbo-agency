@@ -49,9 +49,8 @@ class App extends React.Component {
       // console.log(tests);
       for (let test in tests) {
         // console.log(test);
-      } 
+      }
     });
-
   }
 
 
