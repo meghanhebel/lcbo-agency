@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link, NavLink, Switch} from 'react-router-dom';
 
 class Results extends React.Component {
     constructor() {
@@ -15,6 +15,7 @@ class Results extends React.Component {
         this.getPageResults = this.getPageResults.bind(this);
         this.nextPageResults = this.nextPageResults.bind(this);
         this.previousPageResults = this.previousPageResults.bind(this);
+        this.addToPantry = this.addToPantry.bind(this);
     }
 
     componentDidMount() {
@@ -24,7 +25,8 @@ class Results extends React.Component {
         axios.get(`http://lcboapi.com/products?`, {
             params: {
                 dataType: 'json',
-                q: `wine+${searchParams}`,
+                // q: `wine+${searchParams}`,
+                q: ['wine'],
                 where_not: 'is_dead,is_discontinued',
                 per_page: 100,
                 access_key
@@ -58,22 +60,32 @@ class Results extends React.Component {
 
     nextPageResults() {
         this.setState({
-            startWineIndex: this.state.startWineIndex + 4,
-            endWineIndex: this.state.endWineIndex + 4
+            startWineIndex: this.state.startWineIndex + 5,
+            endWineIndex: this.state.endWineIndex + 5
         });
         return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
     }
 
     previousPageResults() {
-        if (this.state.startWineIndex - 4 >= 0) {
+        if (this.state.startWineIndex - 5 >= 0) {
             this.setState({
-                startWineIndex: this.state.startWineIndex - 4,
-                endWineIndex: this.state.endWineIndex - 4
+                startWineIndex: this.state.startWineIndex - 5,
+                endWineIndex: this.state.endWineIndex - 5
             });
             return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
         } else {
             console.log('ERROR ');
         }
+    }
+
+    addToPantry(wine) {
+        // push to firebase  by wine id
+        // push to front of array of all users wines (so when load, goes to most recent first)
+        // when delete it, need to grab from array and also from fb
+        // [product id, product id, product id]
+        // key of div is also product id 
+        // all info of wine, plus add notes and rating but empty 
+        console.log('wine', wine);
     }
     
     render() {
@@ -106,16 +118,18 @@ class Results extends React.Component {
                                 {/* nested ternary-- if wine has a description OR a style 
                                     --> check if it has desc, display that, else style
                                     --> if it doesnt have either, display nothing */}
-                            <NavLink to="/pantry"><button>Add to pantry</button></NavLink>
+                            <NavLink to="/pantry"><button onClick={() => {this.addToPantry(wine)}}>Add to pantry</button></NavLink>
                             </figcaption>
                         </li> 
                     </div>
                 )})}
                 </ul>
-                <div className="resultsPageNav">
+                <footer>
+                    <NavLink to="/pantry">Pantry</NavLink>
                     <button className="previous" onClick={this.previousPageResults}>previous</button>
                     <button className="next" onClick={this.nextPageResults}>next</button>
-                </div>
+                    <NavLink to="/">Log Out</NavLink>
+                </footer>
             </div>
         );
     }

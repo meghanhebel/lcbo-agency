@@ -40,10 +40,7 @@ class App extends React.Component {
       for (let test in tests) {
         // console.log(test);
       }
-      
-
     });
-
   }
 
 
