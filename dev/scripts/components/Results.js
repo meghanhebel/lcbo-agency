@@ -15,7 +15,7 @@ class Results extends React.Component {
             params: {
                 dataType: 'json',
                 q: 'wine',
-                // where_not: 'is_dead,is_discontinued',
+                where_not: 'is_dead,is_discontinued',
                 access_key
             }
         }).then((res) => {
@@ -35,7 +35,8 @@ class Results extends React.Component {
                     console.log('categ ', wine.primary_category);
                     return (
                         <div key={wine.id} className='searchResults-wineResult'>
-                        {(wine.primary_category === 'wine') ? 
+                        {(wine.primary_category === 'Wine') ? 
+                        // need this to filter out anything that is NOT primary category Wine
                         <li>
                             <img src={wine.image_thumb_url} alt={`image of ${wine.name}, a ${wine.secondary_category}`}/>
                             <figcaption>
@@ -46,9 +47,10 @@ class Results extends React.Component {
                                 <h6>{wine.sugar_content}</h6>
                                 <h6>{wine.style}</h6>
                                 {wine.description ? <h6>{wine.description}</h6> : ''}
+                                {/* many of them don't have a description */}
                             </figcaption>
                         </li> 
-                        : '' }
+                        : '' } 
                     </div>
                 )})}
                 </ul>
