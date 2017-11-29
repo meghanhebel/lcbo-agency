@@ -58,7 +58,6 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <LogIn  />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/pantry" component={Pantry} />
