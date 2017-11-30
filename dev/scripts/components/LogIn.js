@@ -100,6 +100,10 @@ export default class LogIn extends React.Component {
     render(){
         return(
             <div>
+                <div className="logInMenuBlock">
+                    <a href="#"></a>
+                    
+                </div>
                 <div className="signUpBlock">
                     <h3>Create New Account</h3>
                     <form onSubmit={(event) => this.newUser(event)}>
