@@ -16,33 +16,18 @@ export default class Results extends React.Component {
         this.nextPageResults = this.nextPageResults.bind(this);
         this.previousPageResults = this.previousPageResults.bind(this);
         this.addToPantry = this.addToPantry.bind(this);
+        // console.log('results page res', this.props.results);
+    }
+    componentWillReceiveProps(nextProps) {
+        console.log('results page nextprops', nextProps);
+        // if (this.props.results) {
+            this.setState({
+                wineResults: nextProps.results
+            });
+            this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
+        // }
     }
 
-    // componentDidMount() {
-    //     let searchParams = '';
-    //     // this variable to be filled with whatever the user enters
-    //     const access_key = 'MDo5ODRjMDU2Ni1kNTBhLTExZTctYjFmYS1lN2UwOGZlNzE3OWY6WFJBVXV1Q2FkWDdBUkQ5aUtxc0ZYejl3ZTVCaDU0emFYRG56';
-    //     axios.get(`http://lcboapi.com/products?`, {
-    //         params: {
-    //             dataType: 'json',
-    //             // q: `wine+${searchParams}`,
-    //             q: ['wine'],
-    //             where_not: 'is_dead,is_discontinued',
-    //             per_page: 100,
-    //             access_key
-    //         }
-    //     }).then((res) => {
-    //         console.log(res.data.pager);
-    //         console.log(res.data.pager.next_page_path);
-    //         // previous_page_path null if page is 1
-    //         console.log(res.data.result);
-    //         this.setState({
-    //             wineResults: res.data.result.filter(wine => wine.primary_category === "Wine")
-    //         });
-    //         this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
-
-    //     });
-    // }
     getPageResults(start, end) {
         console.log('end index ',this.state.endWineIndex);
         console.log('start,end ',start, end);
