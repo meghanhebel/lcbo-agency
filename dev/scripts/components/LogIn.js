@@ -33,7 +33,7 @@ export default class LogIn extends React.Component {
         this.showLogIn = this.showLogIn.bind(this);
         this.showSignUp = this.showSignUp.bind(this);
     }
-    // sets the create___ states to vlue of corresponding inputs
+    // sets the create___ states to value of corresponding inputs
     handleChange(event, field){
         const newState = Object.assign({},this.state);
         newState.logIn[field] =  event.target.value;
@@ -86,11 +86,7 @@ export default class LogIn extends React.Component {
             showSignUp: false
         })
     }
-    // passUserData() {
-    //     let userData = this.state.logIn;
-    //     return this.props.userInfo(userData)
 
-    // }
     componentDidMount() {
         firebase.auth().onAuthStateChanged((user) => {
             
@@ -110,7 +106,7 @@ export default class LogIn extends React.Component {
             
             
         })
-        // setTimeout(function(){this.props.userId(this.state.logIn)}.bind(this),1000);       
+           
     }
 
     showLogIn(){
@@ -130,25 +126,30 @@ export default class LogIn extends React.Component {
     render(){
         return(
             <div>
+
                 {this.state.logIn.loggedIn ? 
                     <div> </div>
                 :
-                <div>
+                <div className="logInBtn">
                     <button onClick={this.showSignUp}>Sign Up</button>
                     <button onClick={this.showLogIn}>Log In</button>
                 </div>
                 }
             
                { this.state.logIn.loggedIn ? 
-                    <div className="logOutBlock">
-                        <button onClick={this.logOut}>Log Out</button>
+                    <div>   
+                        <div className="logOutBtn">
+                            <button onClick={this.logOut}>Log Out</button>
+                        </div>
+                        <a href="/pantry" className="pantryBtn">Go to My Pantry</a>
                     </div>
+                    
                     
                 :
 
-                    <div className="logInButtons">
+                    <div className="logInFormsBlock">
                         { this.state.showLogIn ?
-                                <div className="signInBlock">
+                                <div className="logInBlock">
                                     <form onSubmit={(event) => this.logIn(event)}>
                                         <h3>Sign In</h3>
                                         <label htmlFor="password">email</label>
