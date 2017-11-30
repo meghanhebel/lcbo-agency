@@ -8,14 +8,13 @@ class Home extends React.Component {
 
     render() {
         return (
-            <div className="home">
-                <Heading />
-                <MainWineImage />
-                <Link to={/}>  
-                
-                </Link>
-                <LogIn />
-            </div>
+            <Router>
+                <div className="home">
+                    <LogIn />
+                    <Heading />
+                    <MainWineImage />
+                </div>
+            </Router>
         );
     }
 }

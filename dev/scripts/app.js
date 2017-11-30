@@ -62,6 +62,7 @@ class App extends React.Component {
             <Route exact path="/" component={Home} />
             <Route exact path="/pantry" component={Pantry} />
             <Route exact path ="/marketplace" component = {MarketPlace}/>
+            <Route exact path ="/login" component = {LogIn} />
             <Route render={() => <p>Page not found :(</p>} />
           </Switch>
         </div>
