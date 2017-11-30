@@ -52,15 +52,14 @@ class App extends React.Component {
       }
     });
   }
-
-
+  
   render() {
     return (
       <Router>
         <div>
           <Switch>
-            <Route exact path="/" component={Home} userID={this.state.userID} />
-            <Route exact path="/pantry" component={Pantry} />
+            <Route exact path="/" component={Home}/>
+            <Route exact path="/pantry" render={(props) => <Pantry {...props} userID={this.state.userID}/>}  />
             <Route exact path ="/marketplace" component = {MarketPlace}/>
             <Route exact path ="/login" component = {LogIn} />
             <Route render={() => <p>Page not found :(</p>} />
