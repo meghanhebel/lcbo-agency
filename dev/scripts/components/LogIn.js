@@ -130,11 +130,14 @@ export default class LogIn extends React.Component {
     render(){
         return(
             <div>
-            
-            <div>
-                <button onClick={this.showSignUp}>Sign Up</button>
-                <button onClick={this.showLogIn}>Log In</button>
-            </div>
+                {this.state.logIn.loggedIn ? 
+                    <div> </div>
+                :
+                <div>
+                    <button onClick={this.showSignUp}>Sign Up</button>
+                    <button onClick={this.showLogIn}>Log In</button>
+                </div>
+                }
             
                { this.state.logIn.loggedIn ? 
                     <div className="logOutBlock">
