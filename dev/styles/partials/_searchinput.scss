@@ -1,0 +1,23 @@
+.searchinput {
+    input[type=text] {
+        width: 300px;
+        height: 40px;
+        background: transparent;
+        color: $mainWhite;
+        border: 1px solid $mainWhite;
+        border-radius: 20px;
+        text-align: center;
+        margin: 20px auto;
+        font-size: 0.8rem;
+        &::placeholder {
+            color: $mainWhite;
+        }
+    }
+    input[type=submit] {
+        position: absolute;
+        left: -9999px;
+    }
+    #search_label {
+        display: none;
+    }
+}

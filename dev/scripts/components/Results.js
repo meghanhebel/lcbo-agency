@@ -23,8 +23,7 @@ export default class Results extends React.Component {
         // if (this.props.results) {
             this.setState({
                 wineResults: nextProps.results
-            });
-            this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
+            }, this.getPageResults(this.state.startWineIndex, this.state.endWineIndex));
         // }
     }
 
