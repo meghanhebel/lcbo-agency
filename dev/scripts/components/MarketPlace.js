@@ -8,18 +8,21 @@ export default class MarketPlace extends React.Component {
         super();
         this.state = {
             wineResults: [],
+            keywordArray: [] 
         }
+        this.grabKeywordArray = this.grabKeywordArray.bind(this)
     }
 
     componentDidMount() {
-        let searchParams = '';
+        console.log(this.state.keywordArray)
         // this variable to be filled with whatever the user enters
         const access_key = 'MDo5ODRjMDU2Ni1kNTBhLTExZTctYjFmYS1lN2UwOGZlNzE3OWY6WFJBVXV1Q2FkWDdBUkQ5aUtxc0ZYejl3ZTVCaDU0emFYRG56';
         axios.get(`http://lcboapi.com/products?`, {
             params: {
                 dataType: 'json',
                 // q: `wine+${searchParams}`,
-                q: ['wine'],
+                q: this.state.keywordArray,
+                // this.state.keywordArray,
                 where_not: 'is_dead,is_discontinued',
                 per_page: 100,
                 access_key
@@ -35,12 +38,21 @@ export default class MarketPlace extends React.Component {
         });
     }
 
+    grabKeywordArray(array) {
+        array.unshift('wine');
+        this.setState({
+            keywordArray: array
+        }) 
+        this.componentDidMount();
+    }
+
     render() {
         console.log('render res',this.state.wineResults);
         return(
             <div className="marketplace">
                 <h1>Marketplace</h1>
-                <Search />
+                <Search 
+                grabKeywordArray = {this.grabKeywordArray}/>
                 
                 <Results results={this.state.wineResults} />
             </div>

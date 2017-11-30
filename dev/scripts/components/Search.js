@@ -8,7 +8,7 @@ export default class Search extends React.Component {
 
     constructor() {
         super();
-        this.setState = {
+        this.state = {
             keywords: []
         }
     }
@@ -19,7 +19,8 @@ export default class Search extends React.Component {
                 <Navigation />
                 <Heading />
                 <MainWineImage />
-                <SearchInput />
+                <SearchInput grabKeywordArray = {this.props.grabKeywordArray}
+                />
             </div>
         );
     }
