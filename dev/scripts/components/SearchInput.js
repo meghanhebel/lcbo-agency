@@ -16,6 +16,7 @@ export default class SearchInput extends React.Component {
 
     initiateSearch(e) {
         e.preventDefault();
+        console.log('form submitted')
         let keywordString = this.state.keywords;
         let keywordArray = keywordString.split(" ");
         this.props.grabKeywordArray(keywordArray);
