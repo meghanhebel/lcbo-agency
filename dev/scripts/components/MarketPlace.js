@@ -38,7 +38,6 @@ export default class MarketPlace extends React.Component {
             <div className="marketplace">
                 <h1>Marketplace</h1>
                 <Search />
-
                 <Results results={this.state.wineResults} />
             </div>
         )

@@ -12,27 +12,29 @@ class Pantry extends React.Component {
         this.rateWine = this.rateWine.bind(this);
         this.addNotes = this.addNotes.bind(this);
         this.deleteWine = this.deleteWine.bind(this);
-        // console.log('pantry', this.state.pantry);
-        // console.log('wine', this.props.wine_data);
     }
 
     componentDidMount() {
+        // on change of firebase, update state
         const currentUser = 'panda';
         // update this to go to that specific user's node
-        // const wineApp = firebase.database().ref(`/users/${currentUser}`);
         const wineApp = firebase.database().ref(`/users/${currentUser}/pantry`);
-
+        
         const userPantry = [];
+        // wineApp.set([{testArray: [1,2,3,4]}, {testArray2: [5,6,7,8]}]);
         wineApp.on('value', (snapshot) => {
-            let pantry = snapshot.val();
-            // console.log('whole pantry ', user);
-            for (let wineKey in pantry) {
-                userPantry.push(pantry[wineKey]);
-            }
+            // let pantry = snapshot.val();
+            let userPantry = snapshot.val();
             console.log(userPantry);
+            // for (let wineKey in pantry) {
+            //     console.log(pantry[wineKey]);
+            //     userPantry.push(pantry[wineKey]);
+            // }
             this.setState({
                 userPantry
             });
+            console.log(this.state.userPantry);
+
         }); 
     }
 
