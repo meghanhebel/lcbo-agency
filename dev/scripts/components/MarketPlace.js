@@ -25,9 +25,6 @@ export default class MarketPlace extends React.Component {
                 access_key
             }
         }).then((res) => {
-            // console.log(res.data.pager);
-            // console.log(res.data.pager.next_page_path);
-            // previous_page_path null if page is 1
             console.log('result from API ',res.data.result);
             this.setState({
                 wineResults: res.data.result.filter(wine => wine.primary_category === "Wine")
@@ -41,7 +38,7 @@ export default class MarketPlace extends React.Component {
             <div className="marketplace">
                 <h1>Marketplace</h1>
                 <Search />
-                
+
                 <Results results={this.state.wineResults} />
             </div>
         )

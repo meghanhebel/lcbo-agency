@@ -10,27 +10,30 @@ export default class Results extends React.Component {
             currentPageResults: [],
             startWineIndex: 0,
             endWineIndex: 4,
-            pageIndex: 1
+            // pageIndex: 1
+            userWines: [123456]
         }
         this.getPageResults = this.getPageResults.bind(this);
         this.nextPageResults = this.nextPageResults.bind(this);
         this.previousPageResults = this.previousPageResults.bind(this);
         this.addToPantry = this.addToPantry.bind(this);
-        // console.log('results page res', this.props.results);
     }
+
     componentWillReceiveProps(nextProps) {
-        console.log('results page nextprops', nextProps);
-        // if (this.props.results) {
+        // console.log('results page nextprops', nextProps);
+        if (nextProps.results) {
             this.setState({
                 wineResults: nextProps.results
             });
-            this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
-        // }
+        }
+        console.log('nextProps',nextProps.results);
+        console.log('wineResults before getPageResults', this.state.wineResults);
+        // this.getPageResults(this.state.startWineIndex, this.state.endWineIndex); 
     }
 
     getPageResults(start, end) {
-        console.log('end index ',this.state.endWineIndex);
-        console.log('start,end ',start, end);
+        console.log('wineResults in getPageResults', this.state.wineResults)
+        console.log('start, end ',start, end);
         if (this.state.wineResults.length > this.state.endWineIndex) {
             this.setState({
                 currentPageResults: this.state.wineResults.slice(start, end+1)
@@ -64,13 +67,25 @@ export default class Results extends React.Component {
     }
 
     addToPantry(wine) {
-        // push to firebase  by wine id
+        // push to firebase by wine id
         // push to front of array of all users wines (so when load, goes to most recent first)
         // when delete it, need to grab from array and also from fb
         // [product id, product id, product id]
         // key of div is also product id 
         // all info of wine, plus add notes and rating but empty 
         console.log('wine', wine);
+        console.log('wine id', wine.id);
+        let userWines = this.state.userWines.slice();
+        console.log('userWines', userWines);
+        userWines.unshift(wine.id);
+        console.log('userWines', userWines);
+        this.setState({
+            userWines
+        });
+        console.log('users wines ', this.state.userWines);
+        const currentUser = 'panda';
+        const wineApp = firebase.database().ref(`/users/${currentUser}`);
+        wineApp.push();
     }
     
     render() {
