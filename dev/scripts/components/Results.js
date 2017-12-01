@@ -4,10 +4,11 @@ import {BrowserRouter as Router, Route, Link, NavLink, Switch} from 'react-route
 import firebase from 'firebase';
 
 export default class Results extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
         this.state = {
-            wineResults: [],
+            wineResults: props.results,
             currentPageResults: [],
             startWineIndex: 0,
             endWineIndex: 4,
@@ -18,24 +19,26 @@ export default class Results extends React.Component {
         this.addToPantry = this.addToPantry.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.results) {
-            this.setState({
-                wineResults: nextProps.results
-            });
-        }
-        console.log('nextProps',nextProps.results);
+    componentDidMount() {
+        this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            wineResults: nextProps.results,
+            startWineIndex: 0,
+            endWineIndex: 4
+        }, function(){this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)}.bind(this))
+    }
+
+
     getPageResults(start, end) {
-        console.log('wineResults in getPageResults', this.state.wineResults)
-        console.log('start, end ',start, end);
+       
         if (this.state.wineResults.length > this.state.endWineIndex) {
+            let currentResults = this.state.wineResults.slice(start, end+1)
             this.setState({
-                currentPageResults: this.state.wineResults.slice(start, end+1)
+                currentPageResults: currentResults
             });
-            console.log('page made');
-            console.log(this.state.currentPageResults);
         } else {
             console.log('ERROR: not enough wines in wineResults');
             // call API again here ? or not?
@@ -46,8 +49,8 @@ export default class Results extends React.Component {
         this.setState({
             startWineIndex: this.state.startWineIndex + 5,
             endWineIndex: this.state.endWineIndex + 5
-        });
-        return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
+        }, function(){this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)}.bind(this));
+        // return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
     }
 
     previousPageResults() {
@@ -55,42 +58,52 @@ export default class Results extends React.Component {
             this.setState({
                 startWineIndex: this.state.startWineIndex - 5,
                 endWineIndex: this.state.endWineIndex - 5
-            });
-            return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
+            }, function(){this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)}.bind(this));
+            // return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
         } else {
             console.log('ERROR ');
         }
     }
 
     addToPantry(wine) {
-        // all info of wine, plus add notes and rating but empty 
         console.log('wine id', wine.id, wine.name, wine);
-        // [id, name, image_thumb_url, description||style, varietal, sugar_content, 
-        //price_in_cents (function)]
-        // ${Math.round(wine.price_in_cents * .01 * 100) / 100}
-        // if (description or style) {
+        let price = Math.round(wine.price_in_cents * .01 * 100) / 100;
+        let wineDesc = '';
+        if (wine.description) {
+            wineDesc = wine.description;
+        } else if (wine.style) {
+            wineDesc = wine.style;
+        }
+        const secondCateg = wine.secondary_category;
+        let typeWine = '';
+        if (secondCateg.match(/Red/)) {
+            typeWine = 'red';
+        } else if (secondCateg.match(/White/)) {
+            typeWine = 'white';
+        } else {
+            typeWine = 'rose';
+        }
+        const newDate = new Date();
 
-        // } else {
-
-        // }
         const newWine = {
+            date: `${newDate}`,
             id: wine.id,
             name: wine.name,
             image_thumb_url: wine.image_thumb_url,
+            image_svg_url: '',
+            typeWine,
             varietal: wine.varietal,
             sugar_content: wine.sugar_content,
-
+            description: wineDesc,
+            secondary_category: wine.secondary_category,
+            userRating: 0,
+            userNotes: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique esse nobis dolorem assumenda hic dolorum in, libero consectetur cumque odit et est eos! Asperiores cumque minima iste provident voluptatum deserunt.',
+            price
         };
+
         const currentUser = 'panda';
         const wineApp = firebase.database().ref(`/users/${currentUser}/pantry`);
-        const newDate = new Date();
-        // console.log('date',date);
-        const wineToDb = {
-            wineData: `${wine}`, 
-            date: `${newDate}`
-        };
-        wineApp.push({wineToDb});
-        console.log('got here');
+        wineApp.push(newWine);
     }
     
     render() {
