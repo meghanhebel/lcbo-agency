@@ -8,7 +8,6 @@ class Pantry extends React.Component {
         super();
         this.state = {
             userPantry: []
-
         }
         
         this.rateWine = this.rateWine.bind(this);
@@ -17,7 +16,6 @@ class Pantry extends React.Component {
         this.listerForNewId = this.listenForNewId.bind(this);
     }
     
-          
     componentWillReceiveProps(nextProps){
 
         if (this.props.userID != nextProps.userID){
