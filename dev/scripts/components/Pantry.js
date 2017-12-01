@@ -7,7 +7,8 @@ class Pantry extends React.Component {
         super();
         this.state = {
             userPantry: [],
-            // userWineArray: []
+            userID: '',
+            currentUser: 'panda'
         }
         this.rateWine = this.rateWine.bind(this);
         this.addNotes = this.addNotes.bind(this);
@@ -15,52 +16,72 @@ class Pantry extends React.Component {
     }
 
     componentDidMount() {
-        // on change of firebase, update state
-        const currentUser = 'panda';
-        // update this to go to that specific user's node
-        const wineApp = firebase.database().ref(`/users/${currentUser}/pantry`);
+        const wineApp = firebase.database().ref(`/users/${this.state.currentUser}/pantry`).orderByChild("date");
         
         const userPantry = [];
-        // wineApp.set([{testArray: [1,2,3,4]}, {testArray2: [5,6,7,8]}]);
         wineApp.on('value', (snapshot) => {
-            // let pantry = snapshot.val();
-            let userPantry = snapshot.val();
-            console.log(userPantry);
-            // for (let wineKey in pantry) {
-            //     console.log(pantry[wineKey]);
-            //     userPantry.push(pantry[wineKey]);
-            // }
+            let dbPantry = snapshot.val();
+            console.log(dbPantry);
+            for (let wineKey in dbPantry) {
+                console.log('add this to pantry? ', dbPantry[wineKey]);
+                userPantry.push(dbPantry[wineKey]);
+            }
+            userPantry.reverse();
             this.setState({
                 userPantry
             });
             console.log(this.state.userPantry);
-
         }); 
     }
 
     rateWine(wineId) {
-        console.log()
+        // console.log('rateWine', wineId)
         return; 
     }
 
     addNotes(wineId) {
-        console.log()
+        // console.log('addNotes',wineId)
         return;
     }
     
     deleteWine(wineId) {
-        // key of div same as wineId
-        // delete from FB and array of wines
-        console.log()
+        // console.log('deleteWine',wineId)
         return;
     }
 
-
     render() {
         return (
-            <div>
-                <h1>Pantry</h1>
-                <Navigation />
+            <div className='userPantry'>
+                <h1>{`${this.state.currentUser}'s Pantry`}</h1>
+                <ul>
+                    {this.state.userPantry.map((wine) => {
+                        return (
+                            <div key={wine.id} className={`pantryItem`}>
+                                <li>
+                                    <img src={wine.image_thumb_url} alt={`image of ${wine.name}`} />
+                                    <figcaption>
+                                        <h3>{wine.name}</h3>
+                                        <h6>
+                                            <span>{wine.varietal}</span>
+                                            <span>{wine.sugar_content}</span>
+                                            <span>${wine.price}</span>
+                                        </h6>
+                                        <h6>{wine.description}</h6>
+                                    </figcaption>
+                                    <div className="userData">
+                                    
+                                    </div>
+                                    <div className="pantryButtons">
+                                        <button onClick={() => this.deleteWine({wine})}>Delete</button>
+                                        <button onClick={() => this.rateWine({wine})}>Rate wine</button>
+                                        <button onClick={() => this.addNotes({wine})}>Add notes</button>
+                                    </div>
+                                </li>
+                            </div>
+                        )
+                    })}
+                </ul>
+                
             </div>
         );
     }

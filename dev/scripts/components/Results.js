@@ -63,34 +63,43 @@ export default class Results extends React.Component {
     }
 
     addToPantry(wine) {
-        // all info of wine, plus add notes and rating but empty 
         console.log('wine id', wine.id, wine.name, wine);
-        // [id, name, image_thumb_url, description||style, varietal, sugar_content, 
-        //price_in_cents (function)]
-        // ${Math.round(wine.price_in_cents * .01 * 100) / 100}
-        // if (description or style) {
-
-        // } else {
-
-        // }
+        let price = Math.round(wine.price_in_cents * .01 * 100) / 100;
+        let wineDesc = '';
+        if (wine.description) {
+            wineDesc = wine.description;
+        } else if (wine.style) {
+            wineDesc = wine.style;
+        }
+        const secondCateg = wine.secondary_category;
+        let typeWine = '';
+        if (secondCateg.match(/Red/)) {
+            typeWine = 'red';
+        } else if (secondCateg.match(/White/)) {
+            typeWine = 'white';
+        } else {
+            typeWine = 'rose';
+        }
+        const newDate = new Date();
         const newWine = {
+            date: `${newDate}`,
             id: wine.id,
             name: wine.name,
             image_thumb_url: wine.image_thumb_url,
+            image_svg_url: '',
+            typeWine,
             varietal: wine.varietal,
             sugar_content: wine.sugar_content,
-
+            description: wineDesc,
+            secondary_category: wine.secondary_category,
+            userRating: 0,
+            userNotes: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique esse nobis dolorem assumenda hic dolorum in, libero consectetur cumque odit et est eos! Asperiores cumque minima iste provident voluptatum deserunt.',
+            price
         };
+
         const currentUser = 'panda';
         const wineApp = firebase.database().ref(`/users/${currentUser}/pantry`);
-        const newDate = new Date();
-        // console.log('date',date);
-        const wineToDb = {
-            wineData: `${wine}`, 
-            date: `${newDate}`
-        };
-        wineApp.push({wineToDb});
-        console.log('got here');
+        wineApp.push(newWine);
     }
     
     render() {
