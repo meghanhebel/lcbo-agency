@@ -52,7 +52,7 @@ class Pantry extends React.Component {
     render() {
         return (
             <div className='userPantry'>
-                <h1>{`${this.state.currentUser}'s Pantry`}</h1>
+                <h1>{`Pantry`}</h1>
                 <ul>
                     {this.state.userPantry.map((wine) => {
                         return (
