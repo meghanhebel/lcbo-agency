@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {BrowserRouter as Router, Route, Link, NavLink, Switch} from 'react-router-dom';
+import firebase from 'firebase';
 
 export default class Results extends React.Component {
     constructor() {
@@ -10,26 +11,25 @@ export default class Results extends React.Component {
             currentPageResults: [],
             startWineIndex: 0,
             endWineIndex: 4,
-            pageIndex: 1
         }
         this.getPageResults = this.getPageResults.bind(this);
         this.nextPageResults = this.nextPageResults.bind(this);
         this.previousPageResults = this.previousPageResults.bind(this);
         this.addToPantry = this.addToPantry.bind(this);
-        // console.log('results page res', this.props.results);
     }
+
     componentWillReceiveProps(nextProps) {
-        console.log('results page nextprops', nextProps);
-        // if (this.props.results) {
+        if (nextProps.results) {
             this.setState({
                 wineResults: nextProps.results
-            }, this.getPageResults(this.state.startWineIndex, this.state.endWineIndex));
-        // }
+            });
+        }
+        console.log('nextProps',nextProps.results);
     }
 
     getPageResults(start, end) {
-        console.log('end index ',this.state.endWineIndex);
-        console.log('start,end ',start, end);
+        console.log('wineResults in getPageResults', this.state.wineResults)
+        console.log('start, end ',start, end);
         if (this.state.wineResults.length > this.state.endWineIndex) {
             this.setState({
                 currentPageResults: this.state.wineResults.slice(start, end+1)
@@ -38,7 +38,7 @@ export default class Results extends React.Component {
             console.log(this.state.currentPageResults);
         } else {
             console.log('ERROR: not enough wines in wineResults');
-            // call API again here ?
+            // call API again here ? or not?
         }
     }
 
@@ -63,13 +63,34 @@ export default class Results extends React.Component {
     }
 
     addToPantry(wine) {
-        // push to firebase  by wine id
-        // push to front of array of all users wines (so when load, goes to most recent first)
-        // when delete it, need to grab from array and also from fb
-        // [product id, product id, product id]
-        // key of div is also product id 
         // all info of wine, plus add notes and rating but empty 
-        console.log('wine', wine);
+        console.log('wine id', wine.id, wine.name, wine);
+        // [id, name, image_thumb_url, description||style, varietal, sugar_content, 
+        //price_in_cents (function)]
+        // ${Math.round(wine.price_in_cents * .01 * 100) / 100}
+        // if (description or style) {
+
+        // } else {
+
+        // }
+        const newWine = {
+            id: wine.id,
+            name: wine.name,
+            image_thumb_url: wine.image_thumb_url,
+            varietal: wine.varietal,
+            sugar_content: wine.sugar_content,
+
+        };
+        const currentUser = 'panda';
+        const wineApp = firebase.database().ref(`/users/${currentUser}/pantry`);
+        const newDate = new Date();
+        // console.log('date',date);
+        const wineToDb = {
+            wineData: `${wine}`, 
+            date: `${newDate}`
+        };
+        wineApp.push({wineToDb});
+        console.log('got here');
     }
     
     render() {
