@@ -22,9 +22,14 @@ export default class Results extends React.Component {
         if (nextProps.results) {
             this.setState({
                 wineResults: nextProps.results
+<<<<<<< HEAD
             });
         }
         console.log('nextProps',nextProps.results);
+=======
+            }, this.getPageResults(this.state.startWineIndex, this.state.endWineIndex));
+        // }
+>>>>>>> 345d589b867c41c0e490076c1cca53091a5dce23
     }
 
     getPageResults(start, end) {

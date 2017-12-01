@@ -13,6 +13,16 @@ body {
     font-family: $headingFont;
     font-size: 1.4rem;
 }
+button,
+input {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    border-radius: 0;
+    padding: 5px 10px;
+    margin: 5px;
+}
+
 
 // Component 
 
