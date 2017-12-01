@@ -101,8 +101,8 @@ export default class Results extends React.Component {
             price
         };
 
-        const currentUser = 'panda';
-        const wineApp = firebase.database().ref(`/users/${currentUser}/pantry`);
+        console.log(this.props.userID)
+        const wineApp = firebase.database().ref(`/users/${this.props.userID}/pantry`);
         wineApp.push(newWine);
     }
     

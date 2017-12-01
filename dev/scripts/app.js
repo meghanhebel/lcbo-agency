@@ -59,15 +59,21 @@ class App extends React.Component {
         <div>
           <Switch>
             <Route exact path="/" component={Home}/>
-            <Route exact path="/pantry" render={(props) => <Pantry {...props} userID={this.state.userID}/>}  />
-            <Route exact path ="/marketplace" component = {MarketPlace}/>
+            
+            <Route exact path="/pantry" render={(props) => <Pantry {...props} userID={this.state.userID} />} />
+            
+            <Route exact path ="/marketplace" render={(props) => <MarketPlace {...props}  userID={this.state.userID} /> } />
+            
             <Route exact path ="/login" component = {LogIn} />
+            
             <Route render={() => <p>Page not found :(</p>} />
+          
           </Switch>
         </div>
       </Router>
     )
   }
-}
+} 
+  
 
 ReactDOM.render(<App />, document.getElementById('app'));

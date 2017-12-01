@@ -18,19 +18,16 @@ class Pantry extends React.Component {
     
     componentWillReceiveProps(nextProps){
 
-        if (this.props.userID != nextProps.userID){
-                this.listenForNewId(nextProps.userID);
-        } else {
-
-        }
-        
+        this.listenForNewId(nextProps.userID);
+        // if (this.props.userID != nextProps.userID){
+        // } 
     }
 
 
     // listen for firebase ID change and call for that ID's data
     listenForNewId(newID){
         
-        const wineApp = firebase.database().ref(`/users/${this.state.currentUser}/pantry`).orderByChild("date");
+        const wineApp = firebase.database().ref(`/users/${newID}/pantry`).orderByChild("date");
         const userPantry = [];
 
         wineApp.on('value', (snapshot) => {
@@ -51,6 +48,11 @@ class Pantry extends React.Component {
 
 
         }); 
+    }
+    
+    componentDidMount(){
+        this.listenForNewId
+        
     }
 
     rateWine(wineId) {
