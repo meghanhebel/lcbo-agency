@@ -19,8 +19,10 @@ export default class SearchInput extends React.Component {
         console.log('form submitted')
         let keywordString = this.state.keywords;
         let keywordArray = keywordString.split(" ");
-        this.props.grabKeywordArray(keywordArray);
+        keywordArray.unshift('wine');
+        this.props.makeDataCall(keywordArray);
     }
+    
 
     render() {
         return(
