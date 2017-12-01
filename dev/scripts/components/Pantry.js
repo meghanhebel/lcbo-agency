@@ -32,10 +32,8 @@ class Pantry extends React.Component {
 
         wineApp.on('value', (snapshot) => {
             let dbPantry = snapshot.val();
-            console.log(dbPantry);
 
             for (let wineKey in dbPantry) {
-                console.log('add this to pantry? ', dbPantry[wineKey]);
                 userPantry.push(dbPantry[wineKey]);
             }
 
@@ -44,7 +42,6 @@ class Pantry extends React.Component {
             this.setState({
                 userPantry
             });
-            console.log(this.state.userPantry);
 
 
         }); 
@@ -71,6 +68,24 @@ class Pantry extends React.Component {
     
     deleteWine(wineId) {
         // console.log('deleteWine',wineId)
+        // wineApp , fine wine that has id equal to wineId and get 
+        const wineApp = firebase.database().ref(`/users/${newID}/pantry`);
+        wineApp.on('value', (snapshot) => {
+            let dbPantry = snapshot.val();
+            for (let wineKey in dbPantry) {
+                console.log('delete this? ', dbPantry[wineKey].id);
+                // userPantry.push(dbPantry[wineKey]);
+                if (dbPantry[wineKey].id === wineId) {
+                    console.log('delete this!');
+                }
+            }
+            // userPantry.reverse();
+            // this.setState({
+            //     userPantry
+            // });
+
+            console.log(this.state.userPantry);
+        });
         return;
     }
 
@@ -97,9 +112,9 @@ class Pantry extends React.Component {
                                     
                                     </div>
                                     <div className="pantryButtons">
-                                        <button onClick={() => this.deleteWine({wine})}>Delete</button>
-                                        <button onClick={() => this.rateWine({wine})}>Rate wine</button>
-                                        <button onClick={() => this.addNotes({wine})}>Add notes</button>
+                                        <button onClick={() => this.deleteWine(wine.id)}>Delete</button>
+                                        <button onClick={() => this.rateWine(wine.id)}>Rate wine</button>
+                                        <button onClick={() => this.addNotes(wine.id)}>Add notes</button>
                                     </div>
                                 </li>
                             </div>
