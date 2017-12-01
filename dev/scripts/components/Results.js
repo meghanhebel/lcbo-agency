@@ -4,10 +4,11 @@ import {BrowserRouter as Router, Route, Link, NavLink, Switch} from 'react-route
 import firebase from 'firebase';
 
 export default class Results extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+
         this.state = {
-            wineResults: [],
+            wineResults: props.results,
             currentPageResults: [],
             startWineIndex: 0,
             endWineIndex: 4,
@@ -18,24 +19,26 @@ export default class Results extends React.Component {
         this.addToPantry = this.addToPantry.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.results) {
-            this.setState({
-                wineResults: nextProps.results
-            });
-        }
-        console.log('nextProps',nextProps.results);
+    componentDidMount() {
+        this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            wineResults: nextProps.results,
+            startWineIndex: 0,
+            endWineIndex: 4
+        }, function(){this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)}.bind(this))
+    }
+
+
     getPageResults(start, end) {
-        console.log('wineResults in getPageResults', this.state.wineResults)
-        console.log('start, end ',start, end);
+       
         if (this.state.wineResults.length > this.state.endWineIndex) {
+            let currentResults = this.state.wineResults.slice(start, end+1)
             this.setState({
-                currentPageResults: this.state.wineResults.slice(start, end+1)
+                currentPageResults: currentResults
             });
-            console.log('page made');
-            console.log(this.state.currentPageResults);
         } else {
             console.log('ERROR: not enough wines in wineResults');
             // call API again here ? or not?
@@ -46,8 +49,8 @@ export default class Results extends React.Component {
         this.setState({
             startWineIndex: this.state.startWineIndex + 5,
             endWineIndex: this.state.endWineIndex + 5
-        });
-        return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
+        }, function(){this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)}.bind(this));
+        // return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
     }
 
     previousPageResults() {
@@ -55,8 +58,8 @@ export default class Results extends React.Component {
             this.setState({
                 startWineIndex: this.state.startWineIndex - 5,
                 endWineIndex: this.state.endWineIndex - 5
-            });
-            return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
+            }, function(){this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)}.bind(this));
+            // return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
         } else {
             console.log('ERROR ');
         }
@@ -81,6 +84,7 @@ export default class Results extends React.Component {
             typeWine = 'rose';
         }
         const newDate = new Date();
+
         const newWine = {
             date: `${newDate}`,
             id: wine.id,

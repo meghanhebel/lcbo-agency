@@ -19,7 +19,7 @@ export default class Search extends React.Component {
                 <Navigation />
                 <Heading />
                 <MainWineImage />
-                <SearchInput grabKeywordArray = {this.props.grabKeywordArray}
+                <SearchInput makeDataCall = {this.props.makeDataCall}
                 />
             </div>
         );
