@@ -11,13 +11,23 @@ export default class MarketPlace extends React.Component {
             keywordArray: [],
             showResults: false,
         }
-        this.makeDataCall = this.makeDataCall.bind(this)    
+        this.makeDataCall = this.makeDataCall.bind(this)  
+        this.listenForNewId = this.listenForNewId.bind(this)  
     }
 
     componentWillReceiveProps(nextProps) {
         this.setState({
             keywordArray: nextProps.results
         })
+
+        if (this.props.userID != nextProps.userID) {
+            this.listenForNewId(nextProps.userID);
+        } 
+        
+    }
+
+    listenForNewId(newID){
+        return newID;
     }
 
 
@@ -43,12 +53,12 @@ export default class MarketPlace extends React.Component {
     }
 
     render() {
-        console.log('render res',this.state.wineResults);
+        console.log(this.props.userID);
         return(
             <div className="marketplace">
                 <Search 
                 makeDataCall = {this.makeDataCall} />
-                {this.state.showReply === true ? <Results results={this.state.wineResults} /> : null}
+                {this.state.showReply === true ? <Results userID={this.props.userID} results={this.state.wineResults} /> : null}
             </div>
         )
     }
