@@ -19,7 +19,7 @@ class Pantry extends React.Component {
     
           
     componentWillReceiveProps(nextProps){
-
+        console.log('compondont Reciohdfhdfhj ', nextProps.userID);
         this.listenForNewId(nextProps.userID);
         // if (this.props.userID != nextProps.userID){
         // } 
@@ -53,7 +53,11 @@ class Pantry extends React.Component {
     }
     
     componentDidMount(){
-        this.listenForNewId
+        console.log('compondont DID mount ', this.props.userID);
+        if(this.props.userID) {
+            this.listenForNewId(this.props.userID);
+        }
+        // this.listenForNewId
         
     }
 
