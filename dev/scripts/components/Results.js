@@ -33,7 +33,7 @@ export default class Results extends React.Component {
 
 
     getPageResults(start, end) {
-       
+
         if (this.state.wineResults.length > this.state.endWineIndex) {
             let currentResults = this.state.wineResults.slice(start, end+1)
             this.setState({
