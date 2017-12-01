@@ -74,14 +74,8 @@ export default class MarketPlace extends React.Component {
         console.log('render res',this.state.wineResults);
         return(
             <div className="marketplace">
-<<<<<<< HEAD
-                <h1>Marketplace</h1>
-                <Search />
-=======
                 <Search 
-                grabKeywordArray = {this.grabKeywordArray}/>
-                
->>>>>>> 345d589b867c41c0e490076c1cca53091a5dce23
+                grabKeywordArray = {this.grabKeywordArray}/>                
                 <Results results={this.state.wineResults} />
             </div>
         )
