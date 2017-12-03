@@ -2,6 +2,7 @@ import React from 'react';
 import Results from './Results';
 import Search from './Search';
 import axios from 'axios';
+import scrollToComponent from 'react-scroll-to-component';
 
 export default class MarketPlace extends React.Component {
     constructor() {
@@ -48,7 +49,9 @@ export default class MarketPlace extends React.Component {
                 wineResults: res.data.result.filter(wine => wine.primary_category === "Wine"),
                 showReply: true
             });
-
+            console.log('scrolling is initiated')
+            scrollToComponent(this.Results, { offset: 0, align: 'top', duration: 1500})
+            
         });
     }
 
@@ -58,8 +61,26 @@ export default class MarketPlace extends React.Component {
             <div className="marketplace">
                 <Search 
                 makeDataCall = {this.makeDataCall} />
-                {this.state.showReply === true ? <Results userID={this.props.userID} results={this.state.wineResults} /> : null}
+                {this.state.showReply 
+                    === true ? <Results 
+                        results={this.state.wineResults} 
+                        ref={(section) => { this.Results = section;}}/> 
+                    : null}
             </div>
         )
     }
 }
+
+
+// NOTES TO USE SCROLLING 
+// React-Scroll-To-Component
+// install:  npm install react-scroll-to-component --save
+// import: import scrollToComponent from 'react-scroll-to-component';
+// add trigger: 
+    // scrollToComponent(this.compName, {
+    // 	    offset: 1000,
+    // 	    align: 'top',
+    // 	    duration: 1500
+    // }); 
+// name component so trigger knows where to point to:
+    // ref={(section) => { this.compName = section;}}

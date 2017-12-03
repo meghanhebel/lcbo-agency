@@ -29,7 +29,6 @@ class Pantry extends React.Component {
         // } 
     }
 
-
     // listen for firebase ID change and call for that ID's data
     listenForNewId(newID){
         
@@ -134,6 +133,7 @@ class Pantry extends React.Component {
         return (
             <div className='userPantry'>
                 <h1>{`Pantry`}</h1>
+                <Navigation />
                 <ul>
                     {this.state.userPantry.map((wine) => {
                         return (
