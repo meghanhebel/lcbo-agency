@@ -17,7 +17,7 @@ class Pantry extends React.Component {
         this.listerForNewId = this.listenForNewId.bind(this);
     }
     
-          
+
     componentWillReceiveProps(nextProps){
         console.log('compondont Reciohdfhdfhj ', nextProps.userID);
         this.listenForNewId(nextProps.userID);
@@ -80,6 +80,7 @@ class Pantry extends React.Component {
         return (
             <div className='userPantry'>
                 <h1>{`Pantry`}</h1>
+                <Navigation />
                 <ul>
                     {this.state.userPantry.map((wine) => {
                         return (
