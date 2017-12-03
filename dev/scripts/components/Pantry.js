@@ -18,6 +18,7 @@ class Pantry extends React.Component {
         this.listerForNewId = this.listenForNewId.bind(this);
 
     }
+
     componentDidMount() {
         console.log('component DID mount ', this.props.userID);
         if (this.props.userID) {

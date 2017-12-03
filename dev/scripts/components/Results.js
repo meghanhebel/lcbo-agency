@@ -11,7 +11,7 @@ export default class Results extends React.Component {
             wineResults: props.results,
             currentPageResults: [],
             startWineIndex: 0,
-            endWineIndex: 4,
+            endWineIndex: 5,
         }
         this.getPageResults = this.getPageResults.bind(this);
         this.nextPageResults = this.nextPageResults.bind(this);
@@ -27,7 +27,7 @@ export default class Results extends React.Component {
         this.setState({
             wineResults: nextProps.results,
             startWineIndex: 0,
-            endWineIndex: 4
+            endWineIndex: 5
         }, function(){this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)}.bind(this))
     }
 
@@ -47,17 +47,17 @@ export default class Results extends React.Component {
 
     nextPageResults() {
         this.setState({
-            startWineIndex: this.state.startWineIndex + 5,
-            endWineIndex: this.state.endWineIndex + 5
+            startWineIndex: this.state.startWineIndex + 6,
+            endWineIndex: this.state.endWineIndex + 6
         }, function(){this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)}.bind(this));
         // return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
     }
 
     previousPageResults() {
-        if (this.state.startWineIndex - 5 >= 0) {
+        if (this.state.startWineIndex - 6 >= 0) {
             this.setState({
-                startWineIndex: this.state.startWineIndex - 5,
-                endWineIndex: this.state.endWineIndex - 5
+                startWineIndex: this.state.startWineIndex - 6,
+                endWineIndex: this.state.endWineIndex - 6
             }, function(){this.getPageResults(this.state.startWineIndex, this.state.endWineIndex)}.bind(this));
             // return this.getPageResults(this.state.startWineIndex, this.state.endWineIndex);
         } else {
@@ -108,9 +108,8 @@ export default class Results extends React.Component {
     
     render() {
         return (
-            <div className='searchResults'>
-                <h1>Results</h1>
-                <ul>
+            <div className='results'>
+                <ul className="clearfix">
                 {this.state.currentPageResults.map((wine) => {
                     const secondCateg = wine.secondary_category;
                     let typeWine = '';
@@ -122,24 +121,31 @@ export default class Results extends React.Component {
                             typeWine = 'rose';
                         }
                     return (
-                        <div key={wine.id} className={`wineResult ${typeWine}`}>
-                        <li>
-                            <img src={wine.image_thumb_url} alt={`image of ${wine.name}, a ${wine.secondary_category}`}/>
-                            <figcaption>
-                                <h3>{wine.name}</h3>
-                                <h6>
-                                    <span>{wine.varietal}</span>
-                                    <span>{wine.sugar_content}</span>  
-                                    <span>${Math.round(wine.price_in_cents * .01 * 100) / 100}</span>
-                                </h6>
-                                {(wine.description || wine.style) ? (wine.description ? <h6>{wine.description}</h6> : <h6>{wine.style}</h6>) : ''} 
-                                {/* nested ternary-- if wine has a description OR a style 
-                                    --> check if it has desc, display that, else style
-                                    --> if it doesnt have either, display nothing */}
-                            <NavLink to="/pantry"><button onClick={() => {this.addToPantry(wine)}}>Add to pantry</button></NavLink>
-                            </figcaption>
+                        <li key={wine.id} className={`wineResult clearfix`}>
+                            <div className="arrow-right"></div>
+                            <div className="wineResult_imageBox">
+                                <img src={wine.image_thumb_url} alt={`image of ${wine.name}, a ${wine.secondary_category}`}/>
+                            </div>
+                            <div className="wineResult_textBox">
+                                <figcaption>
+                                    <h3>{wine.name}</h3>
+                                    <div className = "wineType clearfix">
+                                        <div className={`wineType_indicator ${typeWine}`}></div>
+                                        <h6 className = "wineType_name">{wine.varietal}</h6>
+                                    </div>
+                                    <div className="wineDetails">
+                                        <h6>{wine.sugar_content}</h6> 
+                                        <h6>${Math.round(wine.price_in_cents * .01 * 100) / 100}</h6>
+                                    </div>
+                                    {(wine.description || wine.style) ? (wine.description ? <h6>{wine.description}</h6> : <h6>{wine.style}</h6>) : ''} 
+                                    {/* nested ternary-- if wine has a description OR a style 
+                                        --> check if it has desc, display that, else style
+                                        --> if it doesnt have either, display nothing */}
+                                <NavLink to="/pantry"><button onClick={() => {this.addToPantry(wine)}}>Add to pantry</button></NavLink>
+                                </figcaption>
+                            </div>
                         </li> 
-                    </div>
+                            
                 )})}
                 </ul>
                 <footer>
