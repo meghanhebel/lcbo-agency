@@ -109,7 +109,7 @@ export default class Results extends React.Component {
     render() {
         return (
             <div className='results'>
-                <ul>
+                <ul className="clearfix">
                 {this.state.currentPageResults.map((wine) => {
                     const secondCateg = wine.secondary_category;
                     let typeWine = '';
@@ -121,19 +121,22 @@ export default class Results extends React.Component {
                             typeWine = 'rose';
                         }
                     return (
-                        <li key={wine.id} className={`wineResult ${typeWine} clearfix`}>
-                            <div class="arrow-right"></div>
+                        <li key={wine.id} className={`wineResult clearfix`}>
+                            <div className="arrow-right"></div>
                             <div className="wineResult_imageBox">
                                 <img src={wine.image_thumb_url} alt={`image of ${wine.name}, a ${wine.secondary_category}`}/>
                             </div>
                             <div className="wineResult_textBox">
                                 <figcaption>
                                     <h3>{wine.name}</h3>
-                                    <h6>
-                                        <span>{wine.varietal}</span>
-                                        <span>{wine.sugar_content}</span>  
-                                        <span>${Math.round(wine.price_in_cents * .01 * 100) / 100}</span>
-                                    </h6>
+                                    <div className = "wineType clearfix">
+                                        <div className={`wineType_indicator ${typeWine}`}></div>
+                                        <h6 className = "wineType_name">{wine.varietal}</h6>
+                                    </div>
+                                    <div className="wineDetails">
+                                        <h6>{wine.sugar_content}</h6> 
+                                        <h6>${Math.round(wine.price_in_cents * .01 * 100) / 100}</h6>
+                                    </div>
                                     {(wine.description || wine.style) ? (wine.description ? <h6>{wine.description}</h6> : <h6>{wine.style}</h6>) : ''} 
                                     {/* nested ternary-- if wine has a description OR a style 
                                         --> check if it has desc, display that, else style

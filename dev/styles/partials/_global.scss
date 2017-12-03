@@ -44,9 +44,5 @@ input {
 
 .white {
     background: $mainWhite;
-    color: black;
-    button {
-        border-color: black;
-        color: black;
-    }
+    border: 1px solid lightgrey;
 }

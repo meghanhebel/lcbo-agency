@@ -11,6 +11,7 @@
     footer {
         margin: 10px;
         background: darkgrey;
+        height: 50px;
         a {
             text-decoration: none;
             color: white;
@@ -24,13 +25,15 @@
 
 .wineResult {
     width: 50%;
+    height: 350px;
     position: relative;
+    background: white;
     .arrow-right {
         width: 0; 
         height: 0; 
         border-top: 30px solid transparent;
         border-bottom: 30px solid transparent; 
-        border-left: 30px solid white;
+        border-left: 30px solid transparent;
         left: 50%;
         top: 50%;
         transform: translateY(-50%);
@@ -38,19 +41,48 @@
         position: absolute; 
     }
     .wineResult_imageBox {
-        width: 50%;
+        width: 40%;
         float: left;
-        background: white;
         img {
-            height: 100%;
+            width: 100%;
+            max-height: 350px;
             margin: 0 auto;
             object-fit: cover;
         }
     }
     .wineResult_textBox {
-        width: 50%;
+        width: 60%;
         height: 100%;
         float: left;
+        color: black;
+        padding: 20px;
+        h3 {
+            font-size: 1rem;
+            font-family: $headingFont;
+        }
     }
+}
 
+.wineType {
+    width: 100%;
+    position: relative;
+    .wineType_indicator {
+        height: 40px;
+        width: 40px;
+        border-radius: 40px;
+        margin: 0;
+        float: left;
+        margin-left: 30%;
+
+    }
+    .wineType_name {
+        margin: 0;
+        font-size: 0.8rem;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 50%;
+        text-align: left;
+
+    }
 }
