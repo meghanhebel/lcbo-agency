@@ -64,6 +64,7 @@ export default class MarketPlace extends React.Component {
                 {this.state.showReply 
                     === true ? <Results 
                         results={this.state.wineResults} 
+                        userID={this.props.userID}
                         ref={(section) => { this.Results = section;}}/> 
                     : null}
             </div>
