@@ -13,6 +13,7 @@ body {
     font-family: $headingFont;
     font-size: 1.4rem;
 }
+
 button,
 input {
     background-color: transparent;
@@ -31,4 +32,21 @@ input {
     display: block;
     width: 20%;
     height: atuo;
+}
+
+.red {
+    background: $mainPurple;
+}
+
+.rose {
+    background: $mainPink;
+}
+
+.white {
+    background: $mainWhite;
+    color: black;
+    button {
+        border-color: black;
+        color: black;
+    }
 }

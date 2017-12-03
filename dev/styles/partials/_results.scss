@@ -1,0 +1,43 @@
+.results {
+    height: 100vh;
+    ul {
+        padding: 0;
+    }
+    li {
+        list-style: none;
+        float: left;
+    }
+}
+
+.wineResult {
+    width: 50%;
+    position: relative;
+    .arrow-right {
+        width: 0; 
+        height: 0; 
+        border-top: 30px solid transparent;
+        border-bottom: 30px solid transparent; 
+        border-left: 30px solid white;
+        left: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        position: absolute; 
+    }
+    .wineResult_imageBox {
+        width: 50%;
+        float: left;
+        background: white;
+        img {
+            height: 100%;
+            margin: 0 auto;
+            object-fit: cover;
+        }
+    }
+    .wineResult_textBox {
+        width: 50%;
+        height: 100%;
+        float: left;
+    }
+
+}
