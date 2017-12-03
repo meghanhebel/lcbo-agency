@@ -1,0 +1,25 @@
+
+.pantryBtn{
+    display: inline-block;
+    width: 300px;
+    text-align: center;
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin: 20px;
+    margin: 5px;
+    text-decoration: none;
+    line-height: 2;
+    font-size: 0.8rem;
+        &:visited{
+            color: white;
+        }
+        &:hover{
+            color: white;
+        }
+        &:active{
+            color: white;
+        }
+}

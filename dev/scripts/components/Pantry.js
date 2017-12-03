@@ -1,11 +1,12 @@
 import React from 'react';
 import Navigation from './Navigation';
 import firebase from 'firebase'
+import Heading from './Heading'
 
 
 class Pantry extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             userPantry: [],
             currentRating: '0',
@@ -20,13 +21,20 @@ class Pantry extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeNotes = this.handleChangeNotes.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
     }
-    
+
+    componentDidMount() {
+        console.log('component DID mount ', this.props.userID);
+        if (this.props.userID) {
+            this.listenForNewId(this.props.userID);
+        }
+    }
+           
     componentWillReceiveProps(nextProps){
-        // console.log('compondont Reciohdfhdfhj ', nextProps.userID);
+        console.log('component recieves ', nextProps.userID);
         this.listenForNewId(nextProps.userID);
-        // if (this.props.userID != nextProps.userID){
-        // } 
+        
     }
 
     // listen for firebase ID change and call for that ID's data
@@ -50,15 +58,6 @@ class Pantry extends React.Component {
 
 
         }); 
-    }
-    
-    componentDidMount(){
-        // console.log('compondont DID mount ', this.props.userID);
-        if(this.props.userID) {
-            this.listenForNewId(this.props.userID);
-        }
-        // this.listenForNewId
-        
     }
 
     
@@ -132,6 +131,7 @@ class Pantry extends React.Component {
     render() {
         return (
             <div className='userPantry'>
+                <img className="logo" src="./public/images/TastingNotesLogo.png" alt="" />
                 <h1>{`Pantry`}</h1>
                 <Navigation />
                 <ul>

@@ -125,7 +125,7 @@ export default class LogIn extends React.Component {
 
     render(){
         return(
-            <div>
+            <div className="logInContainer">
 
                 {this.state.logIn.loggedIn ? 
                     <div> </div>
@@ -137,11 +137,11 @@ export default class LogIn extends React.Component {
                 }
             
                { this.state.logIn.loggedIn ? 
-                    <div>   
+                    <div className="clearfix">   
+                        <a href="/pantry" className="pantryBtn">Go to My Pantry</a>
                         <div className="logOutBtn">
                             <button onClick={this.logOut}>Log Out</button>
                         </div>
-                        <a href="/pantry" className="pantryBtn">Go to My Pantry</a>
                     </div>
                     
                     
@@ -153,9 +153,9 @@ export default class LogIn extends React.Component {
                                     <form onSubmit={(event) => this.logIn(event)}>
                                         <h3>Sign In</h3>
                                         <label htmlFor="password">email</label>
-                                        <input type="text" name="email" onChange={(event) => this.handleChange(event, 'userEmail')} />
+                                        <input type="email" name="email" onChange={(event) => this.handleChange(event, 'userEmail')} />
                                         <label htmlFor="password">password</label>
-                                        <input type="text" name="password" onChange={(event) => this.handleChange(event, 'userPassword')} />
+                                    <input type="password" minLength="6" name="password" onChange={(event) => this.handleChange(event, 'userPassword')} />
                                         <button>Go to Wine Country</button>
                                     </form>
                                 </div> 
@@ -169,9 +169,9 @@ export default class LogIn extends React.Component {
                                     <h3>Sign Up Here</h3>
                                     <form onSubmit={(event) => this.newUser(event)}>
                                         <label htmlFor="password">email</label>
-                                        <input type="text" name="email" onChange={(event) => this.handleChange(event, 'createEmail')} />
+                                        <input type="email" name="email" onChange={(event) => this.handleChange(event, 'createEmail')} />
                                         <label htmlFor="password">password</label>
-                                        <input type="text" name="password" onChange={(event) => this.handleChange(event, 'createPassword')} />
+                                    <input type="password" minLength="6" name="password" onChange={(event) => this.handleChange(event, 'createPassword')} />
                                         <button>Go to Wine Country</button>
                                     </form>
                                 </div>  
