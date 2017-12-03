@@ -106,7 +106,10 @@ class Pantry extends React.Component {
     }
 
     editWine(wineId) {
-        console.log('display the modal! ',);
+        // console.log('display the modal! ',);
+        const modal = document.getElementById('modal');
+        modal.style.display = 'block';
+
         this.setState({
             currentWine: wineId
         })
@@ -148,6 +151,8 @@ class Pantry extends React.Component {
                                             <span>${wine.price}</span>
                                         </h6>
                                         <h6>{wine.description}</h6>
+                                        <h6>{wine.userRating}</h6>
+                                        <h6>{wine.userNotes}</h6>
                                     </figcaption>
                                     <div className="userData">
                                     
@@ -161,7 +166,7 @@ class Pantry extends React.Component {
                         )
                     })}
 
-                <div className="modal">
+                <div className="modal" id="modal">
                     <form action="submit" onSubmit={this.handleSubmit}>
                         <label htmlFor="rating"></label>
                         <select name="rating" value={this.state.currentRating}
@@ -181,7 +186,6 @@ class Pantry extends React.Component {
                         <textarea name="notes" id="notes" cols="30" rows="10" value={this.state.currentNotes}
                             onChange={this.handleChangeNotes}>></textarea>
                         <button>Submit</button>
-                            {/* onClick={() => this.updateWine()} */}
                     </form>
                 </div>
                 </ul>
