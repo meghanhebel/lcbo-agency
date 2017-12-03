@@ -7,6 +7,19 @@
         list-style: none;
         float: left;
     }
+
+    footer {
+        margin: 10px;
+        background: darkgrey;
+        a {
+            text-decoration: none;
+            color: white;
+        }
+        button {
+            color: white;
+            border-color: white;
+        }
+    }
 }
 
 .wineResult {
