@@ -7,24 +7,27 @@ class Pantry extends React.Component {
     constructor() {
         super();
         this.state = {
-            userPantry: []
-
+            userPantry: [],
+            currentRating: '0',
+            currentNotes: '',
+            currentWine: ''
         }
         
-        this.rateWine = this.rateWine.bind(this);
-        this.addNotes = this.addNotes.bind(this);
+        this.editWine = this.editWine.bind(this);
+        // this.addNotes = this.addNotes.bind(this);
         this.deleteWine = this.deleteWine.bind(this);
         this.listerForNewId = this.listenForNewId.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleChangeNotes = this.handleChangeNotes.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     
-
     componentWillReceiveProps(nextProps){
-        console.log('compondont Reciohdfhdfhj ', nextProps.userID);
+        // console.log('compondont Reciohdfhdfhj ', nextProps.userID);
         this.listenForNewId(nextProps.userID);
         // if (this.props.userID != nextProps.userID){
         // } 
     }
-
 
     // listen for firebase ID change and call for that ID's data
     listenForNewId(newID){
@@ -34,10 +37,8 @@ class Pantry extends React.Component {
 
         wineApp.on('value', (snapshot) => {
             let dbPantry = snapshot.val();
-            console.log(dbPantry);
 
             for (let wineKey in dbPantry) {
-                console.log('add this to pantry? ', dbPantry[wineKey]);
                 userPantry.push(dbPantry[wineKey]);
             }
 
@@ -46,14 +47,13 @@ class Pantry extends React.Component {
             this.setState({
                 userPantry
             });
-            console.log(this.state.userPantry);
 
 
         }); 
     }
     
     componentDidMount(){
-        console.log('compondont DID mount ', this.props.userID);
+        // console.log('compondont DID mount ', this.props.userID);
         if(this.props.userID) {
             this.listenForNewId(this.props.userID);
         }
@@ -61,18 +61,71 @@ class Pantry extends React.Component {
         
     }
 
-    rateWine(wineId) {
-        // console.log('rateWine', wineId)
-        return; 
-    }
-
-    addNotes(wineId) {
-        // console.log('addNotes',wineId)
+    
+    updateWine(e) {
+        e.preventDefault();
+        console.log('update WIne',);
+        console.log();
         return;
     }
-    
+
+    handleChange(e) {
+        // console.log(e.target.value);
+        this.setState({
+            currentRating: e.target.value
+        })
+    }
+    handleChangeNotes(e) {
+        // console.log(e.target.value);
+        this.setState({
+            currentNotes: e.target.value
+        })
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        console.log('rating', this.state.currentRating);
+        console.log('notes', this.state.currentNotes);
+        console.log('wine to update', this.state.currentWine);
+        const wineApp = firebase.database().ref(`/users/${this.props.userID}/pantry`);
+        console.log('userID?', this.props.userID);
+        wineApp.on('value', (snapshot) => {
+            let dbPantry = snapshot.val();
+            for (let wineKey in dbPantry) {
+                if (dbPantry[wineKey].id === this.state.currentWine) {
+                    // wineApp.child(wineKey).remove()
+                    let updates = {};
+                    updates[`/${wineKey}/userRating`] = this.state.currentRating;
+                    updates[`/${wineKey}/userNotes`] = this.state.currentNotes;
+
+                    wineApp.update(updates);
+                    window.location = '';
+                }
+            }
+        });
+        return;
+    }
+
+    editWine(wineId) {
+        console.log('display the modal! ',);
+        this.setState({
+            currentWine: wineId
+        })
+        return; 
+    }
+        
     deleteWine(wineId) {
-        // console.log('deleteWine',wineId)
+        const wineApp = firebase.database().ref(`/users/${this.props.userID}/pantry`);
+        console.log('userID?', this.props.userID);
+        wineApp.on('value', (snapshot) => {
+            let dbPantry = snapshot.val();
+            for (let wineKey in dbPantry) {
+                if (dbPantry[wineKey].id === wineId) {
+                    wineApp.child(wineKey).remove()
+                    window.location = '';
+                } 
+            }
+        });
         return;
     }
 
@@ -100,16 +153,38 @@ class Pantry extends React.Component {
                                     
                                     </div>
                                     <div className="pantryButtons">
-                                        <button onClick={() => this.deleteWine({wine})}>Delete</button>
-                                        <button onClick={() => this.rateWine({wine})}>Rate wine</button>
-                                        <button onClick={() => this.addNotes({wine})}>Add notes</button>
+                                        <button onClick={() => this.deleteWine(wine.id)}>Delete</button>
+                                        <button onClick={() => this.editWine(wine.id)}>Edit</button>
                                     </div>
                                 </li>
                             </div>
                         )
                     })}
+
+                <div className="modal">
+                    <form action="submit" onSubmit={this.handleSubmit}>
+                        <label htmlFor="rating"></label>
+                        <select name="rating" value={this.state.currentRating}
+                            onChange={this.handleChange}>
+                            <option value="10">10</option>
+                            <option value="9">9</option>
+                            <option value="8">8</option>
+                            <option value="7">7</option>
+                            <option value="6">6</option>
+                            <option value="5">5</option>
+                            <option value="4">4</option>
+                            <option value="3">3</option>
+                            <option value="2">2</option>
+                            <option value="1">1</option>
+                        </select>
+                        <label htmlFor="notes">Tasting Notes</label>
+                        <textarea name="notes" id="notes" cols="30" rows="10" value={this.state.currentNotes}
+                            onChange={this.handleChangeNotes}>></textarea>
+                        <button>Submit</button>
+                            {/* onClick={() => this.updateWine()} */}
+                    </form>
+                </div>
                 </ul>
-                
             </div>
         );
     }
