@@ -90,6 +90,7 @@ export default class Results extends React.Component {
             let typeWine = '';
             if (secondCateg.match(/Red/)) {
                 typeWine = 'red';
+                
             } else if (secondCateg.match(/White/)) {
                 typeWine = 'white';
             } else {
@@ -108,7 +109,7 @@ export default class Results extends React.Component {
                 sugar_content: wine.sugar_content,
                 description: wineDesc,
                 secondary_category: wine.secondary_category,
-                userRating: 0,
+                userRating: 0.5,
                 userNotes: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique esse nobis dolorem assumenda hic dolorum in, libero consectetur cumque odit et est eos! Asperiores cumque minima iste provident voluptatum deserunt.',
                 price
             };
