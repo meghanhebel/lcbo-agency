@@ -168,23 +168,29 @@ class Pantry extends React.Component {
 
                 <div className="modal" id="modal">
                     <form action="submit" onSubmit={this.handleSubmit}>
-                        <label htmlFor="rating"></label>
-                        <select name="rating" value={this.state.currentRating}
-                            onChange={this.handleChange}>
-                            <option value="10">10</option>
-                            <option value="9">9</option>
-                            <option value="8">8</option>
-                            <option value="7">7</option>
-                            <option value="6">6</option>
-                            <option value="5">5</option>
-                            <option value="4">4</option>
-                            <option value="3">3</option>
-                            <option value="2">2</option>
-                            <option value="1">1</option>
-                        </select>
-                        <label htmlFor="notes">Tasting Notes</label>
-                        <textarea name="notes" id="notes" cols="30" rows="10" value={this.state.currentNotes}
-                            onChange={this.handleChangeNotes}>></textarea>
+                        <div className="formContent clearfix">
+                            <div className="textField">
+                                <label htmlFor="notes">Tasting Notes</label>
+                                <textarea name="notes" id="notes" cols="30" rows="10" value={this.state.currentNotes}
+                                    onChange={this.handleChangeNotes}>></textarea>
+                            </div>
+                            <div className="ratingsField"> 
+                                <label htmlFor="rating">Rating</label>
+                                <select name="rating" value={this.state.currentRating}
+                                    onChange={this.handleChange}>
+                                    <option value="10">10</option>
+                                    <option value="9">9</option>
+                                    <option value="8">8</option>
+                                    <option value="7">7</option>
+                                    <option value="6">6</option>
+                                    <option value="5">5</option>
+                                    <option value="4">4</option>
+                                    <option value="3">3</option>
+                                    <option value="2">2</option>
+                                    <option value="1">1</option>
+                                </select>
+                            </div>
+                        </div>
                         <button>Submit</button>
                     </form>
                 </div>

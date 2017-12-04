@@ -4,8 +4,8 @@
     width: 300px;
     text-align: center;
     background-color: transparent;
-    border: 1px solid white;
-    color: white;
+    border: 1px solid $mainWhite;
+    color: $mainWhite;
     border-radius: 20px;
     padding: 5px 10px;
     margin: 20px;
@@ -14,12 +14,12 @@
     line-height: 2;
     font-size: 0.8rem;
         &:visited{
-            color: white;
+            color: $mainWhite;
         }
         &:hover{
-            color: white;
+            color: $mainWhite;
         }
         &:active{
-            color: white;
+            color: $mainWhite;
         }
 }
