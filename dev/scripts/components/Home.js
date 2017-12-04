@@ -3,6 +3,7 @@ import Heading from './Heading'
 import MainWineImage from './MainWineImage'
 import LogIn from './LogIn'
 import Pantry from './Pantry'
+import Navigation from './Navigation'
 import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-router-dom';
 
 class Home extends React.Component {
@@ -13,6 +14,7 @@ class Home extends React.Component {
         return (
             <Router>
                 <div className="home">
+                    <Navigation />
                     <img className = "logo" src="./public/images/TastingNotesLogo.png" alt=""/>
                     <h3 className="heading_med_white">Rate, save, and discover new wines!</h3>
                     <MainWineImage />

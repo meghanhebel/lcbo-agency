@@ -3,22 +3,32 @@ import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-rou
 import firebase from 'firebase'
 
 export default class Navigation extends React.Component {
+    constructor(){
+        super();
+        this.logOutMsg = this.logOutMsg.bind(this);
+    }
+    logOutMsg(){
+        logOutMsg = document.getElementById('logOutMsg');
+        logOutMsg.style.display = 'block';
+    }
     
-    logOut() {
+    logOut() { 
         firebase.auth().signOut()
             .then((success) => {
-                alert('You have successfully logged out')
+
             }, (error) => {
                 console.log(error);
             }
             )
+        this.logOutMsg()
     }
+    
     
     render() {
         return(
 
                 <nav className="navigation">
-                    <ul>
+                    <ul className="navList">
                         <li>
                             <NavLink to="/pantry"
                                 activeClassName = "current">Pantry</NavLink>
@@ -35,6 +45,9 @@ export default class Navigation extends React.Component {
                             <div className="circle"></div>
                         </li>
                     </ul>
+                    <div className="logOutMsg" id="logOutMsg">
+                        <h2>You have successfully logged out.</h2>
+                    </div>
                 </nav>
 
                
