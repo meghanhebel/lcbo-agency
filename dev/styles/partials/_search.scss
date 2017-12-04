@@ -1,3 +1,11 @@
 .search {
     height: 100vh;
+    h1{
+        position: relative;
+        color: black;
+        top: -120px;
+        font-size: 3rem;
+        font-family: $headingFont;
+        text-shadow: 0 0 10px white;
+    }
 }

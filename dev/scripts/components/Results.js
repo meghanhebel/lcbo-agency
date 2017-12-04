@@ -162,8 +162,8 @@ export default class Results extends React.Component {
                 </ul>
                 <footer>
                     <NavLink to="/pantry">Pantry</NavLink>
-                    <button className="previous" onClick={this.previousPageResults}>previous</button>
-                    <button className="next" onClick={this.nextPageResults}>next</button>
+                    <button className="previous buttonLeft" onClick={this.previousPageResults}>previous</button>
+                    <button className="next buttonRight" onClick={this.nextPageResults}>next</button>
                     <NavLink to="/">Log Out</NavLink>
                 </footer>
             </div>

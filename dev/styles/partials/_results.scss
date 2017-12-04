@@ -1,4 +1,5 @@
 .results {
+    margin: 0;
     height: 100vh;
     ul {
         padding: 0;
@@ -9,16 +10,36 @@
     }
 
     footer {
-        margin: 10px;
-        background: darkgrey;
-        height: 50px;
+        background: rgb(114, 114, 114);
+        margin: 0;
         a {
+            display: inline-block;
+            text-align: center;
+            background-color: transparent;
+            border: 1px solid $mainWhite;
+            color: $mainWhite;
+            border-radius: 20px;
+            padding: 5px 10px;
+            margin: 25px;
             text-decoration: none;
-            color: white;
-        }
+            font-size: 0.8rem;
+                &:visited{
+                    color: $mainWhite;
+                }
+                &:hover{
+                    background: $mainWhite;
+                    color: $mainRed;
+                }
+                &:active{
+                    color: $mainWhite;
+                }
+                }
         button {
-            color: white;
+            width: 80px;
             border-color: white;
+                &:hover{
+                    box-shadow: 0 0 10px $mainPurple;
+                }
         }
     }
 }
