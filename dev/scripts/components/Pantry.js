@@ -38,7 +38,6 @@ class Pantry extends React.Component {
 
     componentWillReceiveProps(nextProps){
         this.listenForNewId(nextProps.userID);
-        
     }
 
     // listen for firebase ID change and call for that ID's data
@@ -49,36 +48,28 @@ class Pantry extends React.Component {
         wineApp.on('value', (snapshot) => {
             const userPantry = [];
             let dbPantry = snapshot.val();
-
             for (let wineKey in dbPantry) {
                 userPantry.push(dbPantry[wineKey]);
             }
-
             userPantry.reverse();
-
             this.setState({
                 userPantry
             });
-
-
         }); 
     }
 
     handleChange(stateId, e) {
         let newValue = e.target.value;
         if (stateId === 'currentRating') {
-            newValue = parseInt(newValue);
+            newValue = parseFloat(newValue);
         }
-        console.log(e.target.value);
 
         this.setState({
             [stateId]: newValue
-        }, function () {
-            console.log(this.state.currentOrder)}.bind(this))
+        })
     }
 
     handleSearchToggle(stateId, e) {
-        console.log(e.target.value);
         if (stateId === 'displaySort') {
             this.setState({
                 displayFilter: false,
@@ -111,48 +102,42 @@ class Pantry extends React.Component {
                 }
             }
         });
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
         return;
     }
 
     handleSorting(e) {
-        // e.preventDefault();
-        // for (let wine in this.state.userPantry) {
-
-        // }
-        console.log(this.state.currentSort);
-        // console.log('pantry',this.state.userPantry);
         const userPantry = this.state.userPantry
         const sortBy = this.state.currentSort;
         if (userPantry) {
             userPantry.sort(function (a, b) { 
-                // console.log('a',a);
-                return a[sortBy] > b[sortBy]})
-    
-                if (this.state.currentOrder === 'descending') {
-                    userPantry.reverse();
-                    console.log('reverse')
-                }
-                console.log('after  ',userPantry)
-                this.setState({
-                    userPantry
-                });
+                return a[sortBy] > b[sortBy]
+            })
+
+            if (this.state.currentOrder === 'descending') {
+                userPantry.reverse();
+            }
+            this.setState({
+                userPantry
+            });
         }
-        
         return;
     }
 
-    editWine(wineId) {
+    editWine(wine) {
         const modal = document.getElementById('modal');
         modal.style.display = 'block';
-
+        const userPantry = this.state.userPantry;
         this.setState({
-            currentWine: wineId
+            currentWine: wine.id,
+            currentRating: wine.userRating,
+            currentNotes: wine.userNotes
         })
         return; 
     }
 
     cancelEdit(e) {
-        // e.preventDefault;
         const modal = document.getElementById('modal');
         modal.style.display = 'none';
     }
@@ -233,7 +218,7 @@ class Pantry extends React.Component {
                                     </div>
                                     <div className="pantryButtons">
                                         <button onClick={() => this.deleteWine(wine.id)}>Delete</button>
-                                        <button onClick={() => this.editWine(wine.id)}>Edit</button>
+                                        <button onClick={() => this.editWine(wine)}>Edit</button>
                                     </div>
                                 </li>
                             </div>
@@ -250,18 +235,20 @@ class Pantry extends React.Component {
                             </div>
                             <div className="ratingsField"> 
                                 <label htmlFor="rating">Rating</label>
-                                <select name="rating" value={this.state.currentRating}
-                                        onChange={(e) => this.handleChange('currentRating', e)}>
-                                    <option value={5}>5</option>
-                                    <option value={4.5}>4.5</option>
-                                    <option value={4}>4</option>
-                                    <option value={3.5}>3.5</option>
-                                    <option value={3}>3</option>
-                                    <option value={2.5}>2.5</option>
-                                    <option value={2}>2</option>
-                                    <option value={1.5}>1.5</option>
-                                    <option value={1}>1</option>
-                                    <option value={0.5}>0.5</option>
+                                <select name="rating" 
+                                value={this.state.currentRating}
+                                    selected={this.state.currentRating}
+                                    onChange={(e) => this.handleChange('currentRating', e)}>
+                                    <option value='5'>5</option>
+                                    <option value='4.5'>4.5</option>
+                                    <option value='4'>4</option>
+                                    <option value='3.5'>3.5</option>
+                                    <option value='3'>3</option>
+                                    <option value='2.5'>2.5</option>
+                                    <option value='2'>2</option>
+                                    <option value='1.5'>1.5</option>
+                                    <option value='1'>1</option>
+                                    <option value='0.5'>0.5</option>
                                 </select>
                             </div>
                         </div>
