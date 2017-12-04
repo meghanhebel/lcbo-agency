@@ -90,6 +90,7 @@ export default class Results extends React.Component {
             let typeWine = '';
             if (secondCateg.match(/Red/)) {
                 typeWine = 'red';
+                // image_typeWine = 
             } else if (secondCateg.match(/White/)) {
                 typeWine = 'white';
             } else {
@@ -102,14 +103,15 @@ export default class Results extends React.Component {
                 id: wine.id,
                 name: wine.name,
                 image_thumb_url: wine.image_thumb_url,
-                image_svg_url: '',
+                image_typeWine: '',
                 typeWine,
                 varietal: wine.varietal,
-                sugar_content: wine.sugar_content,
+                sugar_content: wine.sugar_content.substring(4),
+                sugar_content_letters: wine.sugar_content.substring(0,2).replace(/ /g,''),
                 description: wineDesc,
                 secondary_category: wine.secondary_category,
                 userRating: 0,
-                userNotes: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique esse nobis dolorem assumenda hic dolorum in, libero consectetur cumque odit et est eos! Asperiores cumque minima iste provident voluptatum deserunt.',
+                userNotes: '',
                 price
             };
 
@@ -145,10 +147,11 @@ export default class Results extends React.Component {
                                         <div className={`wineType_indicator ${typeWine}`}></div>
                                         <h6 className = "wineType_name">{wine.varietal}</h6>
                                     </div>
-                                    <div className="wineDetails">
-                                        <h6>{wine.sugar_content}</h6> 
-                                        <h6>${Math.round(wine.price_in_cents * .01 * 100) / 100}</h6>
+                                    <div className="wineDetails clearfix">
+                                        <div className={`wineDetails_indicator`}><h3>{wine.sugar_content.substring(0,2).replace(/ /g,'')}</h3></div>
+                                        <h6 className = "wineDetails_name">{wine.sugar_content.substring(4)}</h6> 
                                     </div>
+                                    <h6>${Math.round(wine.price_in_cents * .01 * 100) / 100}</h6>
                                     {(wine.description || wine.style) ? (wine.description ? <h6>{wine.description}</h6> : <h6>{wine.style}</h6>) : ''} 
                                     {/* nested ternary-- if wine has a description OR a style 
                                         --> check if it has desc, display that, else style
@@ -161,10 +164,10 @@ export default class Results extends React.Component {
                 )})}
                 </ul>
                 <footer>
-                    <NavLink to="/pantry">Pantry</NavLink>
+                    <NavLink to="/pantry" className="footerLink">Pantry</NavLink>
                     <button className="previous buttonLeft" onClick={this.previousPageResults}>previous</button>
                     <button className="next buttonRight" onClick={this.nextPageResults}>next</button>
-                    <NavLink to="/">Log Out</NavLink>
+                    <NavLink className="footerLink" to="/">Log Out</NavLink>
                 </footer>
             </div>
         );
