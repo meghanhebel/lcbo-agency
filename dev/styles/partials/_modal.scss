@@ -10,5 +10,18 @@
     height: 100vh; 
     overflow: auto; 
     background-color: rgba(0,0,0,0.6);
+    form {
+        margin-top: 50px;
+    }
+    textarea {
+        display: block;
+        margin-left: calc(50% - 85px);
+        margin-top: 25px;
+        margin-bottom: 25px;
+    }
+}
+
+.hidden {
+    visibility: hidden;
 }
 
