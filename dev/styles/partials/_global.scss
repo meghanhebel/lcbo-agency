@@ -1,5 +1,6 @@
 body {
     font-size: 62.5%;
+    // background: linear-gradient(45deg, $mainRed, $mainPurple);
     background: $mainRed;
     color: $mainWhite;
     font-family: $bodyFont;
@@ -25,6 +26,16 @@ input {
     margin: 5px;
     line-height: 2;
 }
+.buttonLeft{
+    border-radius: 20px 0 0 20px;
+    background: $mainWhite;
+    color: $mainRed;
+}
+.buttonRight{
+    border-radius: 0 20px 20px 0;
+    background: $mainWhite;
+    color: $mainRed;
+}
 
 
 // Component 
@@ -33,7 +44,7 @@ input {
     margin: 0px auto;
     display: block;
     width: 20%;
-    height: atuo;
+    height: auto;
 }
 
 .red {

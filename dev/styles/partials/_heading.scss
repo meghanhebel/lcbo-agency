@@ -1,8 +1,18 @@
+.headingBg{
+    background-image: url('https://static.pexels.com/photos/357742/pexels-photo-357742.jpeg');
+    background-origin: center;
+    background-size: cover;
+}
 .heading {
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+
+    padding: 25px 0 0 15px;
+    // border-bottom: 1px solid $mainPurple;
+    box-shadow: 0 0 2px black;
     .logo {
-        width: 100px;
+        width: 125px;
         height: auto;
-        margin: 20px auto;
+        margin: 0 20px;
         display: block;
     }
 }

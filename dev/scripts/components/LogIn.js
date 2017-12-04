@@ -139,11 +139,12 @@ export default class LogIn extends React.Component {
                 }
             
                { this.state.logIn.loggedIn ? 
-                    <div className="clearfix">   
-                        <a href="/pantry" className="pantryBtn">Go to My Pantry</a>
-                        <div className="logOutBtn">
+                    <div className="LogInLinks clearfix">   
+                        <a href="/pantry" className="pantryBtn buttonLeft">Go to My Pantry</a>
+                        <a href="/marketplace" className="marketBtn buttonRight">Search Marketplace</a>
+                        {/* <div className="logOutBtn">
                             <button onClick={this.logOut}>Log Out</button>
-                        </div>
+                        </div> */}
                     </div>
                     
                     
