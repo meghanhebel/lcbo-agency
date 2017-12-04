@@ -9,7 +9,7 @@ class Pantry extends React.Component {
         super(props);
         this.state = {
             userPantry: [],
-            currentRating: '0',
+            currentRating: 0.5,
             currentNotes: '',
             currentWine: '',
             currentSort: 'date',
@@ -26,18 +26,17 @@ class Pantry extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSearchToggle = this.handleSearchToggle.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSorting = this.handleSorting.bind(this);
 
     }
 
     componentDidMount() {
-        console.log('component DID mount ', this.props.userID);
         if (this.props.userID) {
             this.listenForNewId(this.props.userID);
         }
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('component recieves ', nextProps.userID);
         this.listenForNewId(nextProps.userID);
         
     }
@@ -45,7 +44,7 @@ class Pantry extends React.Component {
     // listen for firebase ID change and call for that ID's data
     listenForNewId(newID){
         
-        const wineApp = firebase.database().ref(`/users/${newID}/pantry`).orderByChild("date");
+        const wineApp = firebase.database().ref(`/users/${newID}/pantry`);
         
         wineApp.on('value', (snapshot) => {
             const userPantry = [];
@@ -65,21 +64,21 @@ class Pantry extends React.Component {
         }); 
     }
 
-    // updateWine(e) {
-    //     e.preventDefault();
-    //     console.log('update WIne',);
-    //     console.log();
-    //     return;
-    // }
-
     handleChange(stateId, e) {
-        console.log('stateId and value ', stateId, e.target.value);
+        let newValue = e.target.value;
+        if (stateId === 'currentRating') {
+            newValue = parseInt(newValue);
+        }
+        console.log(e.target.value);
+
         this.setState({
-            [stateId]: e.target.value
-        })
+            [stateId]: newValue
+        }, function () {
+            console.log(this.state.currentOrder)}.bind(this))
     }
+
     handleSearchToggle(stateId, e) {
-        // console.log(e.target.value);
+        console.log(e.target.value);
         if (stateId === 'displaySort') {
             this.setState({
                 displayFilter: false,
@@ -100,30 +99,49 @@ class Pantry extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        // console.log('rating', this.state.currentRating);
-        // console.log('notes', this.state.currentNotes);
-        // console.log('wine to update', this.state.currentWine);
         const wineApp = firebase.database().ref(`/users/${this.props.userID}/pantry`);
-        // console.log('userID?', this.props.userID);
         wineApp.on('value', (snapshot) => {
             let dbPantry = snapshot.val();
             for (let wineKey in dbPantry) {
                 if (dbPantry[wineKey].id === this.state.currentWine) {
-                    // wineApp.child(wineKey).remove()
                     let updates = {};
                     updates[`/${wineKey}/userRating`] = this.state.currentRating;
                     updates[`/${wineKey}/userNotes`] = this.state.currentNotes;
-
                     wineApp.update(updates);
-                    // window.location = '';
                 }
             }
         });
         return;
     }
 
+    handleSorting(e) {
+        // e.preventDefault();
+        // for (let wine in this.state.userPantry) {
+
+        // }
+        console.log(this.state.currentSort);
+        // console.log('pantry',this.state.userPantry);
+        const userPantry = this.state.userPantry
+        const sortBy = this.state.currentSort;
+        if (userPantry) {
+            userPantry.sort(function (a, b) { 
+                // console.log('a',a);
+                return a[sortBy] > b[sortBy]})
+    
+                if (this.state.currentOrder === 'descending') {
+                    userPantry.reverse();
+                    console.log('reverse')
+                }
+                console.log('after  ',userPantry)
+                this.setState({
+                    userPantry
+                });
+        }
+        
+        return;
+    }
+
     editWine(wineId) {
-        // console.log('display the modal! ',);
         const modal = document.getElementById('modal');
         modal.style.display = 'block';
 
@@ -141,13 +159,11 @@ class Pantry extends React.Component {
         
     deleteWine(wineId) {
         const wineApp = firebase.database().ref(`/users/${this.props.userID}/pantry`);
-        console.log('userID?', this.props.userID);
         wineApp.on('value', (snapshot) => {
             let dbPantry = snapshot.val();
             for (let wineKey in dbPantry) {
                 if (dbPantry[wineKey].id === wineId) {
                     wineApp.child(wineKey).remove()
-                    // window.location = '';
                 } 
             }
         });
@@ -170,15 +186,16 @@ class Pantry extends React.Component {
                             {this.state.displaySort ?
                                 <div className="sortBox">
                                     <label htmlFor="sort">Sort by</label>
-                                    <select name="sort" value={this.state.currentSort}
-                                        onChange={(e) => this.handleChange('currentSortBy', e)}>
+                                    <select id="sort" 
+                                    value={this.state.currentSort}
+                                    onChange={(e) => this.handleChange('currentSort', e)}>
                                         <option value="price">Price</option>
                                         <option value="date">Date Added</option>
-                                        <option value="rating">My Rating</option>
+                                        <option value="userRating">My Rating</option>
                                     </select>
 
                                     <label htmlFor="order">Order by</label>
-                                    <select name="order" value={this.state.currentOrder}
+                                    <select id="order" value={this.state.currentOrder}
                                         onChange={(e) => this.handleChange('currentOrder', e)}>
                                         <option value="ascending">Ascending</option>
                                         <option value="descending">Descending</option>
@@ -190,7 +207,7 @@ class Pantry extends React.Component {
                                 </div>
                                 }
                             <button onClick={(e) => this.handleSearchToggle('cancel', e)}>Cancel</button>
-                            <button onClick={(e) => this.handleSubmit('submit', e)}>Submit</button>
+                            <button onClick={(e) => this.handleSorting('submit', e)}>Submit</button>
                         </div>                  
                         :''}
                 </div>
@@ -235,16 +252,16 @@ class Pantry extends React.Component {
                                 <label htmlFor="rating">Rating</label>
                                 <select name="rating" value={this.state.currentRating}
                                         onChange={(e) => this.handleChange('currentRating', e)}>
-                                    <option value="5">5</option>
-                                    <option value="4.5">4.5</option>
-                                    <option value="4">4</option>
-                                    <option value="3.5">3.5</option>
-                                    <option value="3">3</option>
-                                    <option value="2.5">2.5</option>
-                                    <option value="2">2</option>
-                                    <option value="1.5">1.5</option>
-                                    <option value="1">1</option>
-                                    <option value="0.5">0.5</option>
+                                    <option value={5}>5</option>
+                                    <option value={4.5}>4.5</option>
+                                    <option value={4}>4</option>
+                                    <option value={3.5}>3.5</option>
+                                    <option value={3}>3</option>
+                                    <option value={2.5}>2.5</option>
+                                    <option value={2}>2</option>
+                                    <option value={1.5}>1.5</option>
+                                    <option value={1}>1</option>
+                                    <option value={0.5}>0.5</option>
                                 </select>
                             </div>
                         </div>
