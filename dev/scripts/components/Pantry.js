@@ -11,7 +11,12 @@ class Pantry extends React.Component {
             userPantry: [],
             currentRating: '0',
             currentNotes: '',
-            currentWine: ''
+            currentWine: '',
+            currentSort: 'date',
+            currentOrder: 'descending',
+            displaySort: false,
+            displayFilter: false,
+            displaySearch: false,
         }
         
         this.editWine = this.editWine.bind(this);
@@ -19,7 +24,7 @@ class Pantry extends React.Component {
         this.deleteWine = this.deleteWine.bind(this);
         this.listerForNewId = this.listenForNewId.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleChangeNotes = this.handleChangeNotes.bind(this);
+        this.handleSearchToggle = this.handleSearchToggle.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
@@ -41,9 +46,9 @@ class Pantry extends React.Component {
     listenForNewId(newID){
         
         const wineApp = firebase.database().ref(`/users/${newID}/pantry`).orderByChild("date");
-        const userPantry = [];
-
+        
         wineApp.on('value', (snapshot) => {
+            const userPantry = [];
             let dbPantry = snapshot.val();
 
             for (let wineKey in dbPantry) {
@@ -67,26 +72,39 @@ class Pantry extends React.Component {
     //     return;
     // }
 
-    handleChange(e) {
-        // console.log(e.target.value);
+    handleChange(stateId, e) {
+        console.log('stateId and value ', stateId, e.target.value);
         this.setState({
-            currentRating: e.target.value
+            [stateId]: e.target.value
         })
     }
-    handleChangeNotes(e) {
+    handleSearchToggle(stateId, e) {
         // console.log(e.target.value);
-        this.setState({
-            currentNotes: e.target.value
-        })
+        if (stateId === 'displaySort') {
+            this.setState({
+                displayFilter: false,
+                displaySort: true
+            })
+        } else if (stateId === 'displayFilter') {
+            this.setState({
+                displayFilter: true,
+                displaySort: false
+            })
+        } else {
+            this.setState({
+                displayFilter: false,
+                displaySort: false
+            })
+        }
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log('rating', this.state.currentRating);
-        console.log('notes', this.state.currentNotes);
-        console.log('wine to update', this.state.currentWine);
+        // console.log('rating', this.state.currentRating);
+        // console.log('notes', this.state.currentNotes);
+        // console.log('wine to update', this.state.currentWine);
         const wineApp = firebase.database().ref(`/users/${this.props.userID}/pantry`);
-        console.log('userID?', this.props.userID);
+        // console.log('userID?', this.props.userID);
         wineApp.on('value', (snapshot) => {
             let dbPantry = snapshot.val();
             for (let wineKey in dbPantry) {
@@ -97,7 +115,7 @@ class Pantry extends React.Component {
                     updates[`/${wineKey}/userNotes`] = this.state.currentNotes;
 
                     wineApp.update(updates);
-                    window.location = '';
+                    // window.location = '';
                 }
             }
         });
@@ -129,7 +147,7 @@ class Pantry extends React.Component {
             for (let wineKey in dbPantry) {
                 if (dbPantry[wineKey].id === wineId) {
                     wineApp.child(wineKey).remove()
-                    window.location = '';
+                    // window.location = '';
                 } 
             }
         });
@@ -142,6 +160,40 @@ class Pantry extends React.Component {
                 <img className="logo" src="./public/images/TastingNotesLogo.png" alt="" />
                 <h1>{`Pantry`}</h1>
                 <Navigation />
+                <div className="searchPantry">
+                    <div className="searchPantryButtons">
+                        <button onClick={(e) => this.handleSearchToggle('displaySort', e)}>Sort</button>
+                        <button onClick={(e) => this.handleSearchToggle('displayFilter', e)}>Filter</button>
+                    </div>
+                    {this.state.displaySort || this.state.displayFilter ? 
+                        <div className="searchBox">
+                            {this.state.displaySort ?
+                                <div className="sortBox">
+                                    <label htmlFor="sort">Sort by</label>
+                                    <select name="sort" value={this.state.currentSort}
+                                        onChange={(e) => this.handleChange('currentSortBy', e)}>
+                                        <option value="price">Price</option>
+                                        <option value="date">Date Added</option>
+                                        <option value="rating">My Rating</option>
+                                    </select>
+
+                                    <label htmlFor="order">Order by</label>
+                                    <select name="order" value={this.state.currentOrder}
+                                        onChange={(e) => this.handleChange('currentOrder', e)}>
+                                        <option value="ascending">Ascending</option>
+                                        <option value="descending">Descending</option>
+                                    </select>
+                                </div>
+                                : 
+                                <div className="filterBox">
+                                    <h1>filter!</h1>
+                                </div>
+                                }
+                            <button onClick={(e) => this.handleSearchToggle('cancel', e)}>Cancel</button>
+                            <button onClick={(e) => this.handleSubmit('submit', e)}>Submit</button>
+                        </div>                  
+                        :''}
+                </div>
                 <ul>
                     {this.state.userPantry.map((wine) => {
                         return (
@@ -177,12 +229,12 @@ class Pantry extends React.Component {
                             <div className="textField">
                                 <label htmlFor="notes" className="hidden">Tasting Notes</label>
                                 <textarea name="notes" id="notes" cols="30" rows="10" value={this.state.currentNotes}
-                                    onChange={this.handleChangeNotes}>></textarea>
+                                        onChange={(e) => this.handleChange('currentNotes', e)}>></textarea>
                             </div>
                             <div className="ratingsField"> 
                                 <label htmlFor="rating">Rating</label>
                                 <select name="rating" value={this.state.currentRating}
-                                    onChange={this.handleChange}>
+                                        onChange={(e) => this.handleChange('currentRating', e)}>
                                     <option value="5">5</option>
                                     <option value="4.5">4.5</option>
                                     <option value="4">4</option>
