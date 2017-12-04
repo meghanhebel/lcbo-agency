@@ -9,9 +9,14 @@ class Pantry extends React.Component {
         super(props);
         this.state = {
             userPantry: [],
-            currentRating: '0',
+            currentRating: 0.5,
             currentNotes: '',
-            currentWine: ''
+            currentWine: '',
+            currentSort: 'date',
+            currentOrder: 'descending',
+            displaySort: false,
+            displayFilter: false,
+            displaySearch: false,
         }
         
         this.editWine = this.editWine.bind(this);
@@ -19,117 +24,131 @@ class Pantry extends React.Component {
         this.deleteWine = this.deleteWine.bind(this);
         this.listerForNewId = this.listenForNewId.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleChangeNotes = this.handleChangeNotes.bind(this);
+        this.handleSearchToggle = this.handleSearchToggle.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSorting = this.handleSorting.bind(this);
 
     }
 
     componentDidMount() {
-        console.log('component DID mount ', this.props.userID);
         if (this.props.userID) {
             this.listenForNewId(this.props.userID);
         }
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('component recieves ', nextProps.userID);
         this.listenForNewId(nextProps.userID);
-        
     }
 
     // listen for firebase ID change and call for that ID's data
     listenForNewId(newID){
         
-        const wineApp = firebase.database().ref(`/users/${newID}/pantry`).orderByChild("date");
-        const userPantry = [];
-
+        const wineApp = firebase.database().ref(`/users/${newID}/pantry`);
+        
         wineApp.on('value', (snapshot) => {
+            const userPantry = [];
             let dbPantry = snapshot.val();
-
             for (let wineKey in dbPantry) {
                 userPantry.push(dbPantry[wineKey]);
             }
-
             userPantry.reverse();
-
             this.setState({
                 userPantry
             });
-
-
         }); 
     }
 
-    // updateWine(e) {
-    //     e.preventDefault();
-    //     console.log('update WIne',);
-    //     console.log();
-    //     return;
-    // }
+    handleChange(stateId, e) {
+        let newValue = e.target.value;
+        if (stateId === 'currentRating') {
+            newValue = parseFloat(newValue);
+        }
 
-    handleChange(e) {
-        // console.log(e.target.value);
         this.setState({
-            currentRating: e.target.value
+            [stateId]: newValue
         })
     }
-    handleChangeNotes(e) {
-        // console.log(e.target.value);
-        this.setState({
-            currentNotes: e.target.value
-        })
+
+    handleSearchToggle(stateId, e) {
+        if (stateId === 'displaySort') {
+            this.setState({
+                displayFilter: false,
+                displaySort: true
+            })
+        } else if (stateId === 'displayFilter') {
+            this.setState({
+                displayFilter: true,
+                displaySort: false
+            })
+        } else {
+            this.setState({
+                displayFilter: false,
+                displaySort: false
+            })
+        }
     }
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log('rating', this.state.currentRating);
-        console.log('notes', this.state.currentNotes);
-        console.log('wine to update', this.state.currentWine);
         const wineApp = firebase.database().ref(`/users/${this.props.userID}/pantry`);
-        console.log('userID?', this.props.userID);
         wineApp.on('value', (snapshot) => {
             let dbPantry = snapshot.val();
             for (let wineKey in dbPantry) {
                 if (dbPantry[wineKey].id === this.state.currentWine) {
-                    // wineApp.child(wineKey).remove()
                     let updates = {};
                     updates[`/${wineKey}/userRating`] = this.state.currentRating;
                     updates[`/${wineKey}/userNotes`] = this.state.currentNotes;
-
                     wineApp.update(updates);
-                    window.location = '';
                 }
             }
         });
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
         return;
     }
 
-    editWine(wineId) {
-        // console.log('display the modal! ',);
+    handleSorting(e) {
+        const userPantry = this.state.userPantry
+        const sortBy = this.state.currentSort;
+        if (userPantry) {
+            userPantry.sort(function (a, b) { 
+                return a[sortBy] > b[sortBy]
+            })
+
+            if (this.state.currentOrder === 'descending') {
+                userPantry.reverse();
+            }
+            this.setState({
+                userPantry
+            });
+        }
+        return;
+    }
+
+    editWine(wine) {
         const modal = document.getElementById('modal');
         modal.style.display = 'block';
-
+        const userPantry = this.state.userPantry;
         this.setState({
-            currentWine: wineId
+            currentWine: wine.id,
+            currentRating: wine.userRating,
+            currentNotes: wine.userNotes
         })
         return; 
     }
 
     cancelEdit(e) {
-        // e.preventDefault;
         const modal = document.getElementById('modal');
         modal.style.display = 'none';
     }
         
     deleteWine(wineId) {
         const wineApp = firebase.database().ref(`/users/${this.props.userID}/pantry`);
-        console.log('userID?', this.props.userID);
         wineApp.on('value', (snapshot) => {
             let dbPantry = snapshot.val();
             for (let wineKey in dbPantry) {
                 if (dbPantry[wineKey].id === wineId) {
                     wineApp.child(wineKey).remove()
-                    window.location = '';
                 } 
             }
         });
@@ -142,6 +161,41 @@ class Pantry extends React.Component {
                 <Heading />
                 <h1>My Wine Pantry</h1>
                 <Navigation />
+                <div className="searchPantry">
+                    <div className="searchPantryButtons">
+                        <button onClick={(e) => this.handleSearchToggle('displaySort', e)}>Sort</button>
+                        <button onClick={(e) => this.handleSearchToggle('displayFilter', e)}>Filter</button>
+                    </div>
+                    {this.state.displaySort || this.state.displayFilter ? 
+                        <div className="searchBox">
+                            {this.state.displaySort ?
+                                <div className="sortBox">
+                                    <label htmlFor="sort">Sort by</label>
+                                    <select id="sort" 
+                                    value={this.state.currentSort}
+                                    onChange={(e) => this.handleChange('currentSort', e)}>
+                                        <option value="price">Price</option>
+                                        <option value="date">Date Added</option>
+                                        <option value="userRating">My Rating</option>
+                                    </select>
+
+                                    <label htmlFor="order">Order by</label>
+                                    <select id="order" value={this.state.currentOrder}
+                                        onChange={(e) => this.handleChange('currentOrder', e)}>
+                                        <option value="ascending">Ascending</option>
+                                        <option value="descending">Descending</option>
+                                    </select>
+                                </div>
+                                : 
+                                <div className="filterBox">
+                                    <h1>filter!</h1>
+                                </div>
+                                }
+                            <button onClick={(e) => this.handleSearchToggle('cancel', e)}>Cancel</button>
+                            <button onClick={(e) => this.handleSorting('submit', e)}>Submit</button>
+                        </div>                  
+                        :''}
+                </div>
                 <ul>
                     {this.state.userPantry.map((wine) => {
                         return (
@@ -164,7 +218,7 @@ class Pantry extends React.Component {
                                     </div>
                                     <div className="pantryButtons">
                                         <button onClick={() => this.deleteWine(wine.id)}>Delete</button>
-                                        <button onClick={() => this.editWine(wine.id)}>Edit</button>
+                                        <button onClick={() => this.editWine(wine)}>Edit</button>
                                     </div>
                                 </li>
                             </div>
@@ -176,23 +230,27 @@ class Pantry extends React.Component {
                         <div className="formContent clearfix">
                             <div className="textField">
                                 <label htmlFor="notes" className="hidden">Tasting Notes</label>
+
                                 <textarea placeholder="Add your notes here" name="notes" id="notes" cols="30" rows="10" value={this.state.currentNotes}
-                                    onChange={this.handleChangeNotes}>></textarea>
+                                        onChange={(e) => this.handleChange('currentNotes', e)}>></textarea>
+
                             </div>
                             <div className="ratingsField"> 
                                 <label htmlFor="rating">Rating</label>
-                                <select name="rating" value={this.state.currentRating}
-                                    onChange={this.handleChange}>
-                                    <option value="5">5</option>
-                                    <option value="4.5">4.5</option>
-                                    <option value="4">4</option>
-                                    <option value="3.5">3.5</option>
-                                    <option value="3">3</option>
-                                    <option value="2.5">2.5</option>
-                                    <option value="2">2</option>
-                                    <option value="1.5">1.5</option>
-                                    <option value="1">1</option>
-                                    <option value="0.5">0.5</option>
+                                <select name="rating" 
+                                value={this.state.currentRating}
+                                    selected={this.state.currentRating}
+                                    onChange={(e) => this.handleChange('currentRating', e)}>
+                                    <option value='5'>5</option>
+                                    <option value='4.5'>4.5</option>
+                                    <option value='4'>4</option>
+                                    <option value='3.5'>3.5</option>
+                                    <option value='3'>3</option>
+                                    <option value='2.5'>2.5</option>
+                                    <option value='2'>2</option>
+                                    <option value='1.5'>1.5</option>
+                                    <option value='1'>1</option>
+                                    <option value='0.5'>0.5</option>
                                 </select>
                             </div>
                         </div>
