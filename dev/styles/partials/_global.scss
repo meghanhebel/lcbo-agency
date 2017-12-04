@@ -1,5 +1,6 @@
 body {
     font-size: 62.5%;
+    // background: linear-gradient(45deg, $mainRed, $mainPurple);
     background: $mainRed;
     color: $mainWhite;
     font-family: $bodyFont;
@@ -16,14 +17,24 @@ body {
 
 button,
 input {
-    font-size: 1rem;
-    font-family: $headingFont;
+    font-size: 0.8rem;
     background-color: transparent;
     border: 1px solid $mainWhite;
     color: $mainWhite;
     border-radius: 20px;
     padding: 5px 10px;
     margin: 5px;
+    line-height: 2;
+}
+.buttonLeft{
+    border-radius: 20px 0 0 20px;
+    background: $mainWhite;
+    color: $mainRed;
+}
+.buttonRight{
+    border-radius: 0 20px 20px 0;
+    background: $mainWhite;
+    color: $mainRed;
 }
 
 
@@ -33,7 +44,7 @@ input {
     margin: 0px auto;
     display: block;
     width: 20%;
-    height: atuo;
+    height: auto;
 }
 
 .red {

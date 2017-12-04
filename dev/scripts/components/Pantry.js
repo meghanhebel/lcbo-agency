@@ -158,8 +158,8 @@ class Pantry extends React.Component {
     render() {
         return (
             <div className='userPantry'>
-                <img className="logo" src="./public/images/TastingNotesLogo.png" alt="" />
-                <h1>{`Pantry`}</h1>
+                <Heading />
+                <h1>My Wine Pantry</h1>
                 <Navigation />
                 <div className="searchPantry">
                     <div className="searchPantryButtons">
@@ -230,8 +230,10 @@ class Pantry extends React.Component {
                         <div className="formContent clearfix">
                             <div className="textField">
                                 <label htmlFor="notes" className="hidden">Tasting Notes</label>
-                                <textarea name="notes" id="notes" cols="30" rows="10" value={this.state.currentNotes}
+
+                                <textarea placeholder="Add your notes here" name="notes" id="notes" cols="30" rows="10" value={this.state.currentNotes}
                                         onChange={(e) => this.handleChange('currentNotes', e)}>></textarea>
+
                             </div>
                             <div className="ratingsField"> 
                                 <label htmlFor="rating">Rating</label>
@@ -252,8 +254,10 @@ class Pantry extends React.Component {
                                 </select>
                             </div>
                         </div>
-                        <button>Submit</button>
-                        <button onClick={this.cancelEdit}>Cancel</button>
+                        <div className="modalButtons clearfix">
+                            <button>Submit</button>
+                            <button onClick={this.cancelEdit}>Cancel</button>
+                        </div>
                     </form>
                 </div>
                 </ul>

@@ -1,15 +1,14 @@
 
-.pantryBtn{
+.pantryBtn,
+.marketBtn{
     display: inline-block;
-    width: 300px;
+    width: 150px;
     text-align: center;
     background-color: transparent;
     border: 1px solid $mainWhite;
     color: $mainWhite;
-    border-radius: 20px;
     padding: 5px 10px;
-    margin: 20px;
-    margin: 5px;
+    margin: 20px 0px;
     text-decoration: none;
     line-height: 2;
     font-size: 0.8rem;
@@ -17,9 +16,53 @@
             color: $mainWhite;
         }
         &:hover{
-            color: $mainWhite;
+            color: $mainRed;
+            background: $mainWhite;
         }
         &:active{
             color: $mainWhite;
         }
+}
+.marketBtn{
+    margin-left: 5px;
+}
+.logInBtns{
+    button{
+        font-size: 1rem;
+        margin: 20px 10px;
+        width: 140px;
+        line-height: 1.2;
+        background: $mainWhite;
+        color: $mainRed;
+            &:hover{
+            box-shadow: 0 0 10px black;
+            border: 1px solid $mainPurple;
+            }
+    }
+
+}
+.logInBlock{
+    input{
+        display: block;
+        width: 300px;
+        margin: 10px auto;
+        line-height: 2;
+            &::placeholder{
+                color: $mainWhite;
+            }
+    }
+    button{
+        display: block;
+        width: 300px;
+        margin: 10px auto;
+        line-height: 1.2;
+            &:hover{
+            box-shadow: 0 0 15px black;
+            border: 1px solid $mainPurple;
+            }
+    }
+    form{
+        display: block;
+    }
+
 }

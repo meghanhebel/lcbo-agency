@@ -18,6 +18,8 @@ export default class Search extends React.Component {
             <div className="clearfix search">
                 <Navigation />
                 <Heading />
+                <h1>Search</h1>
+                {/* <h3 className="heading_med_white">Rate, save, and discover new wines!</h3> */}
                 <MainWineImage />
                 <SearchInput makeDataCall = {this.props.makeDataCall}
                 />
