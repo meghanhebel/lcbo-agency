@@ -7,11 +7,15 @@
     li {
         list-style: none;
         float: left;
+        border: 1px solid $mainRed;
     }
 
     footer {
-        background: rgb(114, 114, 114);
-        margin: 0;
+        background: rgb(43, 46, 51);
+        margin: 0 auto 10px;
+        width: 700px;
+        height: 75px;
+        border-radius: 75px;
         a {
             display: inline-block;
             text-align: center;
@@ -37,25 +41,34 @@
         button {
             width: 80px;
             border-color: white;
+            color: rgb(43, 46, 51);
                 &:hover{
                     box-shadow: 0 0 10px $mainPurple;
                 }
+        }
+        .footerLink {
+            border: none;
         }
     }
 }
 
 .wineResult {
     width: 33.33%;
-    height: 350px;
+    height: 300px;
     position: relative;
     background: white;
+    overflow: hidden;
+    button {
+        border: black;
+        color: black;
+    }
     @include desktop-med {
         width: 50%;
     }
     @include desktop-sml {
         width: 50%;
     }
-    @include tablet {
+    @include tablet-only {
         width: 100%;
     }
     .arrow-right {
@@ -73,6 +86,7 @@
     .wineResult_imageBox {
         width: 40%;
         float: left;
+        overflow: hidden;
         img {
             width: 100%;
             max-height: 350px;
@@ -89,6 +103,7 @@
         h3 {
             font-size: 1rem;
             font-family: $headingFont;
+            text-align: left;
         }
     }
 }
@@ -96,14 +111,13 @@
 .wineType {
     width: 100%;
     position: relative;
+    margin: 5px 0;
     .wineType_indicator {
         height: 40px;
         width: 40px;
         border-radius: 40px;
         margin: 0;
         float: left;
-        margin-left: 30%;
-
     }
     .wineType_name {
         margin: 0;
@@ -111,8 +125,27 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
-        left: 50%;
+        left: 50px;
         text-align: left;
 
+    }
+}
+
+.wineDetails {
+    @extend .wineType;
+    .wineDetails_indicator {
+        @extend .wineType_indicator;
+        border: 1px solid grey;
+        h3 {
+            margin: 0 auto;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            text-align: center;
+            width: 40px;
+        }
+    }
+    .wineDetails_name {
+        @extend .wineType_name;
     }
 }
