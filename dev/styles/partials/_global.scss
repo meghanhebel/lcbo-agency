@@ -16,14 +16,14 @@ body {
 
 button,
 input {
-    font-size: 1rem;
-    font-family: $headingFont;
+    font-size: 0.8rem;
     background-color: transparent;
     border: 1px solid $mainWhite;
     color: $mainWhite;
     border-radius: 20px;
     padding: 5px 10px;
     margin: 5px;
+    line-height: 2;
 }
 
 
