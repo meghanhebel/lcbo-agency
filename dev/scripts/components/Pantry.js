@@ -15,7 +15,7 @@ class Pantry extends React.Component {
         }
         
         this.editWine = this.editWine.bind(this);
-        // this.addNotes = this.addNotes.bind(this);
+        this.cancelEdit = this.cancelEdit.bind(this);
         this.deleteWine = this.deleteWine.bind(this);
         this.listerForNewId = this.listenForNewId.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -30,7 +30,7 @@ class Pantry extends React.Component {
             this.listenForNewId(this.props.userID);
         }
     }
-           
+
     componentWillReceiveProps(nextProps){
         console.log('component recieves ', nextProps.userID);
         this.listenForNewId(nextProps.userID);
@@ -60,13 +60,12 @@ class Pantry extends React.Component {
         }); 
     }
 
-    
-    updateWine(e) {
-        e.preventDefault();
-        console.log('update WIne',);
-        console.log();
-        return;
-    }
+    // updateWine(e) {
+    //     e.preventDefault();
+    //     console.log('update WIne',);
+    //     console.log();
+    //     return;
+    // }
 
     handleChange(e) {
         // console.log(e.target.value);
@@ -114,6 +113,12 @@ class Pantry extends React.Component {
             currentWine: wineId
         })
         return; 
+    }
+
+    cancelEdit(e) {
+        // e.preventDefault;
+        const modal = document.getElementById('modal');
+        modal.style.display = 'none';
     }
         
     deleteWine(wineId) {
@@ -168,23 +173,24 @@ class Pantry extends React.Component {
 
                 <div className="modal" id="modal">
                     <form action="submit" onSubmit={this.handleSubmit}>
-                        <label htmlFor="rating"></label>
-                        <select name="rating" value={this.state.currentRating}
+                        <label htmlFor="rating">Rating</label>
+                            <select name="rating" value={this.state.currentRating}
                             onChange={this.handleChange}>
-                            <option value="10">10</option>
-                            <option value="9">9</option>
-                            <option value="8">8</option>
-                            <option value="7">7</option>
-                            <option value="6">6</option>
                             <option value="5">5</option>
+                            <option value="4.5">4.5</option>
                             <option value="4">4</option>
+                            <option value="3.5">3.5</option>
                             <option value="3">3</option>
+                            <option value="2.5">2.5</option>
                             <option value="2">2</option>
+                            <option value="1.5">1.5</option>
                             <option value="1">1</option>
+                            <option value="0.5">0.5</option>
                         </select>
-                        <label htmlFor="notes">Tasting Notes</label>
-                        <textarea name="notes" id="notes" cols="30" rows="10" value={this.state.currentNotes}
-                            onChange={this.handleChangeNotes}>></textarea>
+                        <label htmlFor="notes" className="hidden">Your tasting Notes</label>
+                        <textarea name="notes" id="notes" cols="30" rows="10" placeholder="Enter your tasting notes here..." value={this.state.currentNotes}
+                        onChange={this.handleChangeNotes}>></textarea>
+                        <button onClick={this.cancelEdit}>Cancel</button>
                         <button>Submit</button>
                     </form>
                 </div>
