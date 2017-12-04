@@ -1,24 +1,25 @@
 .navigation {
     float: right;
-    margin: 20px;
+    margin: 0 10px;
     position: absolute;
-    top: 100px;
+    top: 0px;
     right: 0;
     ul {
         padding: 0px;
     }
     li {
         list-style: none;
-        font-size: 1.2rem;
+        font-size: 1rem;
         text-align: right;
         padding: 5px 5px;
         font-family: $headingFont;
         a {
-            color: $mainWhite;
+            color: black;
             text-decoration: none;
             transition: font-size 0.4s ease-in-out;
+            text-shadow: 0 0 2px $mainWhite;
             &:hover {
-                font-size: 1.6rem;
+                font-size: 1.2rem;
             }
         }
         // .circle {
@@ -35,6 +36,6 @@
 
     // active style
     .current {
-        font-size: 1.6rem;
+        font-size: 1.2rem;
     }
 }

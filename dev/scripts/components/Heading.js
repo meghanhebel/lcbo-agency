@@ -1,4 +1,5 @@
 import React from 'react';
+import Navigation from './navigation';
 
 export default class Heading extends React.Component {
     constructor() {
@@ -11,9 +12,10 @@ export default class Heading extends React.Component {
 
     render() {
         return(
-            <div className="heading">
-                <img className = "logo" src="./public/images/TastingNotesLogo.png" alt=""/>
-                <h3 className="heading_med_white">Rate, save, and discover new wines!</h3>
+            <div className="headingBg">
+                <div className="heading">
+                    <img className = "logo" src="./public/images/TastingNotesLogo.png" alt=""/>
+                </div>
             </div>
         )
     }

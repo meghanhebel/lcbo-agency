@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
+import scrollToComponent from 'react-scroll-to-component';
 
 var config = {
     apiKey: 'AIzaSyAxBftb2LL5DfmTV6tYBuM96SPXG74M8h8',
@@ -9,7 +10,6 @@ var config = {
     storageBucket: 'lcbo-agency.appspot.com',
     messagingSenderId: '813260474801'
 };
-
 
 export default class LogIn extends React.Component {
     constructor(){
@@ -111,13 +111,15 @@ export default class LogIn extends React.Component {
 
     showLogIn(){
         this.setState({
-            showLogIn:true
+            showLogIn:true,
+            showSignUp:false
         })
     }
     
     showSignUp(){
         this.setState({
-            showSignUp:true
+            showSignUp:true,
+            showLogIn:false
         })
     }
 
@@ -130,33 +132,34 @@ export default class LogIn extends React.Component {
                 {this.state.logIn.loggedIn ? 
                     <div> </div>
                 :
-                <div className="logInBtn">
+                <div className="logInBtns">
                     <button onClick={this.showSignUp}>Sign Up</button>
                     <button onClick={this.showLogIn}>Log In</button>
                 </div>
                 }
             
                { this.state.logIn.loggedIn ? 
-                    <div className="clearfix">   
-                        <a href="/pantry" className="pantryBtn">Go to My Pantry</a>
-                        <div className="logOutBtn">
+                    <div className="LogInLinks clearfix">   
+                        <a href="/pantry" className="pantryBtn buttonLeft">Go to My Pantry</a>
+                        <a href="/marketplace" className="marketBtn buttonRight">Search Marketplace</a>
+                        {/* <div className="logOutBtn">
                             <button onClick={this.logOut}>Log Out</button>
-                        </div>
+                        </div> */}
                     </div>
                     
                     
                 :
 
-                    <div className="logInFormsBlock">
+                    <div className="logInForms">
                         { this.state.showLogIn ?
-                                <div className="logInBlock">
+                                <div className="logInBlock logInBlock--returningUser">
                                     <form onSubmit={(event) => this.logIn(event)}>
-                                        <h3>Sign In</h3>
-                                        <label htmlFor="password">email</label>
-                                        <input type="email" name="email" onChange={(event) => this.handleChange(event, 'userEmail')} />
-                                        <label htmlFor="password">password</label>
-                                    <input type="password" minLength="6" name="password" onChange={(event) => this.handleChange(event, 'userPassword')} />
-                                        <button>Go to Wine Country</button>
+                                        {/* <h3>Sign In</h3> */}
+                                        {/* <label htmlFor="password" className="hidden">email</label> */}
+                                        <input type="email" name="email" placeholder="email" onChange={(event) => this.handleChange(event, 'userEmail')} />
+                                        {/* <label htmlFor="password" className="hidden">password</label> */}
+                                    <input type="password" minLength="6" name="password" placeholder="password" onChange={(event) => this.handleChange(event, 'userPassword')} />
+                                        <button>Sign In</button>
                                     </form>
                                 </div> 
 
@@ -164,15 +167,15 @@ export default class LogIn extends React.Component {
                                 <div> </div>
                         }
                         { this.state.showSignUp ?
-                                <div className="signUpBlock">
-                                    <h4>Don't have an account yet?</h4>
-                                    <h3>Sign Up Here</h3>
+                                <div className="logInBlock logInBlock--newUser">
+                                    {/* <h4>Don't have an account yet?</h4>
+                                    <h3>Sign Up Here</h3> */}
                                     <form onSubmit={(event) => this.newUser(event)}>
-                                        <label htmlFor="password">email</label>
-                                        <input type="email" name="email" onChange={(event) => this.handleChange(event, 'createEmail')} />
-                                        <label htmlFor="password">password</label>
-                                    <input type="password" minLength="6" name="password" onChange={(event) => this.handleChange(event, 'createPassword')} />
-                                        <button>Go to Wine Country</button>
+                                        {/* <label htmlFor="password" className="hidden">email</label> */}
+                                        <input type="email" name="email" placeholder="email" onChange={(event) => this.handleChange(event, 'createEmail')} />
+                                        {/* <label htmlFor="password" className="hidden">password</label> */}
+                                        <input type="password" minLength="6" name="password" placeholder="password" onChange={(event) => this.handleChange(event, 'createPassword')} />
+                                        <button>Create New Account</button>
                                     </form>
                                 </div>  
                             :
