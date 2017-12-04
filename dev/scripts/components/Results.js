@@ -90,6 +90,7 @@ export default class Results extends React.Component {
             let typeWine = '';
             if (secondCateg.match(/Red/)) {
                 typeWine = 'red';
+                // image_typeWine = 
             } else if (secondCateg.match(/White/)) {
                 typeWine = 'white';
             } else {
@@ -102,7 +103,7 @@ export default class Results extends React.Component {
                 id: wine.id,
                 name: wine.name,
                 image_thumb_url: wine.image_thumb_url,
-                image_svg_url: '',
+                image_typeWine: '',
                 typeWine,
                 varietal: wine.varietal,
                 sugar_content: wine.sugar_content,
