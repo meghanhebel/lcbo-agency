@@ -173,25 +173,31 @@ class Pantry extends React.Component {
 
                 <div className="modal" id="modal">
                     <form action="submit" onSubmit={this.handleSubmit}>
-                        <label htmlFor="rating">Rating</label>
-                            <select name="rating" value={this.state.currentRating}
-                            onChange={this.handleChange}>
-                            <option value="5">5</option>
-                            <option value="4.5">4.5</option>
-                            <option value="4">4</option>
-                            <option value="3.5">3.5</option>
-                            <option value="3">3</option>
-                            <option value="2.5">2.5</option>
-                            <option value="2">2</option>
-                            <option value="1.5">1.5</option>
-                            <option value="1">1</option>
-                            <option value="0.5">0.5</option>
-                        </select>
-                        <label htmlFor="notes" className="hidden">Your tasting Notes</label>
-                        <textarea name="notes" id="notes" cols="30" rows="10" placeholder="Enter your tasting notes here..." value={this.state.currentNotes}
-                        onChange={this.handleChangeNotes}>></textarea>
-                        <button onClick={this.cancelEdit}>Cancel</button>
+                        <div className="formContent clearfix">
+                            <div className="textField">
+                                <label htmlFor="notes" className="hidden">Tasting Notes</label>
+                                <textarea name="notes" id="notes" cols="30" rows="10" value={this.state.currentNotes}
+                                    onChange={this.handleChangeNotes}>></textarea>
+                            </div>
+                            <div className="ratingsField"> 
+                                <label htmlFor="rating">Rating</label>
+                                <select name="rating" value={this.state.currentRating}
+                                    onChange={this.handleChange}>
+                                    <option value="5">5</option>
+                                    <option value="4.5">4.5</option>
+                                    <option value="4">4</option>
+                                    <option value="3.5">3.5</option>
+                                    <option value="3">3</option>
+                                    <option value="2.5">2.5</option>
+                                    <option value="2">2</option>
+                                    <option value="1.5">1.5</option>
+                                    <option value="1">1</option>
+                                    <option value="0.5">0.5</option>
+                                </select>
+                            </div>
+                        </div>
                         <button>Submit</button>
+                        <button onClick={this.cancelEdit}>Cancel</button>
                     </form>
                 </div>
                 </ul>
