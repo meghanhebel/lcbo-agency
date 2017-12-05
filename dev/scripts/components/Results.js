@@ -202,7 +202,7 @@ export default class Results extends React.Component {
                 )})}
                 </ul>
                 <footer className="clearfix">
-                    <button className="previous buttonLeft" onClick={this.previousPageResults}>previous</button>
+                    <button className="previous buttonLeft" onClick={this.previousPageResults}>prev</button>
                     <ul className="footerLinks">
                         <li className="pantryLinkFooter">
                             <NavLink to="/pantry" activeClassName="current">

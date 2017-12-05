@@ -1,3 +1,27 @@
+.searchPantry{
+    background: $mainWhite;
+    color: black;
+    button{
+        border: none;
+        color: black;
+        border-radius: 0px;
+    }
+}
+.searchPantryButtons{
+    float: left;
+}
+.searchBox{
+    float: left;
+  
+}
+.sortBox{
+    float: left;
+   
+}
+.filterBox{
+    float: left;
+
+}
 .userPantry{
     height: 100vh;
     .logo{
@@ -13,6 +37,13 @@
         font-size: 1.8rem;
         font-family: $headingFont;
         text-shadow: 0 0 10px white;
+        @include tablet{
+            font-size: 1.2rem;
+            top: -75px;
+        }
+        @include mobile{
+            display: none;
+        }
     }
     ul {
         padding: 0;

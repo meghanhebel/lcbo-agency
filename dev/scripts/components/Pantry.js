@@ -210,13 +210,13 @@ class Pantry extends React.Component {
                 <Heading />
                 <h1>My Wine Pantry</h1>
                 <Navigation />
-                <div className="searchPantry">
+                <div className="searchPantry clearfix">
                     <div className="searchPantryButtons">
                         <button onClick={(e) => this.handleSearchToggle('displaySort', e)}>Sort</button>
                         <button onClick={(e) => this.handleSearchToggle('displayFilter', e)}>Filter</button>
                     </div>
                     {this.state.displaySort || this.state.displayFilter ? 
-                        <div className="searchBox">
+                        <div className="searchBox clearfix">
                             {this.state.displaySort ?
                                 <div className="sortBox">
                                     <label htmlFor="sort">Sort by</label>

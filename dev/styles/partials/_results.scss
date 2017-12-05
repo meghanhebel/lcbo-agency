@@ -17,17 +17,26 @@
         height: 77px;
         position: relative;
         border-radius: 75px;
+        
+        @include tablet-only{
+            width: 475px;
+        }
+        @include mobile{
+            width: 300px;
+        }
+        
         h4{
             margin: 0;
             position: relative;
             top: -15px;
+            color: black;
         }
         a {
             float: left;
             text-align: center;
             padding: 5px 0 0 0;
             background-color: transparent;
-            color: $mainWhite;
+            color: black;
             text-decoration: none;
             font-size: 0.8rem;
                 &:visited{
