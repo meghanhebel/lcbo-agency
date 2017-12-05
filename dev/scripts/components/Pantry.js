@@ -333,13 +333,13 @@ class Pantry extends React.Component {
                                     <option value='1'>1</option>
                                     <option value='0.5'>0.5</option>
                                 </select>
+                                <div className="modalButtons clearfix">
+                                    <button>Submit</button>
+                                    <button onClick={this.cancelEdit}>Cancel</button>
+                                </div>
                             </div>
                         </div>
 
-                        <div className="modalButtons clearfix">
-                            <button>Submit</button>
-                            <button onClick={this.cancelEdit}>Cancel</button>
-                        </div>
                     </form>
                 </div>
                 </ul>
