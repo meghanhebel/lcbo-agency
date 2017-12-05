@@ -7,7 +7,7 @@
     li {
         list-style: none;
         float: left;
-        border: 1px solid $mainRed;
+        border: 1px solid $mainRed;    
     }
 
     footer {
@@ -88,26 +88,31 @@
         border: black;
         color: black;
     }
+    @include desktop-lrg {
+        &:hover, &:focus {
+            .wineResultModal {
+                display: block;
+            }
+        }
+    } 
     @include desktop-med {
         width: 50%;
+        &:hover, &:focus {
+            .wineResultModal {
+                display: block;
+            }
+        }
     }
     @include desktop-sml {
         width: 50%;
+        &:hover, &:focus {
+            .wineResultModal {
+                display: block;
+            }
+        }
     }
     @include tablet-only {
         width: 100%;
-    }
-    .arrow-right {
-        width: 0; 
-        height: 0; 
-        border-top: 30px solid transparent;
-        border-bottom: 30px solid transparent; 
-        border-left: 30px solid transparent;
-        left: 50%;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 1;
-        position: absolute; 
     }
     .wineResult_imageBox {
         width: 40%;
@@ -118,7 +123,12 @@
             max-height: 350px;
             margin: 0 auto;
             object-fit: cover;
+            @include tablet-only {
+                height: 100%;
+                width: auto;
+            }
         }
+        
     }
     .wineResult_textBox {
         width: 60%;
@@ -133,10 +143,21 @@
             text-align: left;
         }
     }
+    
+}
+
+.wineResultModal {
+    display: none;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    overflow: hidden;
 }
 
 .wineInfo_indicators {
-    width: 60%;
+    width: 40%;
     float: left;
     .wineType {
         width: 100%;
@@ -181,7 +202,7 @@
 }
 
 .winePrice {
-    width: 40%;
+    width: 95px;
     height: 95px;
     float: right;
     border: 3px solid rgba(0, 0, 0, 0.2);
@@ -207,21 +228,29 @@
 }
 
 .addBtn {
+    z-index: 2;
     position: absolute;
-    bottom: 0;
-    left: 0;
+    top: 50%;
+    transform: translate(-65px, -65px);
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
     button {
         padding: 0;
         margin: 0; 
-        width: 40px;
-        height: 40px;
-        border-radius: 0;
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
         background: $mainRed;
+        width: 150px;
+        color: white;
     }
     i {
         font-size: 2rem;
         color: white;
+        left: 63px;
+        
+    }
+    h4 {
+        margin: 0;
     }
 }
