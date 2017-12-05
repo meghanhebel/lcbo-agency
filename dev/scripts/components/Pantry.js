@@ -283,7 +283,7 @@ class Pantry extends React.Component {
                         </div>                  
                         :''}
                 </div>
-                <ul>
+                <ul className="clearfix">
                     {this.state.userPantry.map((wine) => {
                         return (
                             <li key={wine.id} className={`pantryItem clearfix`}>
