@@ -286,29 +286,50 @@ class Pantry extends React.Component {
                 <ul>
                     {this.state.userPantry.map((wine) => {
                         return (
-                            <div key={wine.id} className={`pantryItem`}>
-                                <li>
-                                    <img src={wine.image_typeWine} alt={`image of ${wine.name}`} />
-                                    <figcaption>
-                                        <h3>{wine.name}</h3>
-                                        <h6>
-                                            <span>{wine.varietal}</span>
-                                            <span>{wine.sugar_content}</span>
-                                            <span>${this.displayPrice(wine.price)}</span>
-                                        </h6>
-                                        <h6>{wine.description}</h6>
-                                        <h6>{wine.userRating}</h6>
-                                        <h6>{wine.userNotes}</h6>
-                                    </figcaption>
-                                    <div className="userData">
-                                    
+                            <li key={wine.id} className={`pantryItem clearfix`}>
+                                <div className = "pantry_dataBox clearfix">
+                                    <div className="pantry_imageBox">
+                                        <img 
+                                        src={wine.image_typeWine} 
+                                        alt={`image of ${wine.name}, a ${wine.secondary_category}`}/>
                                     </div>
+
+                                    <div className="wineInfo clearfix">
+                                        <h3 className="wineInfo_name">{wine.name}</h3>
+                                        <div className="clearfix">
+                                            <div className="wineInfo_indicators">
+                                                <div className = "wineType clearfix">
+                                                    <div className={`wineType_indicator ${wine.typeWine}`}></div>
+                                                    <h6 className = "wineType_name">{wine.varietal}</h6>
+                                                </div>
+                                                <div className="wineDetails clearfix">
+                                                    <div className={`wineDetails_indicator clearfix`}><h3>{wine.sugar_content_letters}</h3></div>
+                                                    <h6 className = "wineDetails_name">{wine.sugar_content}</h6> 
+                                                </div>
+                                            </div> {/* end of wineInfo_indicators*/}
+                                            <div className="winePrice">
+                                                <h6>${this.displayPrice(wine.price)}</h6>
+                                            </div>
+                                        </div>
+                                    </div> {/* end of wineInfo*/}
+                                </div> {/* end of Pantry_dataBox*/}
+                                <div>
+                                    <h6 className="wineInfo_description">{wine.description}</h6>
+                                </div>
+                                <div className="userWineInfo">
+                                    <h6>{wine.userRating}</h6>
+                                    <h6>{wine.userNotes}</h6>
                                     <div className="pantryButtons">
                                         <button onClick={() => this.deleteWine(wine.id)}>Delete</button>
                                         <button onClick={() => this.editWine(wine)}>Edit</button>
                                     </div>
-                                </li>
-                            </div>
+                                </div>
+
+                                    {/*  */}
+                                {/* <div className="userData">
+                                
+                                </div> */}
+                            </li>
                         )
                     })}
 
