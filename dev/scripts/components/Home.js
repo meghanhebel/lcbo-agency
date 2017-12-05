@@ -14,7 +14,6 @@ class Home extends React.Component {
         return (
             <Router>
                 <div className="home">
-                    <Navigation />
                     <img className = "logo" src="./public/images/TastingNotesLogo.png" alt=""/>
                     <h3 className="heading_med_white">Rate, save, and discover new wines!</h3>
                     <MainWineImage />

@@ -6,10 +6,17 @@ export default class Navigation extends React.Component {
     constructor(){
         super();
         this.logOutMsg = this.logOutMsg.bind(this);
+        this.logOutCancel = this.logOutCancel.bind(this);
+        this.logOut = this.logOut.bind(this);
     }
     logOutMsg(){
-        logOutMsg = document.getElementById('logOutMsg');
+        const logOutMsg = document.getElementById('logOutMsg');
         logOutMsg.style.display = 'block';
+    }
+    
+    logOutCancel(){
+        const logOutMsg = document.getElementById('logOutMsg');
+        logOutMsg.style.display = 'none';
     }
     
     logOut() { 
@@ -20,7 +27,6 @@ export default class Navigation extends React.Component {
                 console.log(error);
             }
             )
-        this.logOutMsg()
     }
     
     
@@ -40,13 +46,20 @@ export default class Navigation extends React.Component {
                             <div className="circle"></div>
                         </li>
                         <li>
-                            <NavLink exact to="/"
-                                activeClassName = "current" ><div onClick={this.logOut}>Logout</div></NavLink>
+                            <a href="#" onClick={this.logOutMsg}>Logout</a>
                             <div className="circle"></div>
                         </li>
                     </ul>
-                    <div className="logOutMsg" id="logOutMsg">
-                        <h2>You have successfully logged out.</h2>
+                    <div className="logOutMsg modal" id="logOutMsg">
+                        <div className="modalContainer">
+                            <h2>Are you sure you want to log out?</h2>
+                            <NavLink exact to="/" activeClassName="current" >
+                                <button onClick={this.logOut}>Logout</button>
+                            </NavLink>
+                            <a href="">
+                                <button onClick={this.logOutCancel}>Cancel</button>
+                            </a>
+                        </div>
                     </div>
                 </nav>
 
