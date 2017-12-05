@@ -100,6 +100,7 @@
         float: left;
         color: black;
         padding: 20px;
+        position: relative;
         h3 {
             font-size: 1rem;
             font-family: $headingFont;
@@ -108,44 +109,93 @@
     }
 }
 
-.wineType {
-    width: 100%;
-    position: relative;
-    margin: 5px 0;
-    .wineType_indicator {
-        height: 40px;
-        width: 40px;
-        border-radius: 40px;
-        margin: 0;
-        float: left;
+.wineInfo_indicators {
+    width: 60%;
+    float: left;
+    .wineType {
+        width: 100%;
+        position: relative;
+        margin: 5px 0;
+        .wineType_indicator {
+            height: 40px;
+            width: 40px;
+            border-radius: 40px;
+            margin: 0;
+            float: left;
+        }
+        .wineType_name {
+            margin: 0;
+            font-size: 0.8rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 45px;
+            text-align: left;
+    
+        }
     }
-    .wineType_name {
-        margin: 0;
-        font-size: 0.8rem;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 50px;
-        text-align: left;
-
+    .wineDetails {
+        @extend .wineType;
+        .wineDetails_indicator {
+            @extend .wineType_indicator;
+            border: 1px solid grey;
+            h3 {
+                margin: 0 auto;
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+                text-align: center;
+                width: 40px;
+            }
+        }
+        .wineDetails_name {
+            @extend .wineType_name;
+        }
     }
 }
 
-.wineDetails {
-    @extend .wineType;
-    .wineDetails_indicator {
-        @extend .wineType_indicator;
-        border: 1px solid grey;
-        h3 {
-            margin: 0 auto;
-            position: relative;
-            top: 50%;
-            transform: translateY(-50%);
-            text-align: center;
-            width: 40px;
-        }
+.winePrice {
+    width: 40%;
+    height: 95px;
+    float: right;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    border-radius: 95px;
+    text-align: center;
+    h6 {
+        font-size: 1.3rem;
+        margin: 0;
+        color: $mainBlue;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
     }
-    .wineDetails_name {
-        @extend .wineType_name;
+}
+
+.wineStyle_short {
+    font-size: 0.8rem;
+    margin: 30px 0 0;
+}
+.wineStyle_long {
+    font-size: 0.6rem;
+    margin: 20px 0 0;
+}
+
+.addBtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    button {
+        padding: 0;
+        margin: 0; 
+        width: 40px;
+        height: 40px;
+        border-radius: 0;
+        background: $mainRed;
+    }
+    i {
+        font-size: 2rem;
+        color: white;
     }
 }
