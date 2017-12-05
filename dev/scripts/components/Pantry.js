@@ -17,6 +17,9 @@ class Pantry extends React.Component {
             displaySort: false,
             displayFilter: false,
             displaySearch: false,
+            filterType: '',
+            filterSugar: '',
+            restartPantry: [],
         }
         
         this.editWine = this.editWine.bind(this);
@@ -27,6 +30,8 @@ class Pantry extends React.Component {
         this.handleSearchToggle = this.handleSearchToggle.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSorting = this.handleSorting.bind(this);
+        this.handleFilter = this.handleFilter.bind(this);
+        // this.restartPantry = this.restartPantry.bind(this);
 
     }
 
@@ -53,7 +58,8 @@ class Pantry extends React.Component {
             }
             userPantry.reverse();
             this.setState({
-                userPantry
+                userPantry,
+                restartPantry: userPantry
             });
         }); 
     }
@@ -63,7 +69,7 @@ class Pantry extends React.Component {
         if (stateId === 'currentRating') {
             newValue = parseFloat(newValue);
         }
-
+        console.log('stateId', stateId)
         this.setState({
             [stateId]: newValue
         })
@@ -84,6 +90,11 @@ class Pantry extends React.Component {
             this.setState({
                 displayFilter: false,
                 displaySort: false
+            })
+            this.setState({
+                userPantry: this.state.restartPantry,
+                filterType: '',
+                filterSugar: '',
             })
         }
     }
@@ -110,6 +121,7 @@ class Pantry extends React.Component {
     handleSorting(e) {
         const userPantry = this.state.userPantry
         const sortBy = this.state.currentSort;
+        console.log('pantry, sortby', userPantry, sortBy)
         if (userPantry) {
             userPantry.sort(function (a, b) { 
                 return a[sortBy] > b[sortBy]
@@ -119,9 +131,28 @@ class Pantry extends React.Component {
                 userPantry.reverse();
             }
             this.setState({
-                userPantry
+                userPantry,
+                
             });
         }
+        return;
+    }
+    handleFilter(e) {
+        let userPantry = this.state.userPantry
+        const type = this.state.filterType;
+        console.log('type', type)
+        const sugar = this.state.filterSugar;
+        console.log('sugar', sugar)
+        if (type) {
+            userPantry = userPantry.filter(wine => wine.typeWine === type);
+        } 
+        if (sugar) {
+            console.log('sugar fired',sugar);
+            userPantry = userPantry.filter(wine => wine.sugar_content_letters === sugar);
+        } 
+        this.setState({
+            userPantry
+        });
         return;
     }
 
@@ -137,9 +168,10 @@ class Pantry extends React.Component {
         return; 
     }
 
-    cancelEdit(e) {
+    cancelEdit() {
         const modal = document.getElementById('modal');
         modal.style.display = 'none';
+        
     }
         
     deleteWine(wineId) {
@@ -153,6 +185,11 @@ class Pantry extends React.Component {
             }
         });
         return;
+    }
+
+    displayPrice() {
+        
+        return
     }
 
     render() {
@@ -188,11 +225,49 @@ class Pantry extends React.Component {
                                 </div>
                                 : 
                                 <div className="filterBox">
-                                    <h1>filter!</h1>
+                                    <form >
+                                        <p>Select a type of wine:</p>
+                                        <input type="radio" id="red"
+                                            name="type" value="red" onChange={(e) => this.handleChange('filterType', e)}/>
+                                        <label for="red">Red</label>
+
+                                        <input type="radio" id="white"
+                                            name="type" value="white" onChange={(e) => this.handleChange('filterType', e)}/>
+                                        <label for="white">Whie</label>
+
+                                        <input type="radio" id="rose"
+                                            name="type" value="rose" onChange={(e) => this.handleChange('filterType', e)}/>
+                                        <label for="rose">Rose</label>
+
+                                        <p>Select your preferred sugar content:</p>
+                                        <input type="radio" id="extraDry"
+                                            name="sugar" value="XD" onChange={(e) => this.handleChange('filterSugar', e)}/>
+                                        <label for="extraDry">Extra dry</label>
+
+                                        <input type="radio" id="dry"
+                                            name="sugar" value="D" onChange={(e) => this.handleChange('filterSugar', e)}/>
+                                        <label for="dry">Dry</label>
+
+                                        <input type="radio" id="medium"
+                                            name="sugar" value="M" onChange={(e) => this.handleChange('filterSugar', e)}/>
+                                        <label for="medium">Medium</label>
+
+                                        <input type="radio" id="mediumSweet"
+                                            name="sugar" value="MS" onChange={(e) => this.handleChange('filterSugar', e)} />
+                                        <label for="mediumSweet">Medium Sweet</label>
+
+                                        <input type="radio" id="sweet"
+                                            name="sugar" value="S" onChange={(e) => this.handleChange('filterSugar', e)}/>
+                                        <label for="sweet">Sweet</label>
+                                    </form>
                                 </div>
                                 }
-                            <button onClick={(e) => this.handleSearchToggle('cancel', e)}>Cancel</button>
-                            <button onClick={(e) => this.handleSorting('submit', e)}>Submit</button>
+                            <button onClick={(e) => this.handleSearchToggle('cancel', e)}>Clear</button>
+                            {/* <button onClick={this.restartPantry}>Restart</button> */}
+                            {this.state.displaySort ? 
+                                <button onClick={(e) => this.handleSorting('submit', e)}>Submit</button>
+                                : <button onClick={(e) => this.handleFilter('submit', e)}>Submit</button>
+                                }
                         </div>                  
                         :''}
                 </div>
@@ -207,7 +282,7 @@ class Pantry extends React.Component {
                                         <h6>
                                             <span>{wine.varietal}</span>
                                             <span>{wine.sugar_content}</span>
-                                            <span>${wine.price}</span>
+                                            <span>${this.displayPrice()}</span>
                                         </h6>
                                         <h6>{wine.description}</h6>
                                         <h6>{wine.userRating}</h6>
@@ -254,6 +329,7 @@ class Pantry extends React.Component {
                                 </select>
                             </div>
                         </div>
+
                         <div className="modalButtons clearfix">
                             <button>Submit</button>
                             <button onClick={this.cancelEdit}>Cancel</button>
