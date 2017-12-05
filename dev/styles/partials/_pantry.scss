@@ -14,3 +14,70 @@
         text-shadow: 0 0 10px white;
     }
 }
+
+.pantryItem {
+    @extend .wineResult;
+    width: 33.3%;
+    height: 400px;
+    color: black;
+    float: left;
+    border: 1px solid $mainRed;
+}
+
+
+.pantry_dataBox {
+    width: 100%;
+    float: left;
+    .wineInfo {
+        width: 50%;
+        float: left;
+        padding: 20px 20px 20px 0;
+        .wineInfo_name {
+            text-align: left;
+            font-size: 1.2rem;
+        }
+        .wineInfo_indicators {
+            width: 40%;
+        }
+    }
+
+}
+
+.wineInfo_description {
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 20px 0;
+}
+
+.pantry_imageBox {
+    width: 50%;
+    float: left;
+    overflow: hidden;
+    padding: 20px 20px 0;
+    img {
+        width: 100%;
+        max-height: 350px;
+        margin: 0 auto;
+        object-fit: cover;
+    }
+}
+.pantry_textBox {
+    width: 50%;
+    height: 100%;
+    float: left;
+    color: black;
+    padding: 20px;
+    position: relative;
+    h3 {
+        font-size: 1rem;
+        font-family: $headingFont;
+        text-align: left;
+    }
+}
+
+.userWineInfo {
+    width: 100%;
+    float: right;
+}
+
+
