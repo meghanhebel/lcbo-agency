@@ -288,7 +288,7 @@ class Pantry extends React.Component {
                         return (
                             <div key={wine.id} className={`pantryItem`}>
                                 <li>
-                                    <img src={wine.image_thumb_url} alt={`image of ${wine.name}`} />
+                                    <img src={wine.image_typeWine} alt={`image of ${wine.name}`} />
                                     <figcaption>
                                         <h3>{wine.name}</h3>
                                         <h6>

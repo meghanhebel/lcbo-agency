@@ -17,6 +17,7 @@ export default class Results extends React.Component {
         this.nextPageResults = this.nextPageResults.bind(this);
         this.previousPageResults = this.previousPageResults.bind(this);
         this.addToPantry = this.addToPantry.bind(this);
+        this.displayPrice = this.displayPrice.bind(this);
     }
 
     componentDidMount() {
@@ -88,13 +89,16 @@ export default class Results extends React.Component {
             }
             const secondCateg = wine.secondary_category;
             let typeWine = '';
+            let image_typeWine = "";
             if (secondCateg.match(/Red/)) {
                 typeWine = 'red';
-                // image_typeWine = 
+                image_typeWine = '../../public/images/Red.png';
             } else if (secondCateg.match(/White/)) {
                 typeWine = 'white';
+                image_typeWine = '../../public/images/White.png'
             } else {
                 typeWine = 'rose';
+                image_typeWine = '../../public/images/Rose.png'
             }
             const newDate = new Date();
 
@@ -103,7 +107,7 @@ export default class Results extends React.Component {
                 id: wine.id,
                 name: wine.name,
                 image_thumb_url: wine.image_thumb_url,
-                image_typeWine: '',
+                image_typeWine,
                 typeWine,
                 varietal: wine.varietal,
                 sugar_content: wine.sugar_content.substring(4),
@@ -119,6 +123,17 @@ export default class Results extends React.Component {
             wineApp.push(newWine);
         }
     }
+
+    displayPrice(price) {
+        price = price.toString();
+        let priceArray = price.split('.')
+        if (priceArray.length < 2) {
+            price += '.00'
+        } else if (priceArray[1].length < 2) {
+            price += '0'
+        }
+        return price
+    }
     
     render() {
         return (
@@ -128,11 +143,11 @@ export default class Results extends React.Component {
                     const secondCateg = wine.secondary_category;
                     let typeWine = '';
                         if (secondCateg.match(/Red/)) {
-                            typeWine = 'red';
+                            typeWine = 'red'
                         } else if (secondCateg.match(/White/)) {
-                            typeWine = 'white';
-                        } else {
-                            typeWine = 'rose';
+                            typeWine = 'white'
+                        } else  {
+                            typeWine = 'rose'
                         }
                     return (
                         <li key={wine.id} className={`wineResult clearfix`}>
@@ -153,7 +168,7 @@ export default class Results extends React.Component {
                                         </div>
                                     </div>
                                     <div className="winePrice">
-                                        <h6>${Math.round(wine.price_in_cents * .01 * 100) / 100}</h6>
+                                        <h6>${this.displayPrice(Math.round(wine.price_in_cents * .01 * 100) / 100)}</h6>
                                     </div>
                                 </div>
                                 {(wine.description || wine.style) ? (wine.description ? <h6 className = "wineStyle_long">{wine.description}</h6> : <h6 className = "wineStyle_short">{wine.style}</h6>) : ''} 
