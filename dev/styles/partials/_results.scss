@@ -76,18 +76,6 @@
     @include tablet-only {
         width: 100%;
     }
-    .arrow-right {
-        width: 0; 
-        height: 0; 
-        border-top: 30px solid transparent;
-        border-bottom: 30px solid transparent; 
-        border-left: 30px solid transparent;
-        left: 50%;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 1;
-        position: absolute; 
-    }
     .wineResult_imageBox {
         width: 40%;
         float: left;
@@ -131,7 +119,7 @@
 }
 
 .wineInfo_indicators {
-    width: 60%;
+    width: 40%;
     float: left;
     .wineType {
         width: 100%;
@@ -176,7 +164,7 @@
 }
 
 .winePrice {
-    width: 40%;
+    width: 95px;
     height: 95px;
     float: right;
     border: 3px solid rgba(0, 0, 0, 0.2);
