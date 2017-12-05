@@ -34,7 +34,7 @@ export default class Navigation extends React.Component {
         return(
 
                 <nav className="navigation">
-                    <ul className="navList">
+                    <ul className="navList clearfix">
                         <li>
                             <NavLink to="/pantry"
                                 activeClassName = "current">Pantry</NavLink>

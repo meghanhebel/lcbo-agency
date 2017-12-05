@@ -1,6 +1,6 @@
 .navigation {
     float: right;
-    margin: 0 10px;
+    margin: 0 30px;
     position: absolute;
     top: 10px;
     right: 0;
@@ -8,12 +8,16 @@
         padding: 0px;
     }
     li {
+        float: left;
         list-style: none;
         font-size: 1rem;
         text-align: right;
         padding: 5px 5px;
         font-family: $headingFont;
         a {
+            width: 100%;
+            height: 100%;
+            display: inline-block;
             color: black;
             text-decoration: none;
             transition: font-size 0.4s ease-in-out;
@@ -40,6 +44,6 @@
 
     // active style
     .current {
-        font-size: 1.2rem;
+        display: none;
     }
 }
