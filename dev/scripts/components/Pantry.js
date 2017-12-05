@@ -171,6 +171,10 @@ class Pantry extends React.Component {
     cancelEdit() {
         const modal = document.getElementById('modal');
         modal.style.display = 'none';
+        this.setState({
+            currentRating: '',
+            currentNotes: ''
+        })
         
     }
         
