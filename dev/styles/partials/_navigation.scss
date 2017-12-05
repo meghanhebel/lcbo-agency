@@ -5,26 +5,32 @@
     top: 10px;
     right: 0;
     ul {
-        padding: 0px;
+        padding: 10px 10px 0 0;
     }
     li {
         float: left;
         list-style: none;
-        font-size: 1rem;
+        font-size: 0.8rem;
         text-align: right;
         padding: 5px 5px;
         font-family: $headingFont;
+        transition: text-shadow 0.3s ease-in-out;
+        &:hover {
+                text-shadow: 0 0 1px lightgray;
+        }
         a {
             width: 100%;
             height: 100%;
             display: inline-block;
             color: black;
             text-decoration: none;
-            transition: font-size 0.4s ease-in-out;
             text-shadow: 0 0 2px $mainWhite;
-            &:hover {
-                font-size: 1.2rem;
-            }
+        }
+        h4{
+            position: relative;
+            top: -10px;
+            margin: 0;
+            color: black;
         }
         // .circle {
         //     width: 10px;
@@ -37,6 +43,9 @@
         //     transform: translateY(50%);
         // }
     }
+    img{
+        width: 40px;
+    }
     
     #logOutMsg{
         display: none;
@@ -44,6 +53,6 @@
 
     // active style
     .current {
-        display: none;
+        // display: none;
     }
 }

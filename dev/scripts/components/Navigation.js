@@ -36,17 +36,27 @@ export default class Navigation extends React.Component {
                 <nav className="navigation">
                     <ul className="navList clearfix">
                         <li>
-                            <NavLink to="/pantry"
-                                activeClassName = "current">Pantry</NavLink>
+                            <NavLink to="/pantry" activeClassName="current">
+                            {/* winery SVG Created by Made from the Noun Project */}
+                                <img src="./public/images/rack.svg" alt="" />
+                            </NavLink>
+                            <h4>Pantry</h4>
                             <div className="circle"></div>
                         </li>
                         <li>
-                            <NavLink to="/marketplace"
-                                activeClassName = "current">Search</NavLink>
+                            <NavLink to="/marketplace"activeClassName = "current">
+                                {/* Market SVG Created by Made from the Noun Project */}
+                                <img src="./public/images/market.svg" alt=""/>
+                            </NavLink>
+                            <h4>Search</h4>
                             <div className="circle"></div>
                         </li>
                         <li>
-                            <a href="#" onClick={this.logOutMsg}>Logout</a>
+                            <a href="#" onClick={this.logOutMsg}>
+                                {/* truck SVG Created by Made from the Noun Project */}
+                                <img src="./public/images/truck.svg" alt="" />
+                            </a>
+                            <h4>Logout</h4>
                             <div className="circle"></div>
                         </li>
                     </ul>
