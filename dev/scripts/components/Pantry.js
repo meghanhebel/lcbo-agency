@@ -20,6 +20,8 @@ class Pantry extends React.Component {
             filterType: '',
             filterSugar: '',
             restartPantry: [],
+            cancelEditRating: 0.5,
+            cancelEditNotes: ''
         }
         
         this.editWine = this.editWine.bind(this);
@@ -69,7 +71,6 @@ class Pantry extends React.Component {
         if (stateId === 'currentRating') {
             newValue = parseFloat(newValue);
         }
-        console.log('stateId', stateId)
         this.setState({
             [stateId]: newValue
         })
@@ -121,7 +122,6 @@ class Pantry extends React.Component {
     handleSorting(e) {
         const userPantry = this.state.userPantry
         const sortBy = this.state.currentSort;
-        console.log('pantry, sortby', userPantry, sortBy)
         if (userPantry) {
             userPantry.sort(function (a, b) { 
                 return a[sortBy] > b[sortBy]
@@ -140,14 +140,11 @@ class Pantry extends React.Component {
     handleFilter(e) {
         let userPantry = this.state.userPantry
         const type = this.state.filterType;
-        console.log('type', type)
         const sugar = this.state.filterSugar;
-        console.log('sugar', sugar)
         if (type) {
             userPantry = userPantry.filter(wine => wine.typeWine === type);
         } 
         if (sugar) {
-            console.log('sugar fired',sugar);
             userPantry = userPantry.filter(wine => wine.sugar_content_letters === sugar);
         } 
         this.setState({
@@ -163,7 +160,10 @@ class Pantry extends React.Component {
         this.setState({
             currentWine: wine.id,
             currentRating: wine.userRating,
-            currentNotes: wine.userNotes
+            currentNotes: wine.userNotes,
+            cancelEditRating: wine.userRating,
+            cancelEditNotes: wine.userNotes,
+
         })
         return; 
     }
@@ -171,6 +171,12 @@ class Pantry extends React.Component {
     cancelEdit() {
         const modal = document.getElementById('modal');
         modal.style.display = 'none';
+        const currentRating = this.state.cancelEditRating;
+        const currentNotes = this.state.cancelEditNotes;
+        this.setState({
+            currentRating,
+            currentNotes
+        })
         
     }
         
