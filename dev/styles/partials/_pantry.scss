@@ -22,10 +22,28 @@
 .pantryItem {
     @extend .wineResult;
     width: 33.3%;
-    height: 400px;
+    height: 450px;
     color: black;
     float: left;
     border: 1px solid $mainRed;
+    .pantryButtons {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    button {
+        text-transform: uppercase;
+        width: 75px;
+        border-radius: 2px;
+        color: white;
+    }
+    .editBtn {
+        background: $mainBlue;
+    }
+    .deleteBtn {
+        background: $mainRed;
+    }
 }
 
 
@@ -51,6 +69,7 @@
     font-size: 0.8rem;
     margin: 0;
     padding: 20px 0;
+    // height: 40px;
 }
 
 .pantry_imageBox {
@@ -82,6 +101,36 @@
 .userWineInfo {
     width: 100%;
     float: right;
+    .userWineInfo_rating {
+        width: 30%;
+        float: left;
+        background: gold;
+        height: 100px;
+        width: 100px;
+        margin-left: 20px;
+        -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        h6 {
+            margin: 0;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 0.8rem;
+        }
+        
+    }
+    .userWineInfo_notes {
+        width: 70%;
+        float: left;
+        padding: 0 10px;
+        height: 100px;
+        h6 {
+            margin: 0;
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
 }
 
 
