@@ -17,10 +17,10 @@ export default class Search extends React.Component {
         return (
             <div className="clearfix search">
                 <Heading />
-                <Navigation />
                 <h1>Search</h1>
                 {/* <h3 className="heading_med_white">Rate, save, and discover new wines!</h3> */}
                 <MainWineImage />
+                <Navigation />
                 <SearchInput makeDataCall = {this.props.makeDataCall}
                 />
             </div>
