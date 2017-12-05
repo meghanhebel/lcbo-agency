@@ -81,6 +81,14 @@
 .userWineInfo {
     width: 100%;
     float: right;
+    .userWineInfo_rating {
+        width: 30%;
+        float: left;
+    }
+    .userWineInfo_notes {
+        width: 70%;
+        float: left;
+    }
 }
 
 

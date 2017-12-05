@@ -316,13 +316,13 @@ class Pantry extends React.Component {
                                 <div>
                                     <h6 className="wineInfo_description">{wine.description}</h6>
                                 </div>
-                                <div className="userWineInfo">
-                                    <h6>{wine.userRating}</h6>
-                                    <h6>{wine.userNotes}</h6>
-                                    <div className="pantryButtons">
-                                        <button onClick={() => this.deleteWine(wine.id)}>Delete</button>
-                                        <button onClick={() => this.editWine(wine)}>Edit</button>
-                                    </div>
+                                <div className="userWineInfo clearfix">
+                                    <h6 className="userWineInfo_rating">{wine.userRating}</h6>
+                                    <h6 className="userWineInfo_notes">{wine.userNotes}</h6>
+                                </div>
+                                <div className="pantryButtons">
+                                    <button onClick={() => this.deleteWine(wine.id)}>Delete</button>
+                                    <button onClick={() => this.editWine(wine)}>Edit</button>
                                 </div>
 
                                     {/*  */}
