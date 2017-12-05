@@ -32,8 +32,9 @@ export default class LogIn extends React.Component {
         this.logOut = this.logOut.bind(this);
         this.showLogIn = this.showLogIn.bind(this);
         this.showSignUp = this.showSignUp.bind(this);
+        this.confirmLogIn = this.confirmLogIn.bind(this);
     }
-    // sets the create___ states to value of corresponding inputs
+    
     handleChange(event, field){
         const newState = Object.assign({},this.state);
         newState.logIn[field] =  event.target.value;
@@ -49,7 +50,7 @@ export default class LogIn extends React.Component {
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .catch ((error) => console.log(error.code, error.message));
         
-        alert(`New user ${this.state.logIn.createEmail} has been created. You may now Log In.`);
+        // alert(`New user ${this.state.logIn.createEmail} has been created. You may now Log In.`);
         
         this.setState({
             showLogIn: true,
@@ -63,7 +64,7 @@ export default class LogIn extends React.Component {
 
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((success) => {
-                alert(`Now logged in as ${success.email}`);
+                // alert(`Now logged in as ${success.email}`);
             }), (error) => {
                 console.log(error);
             }
@@ -123,6 +124,11 @@ export default class LogIn extends React.Component {
         })
     }
 
+    confirmLogIn(){
+        const logConfirm = document.getElementById('logConfirm');
+        logConfirm.style.display = 'block';
+    }
+
    
 
     render(){
@@ -137,14 +143,13 @@ export default class LogIn extends React.Component {
                     <button onClick={this.showLogIn}>Log In</button>
                 </div>
                 }
+
             
                { this.state.logIn.loggedIn ? 
-                    <div className="LogInLinks clearfix">   
+                    <div className="LogInLinks clearfix">  
+                        <h2>Welcome!</h2> 
                         <a href="/pantry" className="pantryBtn buttonLeft">Go to My Pantry</a>
                         <a href="/marketplace" className="marketBtn buttonRight">Search Marketplace</a>
-                        {/* <div className="logOutBtn">
-                            <button onClick={this.logOut}>Log Out</button>
-                        </div> */}
                     </div>
                     
                     
@@ -154,10 +159,7 @@ export default class LogIn extends React.Component {
                         { this.state.showLogIn ?
                                 <div className="logInBlock logInBlock--returningUser">
                                     <form onSubmit={(event) => this.logIn(event)}>
-                                        {/* <h3>Sign In</h3> */}
-                                        {/* <label htmlFor="password" className="hidden">email</label> */}
                                         <input type="email" name="email" placeholder="email" onChange={(event) => this.handleChange(event, 'userEmail')} />
-                                        {/* <label htmlFor="password" className="hidden">password</label> */}
                                     <input type="password" minLength="6" name="password" placeholder="password" onChange={(event) => this.handleChange(event, 'userPassword')} />
                                         <button>Sign In</button>
                                     </form>
@@ -168,14 +170,12 @@ export default class LogIn extends React.Component {
                         }
                         { this.state.showSignUp ?
                                 <div className="logInBlock logInBlock--newUser">
-                                    {/* <h4>Don't have an account yet?</h4>
-                                    <h3>Sign Up Here</h3> */}
+                                    <h4>Don't have an account yet?</h4>
+                                    <h3>Sign Up Here</h3>
                                     <form onSubmit={(event) => this.newUser(event)}>
-                                        {/* <label htmlFor="password" className="hidden">email</label> */}
                                         <input type="email" name="email" placeholder="email" onChange={(event) => this.handleChange(event, 'createEmail')} />
-                                        {/* <label htmlFor="password" className="hidden">password</label> */}
                                         <input type="password" minLength="6" name="password" placeholder="password" onChange={(event) => this.handleChange(event, 'createPassword')} />
-                                        <button>Create New Account</button>
+                                        <button onClick={this.confirmLogIn}>Create New Account</button>
                                     </form>
                                 </div>  
                             :

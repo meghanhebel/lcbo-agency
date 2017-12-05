@@ -12,10 +12,8 @@ export default class Heading extends React.Component {
 
     render() {
         return(
-            <div className="headingBg">
                 <div className="heading">
                     <img className = "logo" src="./public/images/TastingNotesLogo.png" alt=""/>
-                </div>
             </div>
         )
     }

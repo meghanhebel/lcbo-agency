@@ -3,22 +3,38 @@ import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-rou
 import firebase from 'firebase'
 
 export default class Navigation extends React.Component {
+    constructor(){
+        super();
+        this.logOutMsg = this.logOutMsg.bind(this);
+        this.logOutCancel = this.logOutCancel.bind(this);
+        this.logOut = this.logOut.bind(this);
+    }
+    logOutMsg(){
+        const logOutMsg = document.getElementById('logOutMsg');
+        logOutMsg.style.display = 'block';
+    }
     
-    logOut() {
+    logOutCancel(){
+        const logOutMsg = document.getElementById('logOutMsg');
+        logOutMsg.style.display = 'none';
+    }
+    
+    logOut() { 
         firebase.auth().signOut()
             .then((success) => {
-                alert('You have successfully logged out')
+
             }, (error) => {
                 console.log(error);
             }
             )
     }
     
+    
     render() {
         return(
 
                 <nav className="navigation">
-                    <ul>
+                    <ul className="navList clearfix">
                         <li>
                             <NavLink to="/pantry"
                                 activeClassName = "current">Pantry</NavLink>
@@ -26,15 +42,25 @@ export default class Navigation extends React.Component {
                         </li>
                         <li>
                             <NavLink to="/marketplace"
-                                activeClassName = "current">Search Marketplace</NavLink>
+                                activeClassName = "current">Search</NavLink>
                             <div className="circle"></div>
                         </li>
                         <li>
-                            <NavLink exact to="/"
-                                activeClassName = "current" ><div onClick={this.logOut}>Logout</div></NavLink>
+                            <a href="#" onClick={this.logOutMsg}>Logout</a>
                             <div className="circle"></div>
                         </li>
                     </ul>
+                    <div className="logOutMsg modal" id="logOutMsg">
+                        <div className="modalContainer">
+                            <h2>Are you sure you want to log out?</h2>
+                            <NavLink exact to="/" activeClassName="current" >
+                                <button onClick={this.logOut}>Logout</button>
+                            </NavLink>
+                            <a href="">
+                                <button onClick={this.logOutCancel}>Cancel</button>
+                            </a>
+                        </div>
+                    </div>
                 </nav>
 
                
