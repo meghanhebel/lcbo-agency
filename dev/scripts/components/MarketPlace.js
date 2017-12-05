@@ -46,7 +46,7 @@ export default class MarketPlace extends React.Component {
         }).then((res) => {
             console.log('result from API ',res.data.result);
             this.setState({
-                wineResults: res.data.result.filter(wine => wine.primary_category === "Wine"),
+                wineResults: res.data.result.filter(wine => (wine.primary_category === "Wine" && wine.sugar_content)),
                 showReply: true
             });
             console.log('scrolling is initiated')
