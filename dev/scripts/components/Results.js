@@ -151,6 +151,12 @@ export default class Results extends React.Component {
                         }
                     return (
                         <li key={wine.id} className={`wineResult clearfix`}>
+                            <div className="wineResultModal">
+                                <NavLink className="addBtn" to="/pantry"><button onClick={() => { this.addToPantry(wine) }}>
+                                    <i className="fa fa-plus" aria-hidden="true"></i>
+                                    <h4>Add to My Pantry</h4> 
+                                </button></NavLink>
+                            </div>
                             <div className="wineResult_imageBox">
                                 <img src={wine.image_thumb_url} alt={`image of ${wine.name}, a ${wine.secondary_category}`}/>
                             </div>
@@ -176,7 +182,6 @@ export default class Results extends React.Component {
                                     --> check if it has desc, display that, else style
                                     --> if it doesnt have either, display nothing */}
                             </div>
-                            <NavLink className="addBtn" to="/pantry"><button onClick={() => {this.addToPantry(wine)}}><i className="fa fa-plus" aria-hidden="true"></i></button></NavLink>
                         </li> 
                             
                 )})}
