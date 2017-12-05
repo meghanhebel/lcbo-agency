@@ -18,6 +18,9 @@ export default class Results extends React.Component {
         this.previousPageResults = this.previousPageResults.bind(this);
         this.addToPantry = this.addToPantry.bind(this);
         this.displayPrice = this.displayPrice.bind(this);
+        this.logOutMsg = this.logOutMsg.bind(this);
+        this.logOutCancel = this.logOutCancel.bind(this);
+        this.logOut = this.logOut.bind(this);
     }
 
     componentDidMount() {
@@ -128,6 +131,24 @@ export default class Results extends React.Component {
         }
         return price
     }
+    logOutMsg() {
+        const logOutMsg = document.getElementById('logOutMsg');
+        logOutMsg.style.display = 'block';
+    }
+    logOutCancel() {
+        const logOutMsg = document.getElementById('logOutMsg');
+        logOutMsg.style.display = 'none';
+    }
+
+    logOut() {
+        firebase.auth().signOut()
+            .then((success) => {
+
+            }, (error) => {
+                console.log(error);
+            }
+            )
+    }
     
     render() {
         return (
@@ -180,12 +201,39 @@ export default class Results extends React.Component {
                             
                 )})}
                 </ul>
-                <footer>
-                    <NavLink to="/pantry" className="footerLink">Pantry</NavLink>
+                <footer className="clearfix">
                     <button className="previous buttonLeft" onClick={this.previousPageResults}>previous</button>
+                    <ul className="footerLinks">
+                        <li className="pantryLinkFooter">
+                            <NavLink to="/pantry" activeClassName="current">
+                                {/* winery SVG Created by Made from the Noun Project */}
+                                <img src="./public/images/rack.svg" alt="" />
+                                <h4>Pantry</h4>
+                            </NavLink>
+                        </li>
+                        <li className="logOutLinkFooter">
+                            <a href="#" onClick={this.logOutMsg}>
+                                {/* truck SVG Created by Made from the Noun Project */}
+                                <img src="./public/images/truck.svg" alt="" />
+                                <h4>Logout</h4>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
                     <button className="next buttonRight" onClick={this.nextPageResults}>next</button>
-                    <NavLink className="footerLink" to="/">Log Out</NavLink>
                 </footer>
+                <div className="logOutMsg modal" id="logOutMsg">
+                    <div className="modalContainer">
+                        <h2>Are you sure you want to log out?</h2>
+                        <NavLink exact to="/" activeClassName="current" >
+                            <button onClick={this.logOut}>Logout</button>
+                        </NavLink>
+                        <a href="">
+                            <button onClick={this.logOutCancel}>Cancel</button>
+                        </a>
+                    </div>
+                </div>
             </div>
         );
     }
