@@ -34,7 +34,7 @@ export default class LogIn extends React.Component {
         this.showSignUp = this.showSignUp.bind(this);
         this.confirmLogIn = this.confirmLogIn.bind(this);
     }
-    // sets the create___ states to value of corresponding inputs
+    
     handleChange(event, field){
         const newState = Object.assign({},this.state);
         newState.logIn[field] =  event.target.value;
@@ -159,10 +159,7 @@ export default class LogIn extends React.Component {
                         { this.state.showLogIn ?
                                 <div className="logInBlock logInBlock--returningUser">
                                     <form onSubmit={(event) => this.logIn(event)}>
-                                        {/* <h3>Sign In</h3> */}
-                                        {/* <label htmlFor="password" className="hidden">email</label> */}
                                         <input type="email" name="email" placeholder="email" onChange={(event) => this.handleChange(event, 'userEmail')} />
-                                        {/* <label htmlFor="password" className="hidden">password</label> */}
                                     <input type="password" minLength="6" name="password" placeholder="password" onChange={(event) => this.handleChange(event, 'userPassword')} />
                                         <button>Sign In</button>
                                     </form>
@@ -176,9 +173,7 @@ export default class LogIn extends React.Component {
                                     <h4>Don't have an account yet?</h4>
                                     <h3>Sign Up Here</h3>
                                     <form onSubmit={(event) => this.newUser(event)}>
-                                        {/* <label htmlFor="password" className="hidden">email</label> */}
                                         <input type="email" name="email" placeholder="email" onChange={(event) => this.handleChange(event, 'createEmail')} />
-                                        {/* <label htmlFor="password" className="hidden">password</label> */}
                                         <input type="password" minLength="6" name="password" placeholder="password" onChange={(event) => this.handleChange(event, 'createPassword')} />
                                         <button onClick={this.confirmLogIn}>Create New Account</button>
                                     </form>
