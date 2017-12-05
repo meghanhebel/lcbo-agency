@@ -136,29 +136,32 @@ export default class Results extends React.Component {
                         }
                     return (
                         <li key={wine.id} className={`wineResult clearfix`}>
-                            <div className="arrow-right"></div>
                             <div className="wineResult_imageBox">
                                 <img src={wine.image_thumb_url} alt={`image of ${wine.name}, a ${wine.secondary_category}`}/>
                             </div>
                             <div className="wineResult_textBox">
-                                <figcaption>
-                                    <h3>{wine.name}</h3>
-                                    <div className = "wineType clearfix">
-                                        <div className={`wineType_indicator ${typeWine}`}></div>
-                                        <h6 className = "wineType_name">{wine.varietal}</h6>
+                                <h3>{wine.name}</h3>
+                                <div className="wineInfo clearfix">
+                                    <div className="wineInfo_indicators">
+                                        <div className = "wineType clearfix">
+                                            <div className={`wineType_indicator ${typeWine}`}></div>
+                                            <h6 className = "wineType_name">{wine.varietal}</h6>
+                                        </div>
+                                        <div className="wineDetails clearfix">
+                                            <div className={`wineDetails_indicator`}><h3>{wine.sugar_content.substring(0,2).replace(/ /g,'')}</h3></div>
+                                            <h6 className = "wineDetails_name">{wine.sugar_content.substring(4)}</h6> 
+                                        </div>
                                     </div>
-                                    <div className="wineDetails clearfix">
-                                        <div className={`wineDetails_indicator`}><h3>{wine.sugar_content.substring(0,2).replace(/ /g,'')}</h3></div>
-                                        <h6 className = "wineDetails_name">{wine.sugar_content.substring(4)}</h6> 
+                                    <div className="winePrice">
+                                        <h6>${Math.round(wine.price_in_cents * .01 * 100) / 100}</h6>
                                     </div>
-                                    <h6>${Math.round(wine.price_in_cents * .01 * 100) / 100}</h6>
-                                    {(wine.description || wine.style) ? (wine.description ? <h6>{wine.description}</h6> : <h6>{wine.style}</h6>) : ''} 
-                                    {/* nested ternary-- if wine has a description OR a style 
-                                        --> check if it has desc, display that, else style
-                                        --> if it doesnt have either, display nothing */}
-                                <NavLink to="/pantry"><button onClick={() => {this.addToPantry(wine)}}>Add to pantry</button></NavLink>
-                                </figcaption>
+                                </div>
+                                {(wine.description || wine.style) ? (wine.description ? <h6 className = "wineStyle_long">{wine.description}</h6> : <h6 className = "wineStyle_short">{wine.style}</h6>) : ''} 
+                                {/* nested ternary-- if wine has a description OR a style 
+                                    --> check if it has desc, display that, else style
+                                    --> if it doesnt have either, display nothing */}
                             </div>
+                            <NavLink className="addBtn" to="/pantry"><button onClick={() => {this.addToPantry(wine)}}><i className="fa fa-plus" aria-hidden="true"></i></button></NavLink>
                         </li> 
                             
                 )})}
