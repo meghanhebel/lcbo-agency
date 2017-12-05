@@ -3,6 +3,7 @@ import Heading from './Heading'
 import MainWineImage from './MainWineImage'
 import LogIn from './LogIn'
 import Pantry from './Pantry'
+import Navigation from './Navigation'
 import { BrowserRouter as Router, Route, Link, NavLink, Switch } from 'react-router-dom';
 
 class Home extends React.Component {
