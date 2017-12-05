@@ -1,3 +1,4 @@
+$mobile-xsml-width: 430px;
 $mobile-width: 481px;
 $tablet-width: 769px;
 $desktop-width-small: 940px;
@@ -31,6 +32,12 @@ $desktop-width-large: 1200px;
 @mixin mobile {
     @media (max-width: #{$mobile-width} - 1) {
         @content;
+    }
+}
+
+@mixin mobile-xsml {
+    @media (max-width: #{$mobile-xsml-width}) {
+        @content
     }
 }
 

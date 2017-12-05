@@ -114,7 +114,7 @@ export default class Results extends React.Component {
                 description: wineDesc,
                 secondary_category: wine.secondary_category,
                 userRating: 0,
-                userNotes: '',
+                userNotes: 'Click EDIT to add your notes!',
                 price
             };
             wineApp.push(newWine);
