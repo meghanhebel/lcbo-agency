@@ -31,7 +31,7 @@ class Pantry extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleSorting = this.handleSorting.bind(this);
         this.handleFilter = this.handleFilter.bind(this);
-        // this.restartPantry = this.restartPantry.bind(this);
+        this.displayPrice = this.displayPrice.bind(this);
 
     }
 
@@ -187,9 +187,15 @@ class Pantry extends React.Component {
         return;
     }
 
-    displayPrice() {
-        
-        return
+    displayPrice(price) {
+        price = price.toString();
+        let priceArray = price.split('.')
+        if (priceArray.length < 2) {
+            price += '.00'
+        } else if (priceArray[1].length < 2) {
+            price += '0'
+        }
+        return price
     }
 
     render() {
@@ -262,8 +268,8 @@ class Pantry extends React.Component {
                                     </form>
                                 </div>
                                 }
-                            <button onClick={(e) => this.handleSearchToggle('cancel', e)}>Clear</button>
-                            {/* <button onClick={this.restartPantry}>Restart</button> */}
+                            <button onClick={(e) => this.handleSearchToggle('clear', e)}>Clear</button>
+
                             {this.state.displaySort ? 
                                 <button onClick={(e) => this.handleSorting('submit', e)}>Submit</button>
                                 : <button onClick={(e) => this.handleFilter('submit', e)}>Submit</button>
@@ -282,7 +288,7 @@ class Pantry extends React.Component {
                                         <h6>
                                             <span>{wine.varietal}</span>
                                             <span>{wine.sugar_content}</span>
-                                            <span>${this.displayPrice()}</span>
+                                            <span>${this.displayPrice(wine.price)}</span>
                                         </h6>
                                         <h6>{wine.description}</h6>
                                         <h6>{wine.userRating}</h6>
