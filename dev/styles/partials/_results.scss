@@ -97,7 +97,12 @@
             max-height: 350px;
             margin: 0 auto;
             object-fit: cover;
+            @include tablet-only {
+                height: 100%;
+                width: auto;
+            }
         }
+        
     }
     .wineResult_textBox {
         width: 60%;
