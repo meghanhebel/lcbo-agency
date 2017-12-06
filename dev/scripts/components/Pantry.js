@@ -314,7 +314,7 @@ class Pantry extends React.Component {
                                     </div> {/* end of wineInfo*/}
                                 </div> {/* end of Pantry_dataBox*/}
                                 <div>
-                                    <h6 className="wineInfo_description">{wine.description}</h6>
+                                    <h6 className="wineInfo_description clearfix">{wine.description}</h6>
                                 </div>
                                 <div className="userWineInfo clearfix">
                                     <div className="userWineInfo_rating">

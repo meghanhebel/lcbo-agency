@@ -37,10 +37,15 @@ $desktop-width-large: 1200px;
 
 @mixin mobile-xsml {
     @media (max-width: #{$mobile-xsml-width}) {
-        @content
+        @content;
     }
 }
 
+@mixin desktop-lrg-only {
+    @media (max-width: 1375px) {
+        @content;
+    }
+}
 
 @mixin desktop-med-only {
     @media (max-width: #{$desktop-width-large}) {
@@ -56,6 +61,12 @@ $desktop-width-large: 1200px;
 
 @mixin tablet-only {
     @media (max-width: #{$tablet-width}) {
+        @content;
+    }
+}
+
+@mixin mobile-only {
+    @media (max-width: #{$mobile-width}) {
         @content;
     }
 }
