@@ -1,0 +1,104 @@
+.searchPantry{
+    border: 1px solid $mainRed;
+    color: black;
+    button{
+        border: none;
+        color: black;
+        border-radius: 0px;
+    }
+}
+
+.searchPantryButtons{
+    float: left;
+    width: 200px;
+    background: white;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    button {
+        width: 100px;
+        font-size: 1rem;
+        margin: 0;
+        background: white;
+        border: 1px solid white;
+        &:first-child {
+            border-right: 1px solid rgba(0,0,0,0.1);
+        }
+        &:hover, :focus, :active{
+            background: $mainRed;
+            border: 1px solid white;
+            border-bottom: 1px solid transparent;
+            color: white;
+        }
+    }
+}
+
+.searchSubmitButtons {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+    button {
+        float: left;
+        width: 75px;
+        background: $mainBlue;
+        color: white;
+    }
+}
+
+.searchBox{
+    float: left;
+    width: 100%;
+    padding: 30px 20px 30px 100px;
+    @include tablet-only {
+        padding: 20px;
+    }
+    background: white;
+    select {
+        height: 30px;
+        width: 100px;
+        font-size: 0.8rem;
+        margin-right: 10px;
+        // @include mobile-xsml {
+        //     margin-right: 80px;
+        // }
+    }
+    label {
+        @extend select;
+        width: 60px;
+        text-align: left;
+        margin-right: 5px;
+    }
+}
+
+.sortBox{
+    float: left;
+}
+
+.filterBox{
+    float: left;
+    white-space: nowrap;
+    p {
+        text-align: left;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+    }
+    input, label {
+        float: left;
+        width: auto;
+        margin-right: 20px;
+        @include tablet-only {
+            margin-right: 10px;
+            float: center;
+        }
+    }
+    input {
+        margin: 0 5px 0 0;
+        @include tablet-only {
+            margin: 0;
+        }
+    }
+    @include tablet-only {
+        label {
+            max-width: 97px;
+        }
+    }
+}

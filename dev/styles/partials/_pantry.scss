@@ -1,27 +1,4 @@
-.searchPantry{
-    background: $mainWhite;
-    color: black;
-    button{
-        border: none;
-        color: black;
-        border-radius: 0px;
-    }
-}
-.searchPantryButtons{
-    float: left;
-}
-.searchBox{
-    float: left;
-  
-}
-.sortBox{
-    float: left;
-   
-}
-.filterBox{
-    float: left;
 
-}
 .userPantry{
     height: 100vh;
     .logo{
@@ -47,6 +24,7 @@
     }
     ul {
         padding: 0;
+        margin: 0;
     }
 }
 
