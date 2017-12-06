@@ -365,6 +365,7 @@ class Pantry extends React.Component {
                                 value={this.state.currentRating}
                                     selected={this.state.currentRating}
                                     onChange={(e) => this.handleChange('currentRating', e)}>
+                                        <option selected='true' disabled='disabled'  value='0'>No Rating</option>
                                     <option value='5'>5</option>
                                     <option value='4.5'>4.5</option>
                                     <option value='4'>4</option>
