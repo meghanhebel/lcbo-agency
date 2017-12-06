@@ -219,67 +219,78 @@ class Pantry extends React.Component {
                         <div className="searchBox clearfix">
                             {this.state.displaySort ?
                                 <div className="sortBox">
-                                    <label htmlFor="sort">Sort by</label>
-                                    <select id="sort" 
-                                    value={this.state.currentSort}
-                                    onChange={(e) => this.handleChange('currentSort', e)}>
-                                        <option value="price">Price</option>
-                                        <option value="date">Date Added</option>
-                                        <option value="userRating">My Rating</option>
-                                    </select>
-
-                                    <label htmlFor="order">Order by</label>
-                                    <select id="order" value={this.state.currentOrder}
-                                        onChange={(e) => this.handleChange('currentOrder', e)}>
-                                        <option value="ascending">Ascending</option>
-                                        <option value="descending">Descending</option>
-                                    </select>
+                                    <div className="sortBox_option clearfix">
+                                        <label htmlFor="sort">Sort by:</label>
+                                        <select id="sort" 
+                                        value={this.state.currentSort}
+                                        onChange={(e) => this.handleChange('currentSort', e)}>
+                                            <option value="price">Price</option>
+                                            <option value="date">Date Added</option>
+                                            <option value="userRating">My Rating</option>
+                                        </select>
+                                    </div>
+                                    <div className="sortBox_option clearfix">
+                                        <label htmlFor="order">Order by:</label>
+                                        <select id="order" value={this.state.currentOrder}
+                                            onChange={(e) => this.handleChange('currentOrder', e)}>
+                                            <option value="ascending">Ascending</option>
+                                            <option value="descending">Descending</option>
+                                        </select>
+                                    </div>
                                 </div>
                                 : 
-                                <div className="filterBox">
+                                <div className="filterBox clearfix">
                                     <form >
-                                        <p>Select a type of wine:</p>
-                                        <input type="radio" id="red"
-                                            name="type" value="red" onChange={(e) => this.handleChange('filterType', e)}/>
-                                        <label for="red">Red</label>
+                                        <div className="filter_wineType clearfix">
+                                            <p>Select a type of wine:</p>
+                                            <input type="radio" id="red"
+                                                name="type" value="red" onChange={(e) => this.handleChange('filterType', e)}/>
+                                            <label for="red">Red</label>
 
-                                        <input type="radio" id="white"
-                                            name="type" value="white" onChange={(e) => this.handleChange('filterType', e)}/>
-                                        <label for="white">Whie</label>
+                                            <input type="radio" id="white"
+                                                name="type" value="white" onChange={(e) => this.handleChange('filterType', e)}/>
+                                            <label for="white">White</label>
 
-                                        <input type="radio" id="rose"
-                                            name="type" value="rose" onChange={(e) => this.handleChange('filterType', e)}/>
-                                        <label for="rose">Rose</label>
+                                            <input type="radio" id="rose"
+                                                name="type" value="rose" onChange={(e) => this.handleChange('filterType', e)}/>
+                                            <label for="rose">Rose</label>
+                                        </div>
 
-                                        <p>Select your preferred sugar content:</p>
-                                        <input type="radio" id="extraDry"
-                                            name="sugar" value="XD" onChange={(e) => this.handleChange('filterSugar', e)}/>
-                                        <label for="extraDry">Extra dry</label>
+                                        <div className="filter_sugarContent clearfix">
+                                            <p>Select your preferred sugar content:</p>
+                                            <input type="radio" id="extraDry"
+                                                name="sugar" value="XD" onChange={(e) => this.handleChange('filterSugar', e)}/>
+                                            <label for="extraDry">Extra dry</label>
 
-                                        <input type="radio" id="dry"
-                                            name="sugar" value="D" onChange={(e) => this.handleChange('filterSugar', e)}/>
-                                        <label for="dry">Dry</label>
+                                            <input type="radio" id="dry"
+                                                name="sugar" value="D" onChange={(e) => this.handleChange('filterSugar', e)}/>
+                                            <label for="dry">Dry</label>
 
-                                        <input type="radio" id="medium"
-                                            name="sugar" value="M" onChange={(e) => this.handleChange('filterSugar', e)}/>
-                                        <label for="medium">Medium</label>
+                                            <input type="radio" id="medium"
+                                                name="sugar" value="M" onChange={(e) => this.handleChange('filterSugar', e)}/>
+                                            <label for="medium">Medium</label>
 
-                                        <input type="radio" id="mediumSweet"
-                                            name="sugar" value="MS" onChange={(e) => this.handleChange('filterSugar', e)} />
-                                        <label for="mediumSweet">Medium Sweet</label>
+                                            <input type="radio" id="mediumSweet"
+                                                name="sugar" value="MS" onChange={(e) => this.handleChange('filterSugar', e)} />
+                                            <label for="mediumSweet">Medium Sweet</label>
 
-                                        <input type="radio" id="sweet"
-                                            name="sugar" value="S" onChange={(e) => this.handleChange('filterSugar', e)}/>
-                                        <label for="sweet">Sweet</label>
+                                            <input type="radio" id="sweet"
+                                                name="sugar" value="S" onChange={(e) => this.handleChange('filterSugar', e)}/>
+                                            <label for="sweet">Sweet</label>
+                                        </div>
+
                                     </form>
                                 </div>
                                 }
-                            <button onClick={(e) => this.handleSearchToggle('clear', e)}>Clear</button>
 
-                            {this.state.displaySort ? 
-                                <button onClick={(e) => this.handleSorting('submit', e)}>Submit</button>
-                                : <button onClick={(e) => this.handleFilter('submit', e)}>Submit</button>
-                                }
+                            <div className="searchSubmitButtons clearfix">
+                                <button onClick={(e) => this.handleSearchToggle('clear', e)}>Clear</button>
+
+                                {this.state.displaySort ? 
+                                    <button onClick={(e) => this.handleSorting('submit', e)}>Submit</button>
+                                    : <button onClick={(e) => this.handleFilter('submit', e)}>Submit</button>
+                                    }
+                            </div>
                         </div>                  
                         :''}
                 </div>
