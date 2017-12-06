@@ -37,7 +37,7 @@ $desktop-width-large: 1200px;
 
 @mixin mobile-xsml {
     @media (max-width: #{$mobile-xsml-width}) {
-        @content
+        @content;
     }
 }
 

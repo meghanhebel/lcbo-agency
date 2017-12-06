@@ -57,7 +57,10 @@
             color: rgb(43, 46, 51);
                 &:hover{
                     box-shadow: 0 0 10px $mainPurple;
-                }       
+                } 
+            @include mobile{
+                width: 50px;
+            }          
         }
         .next{
             position: absolute;
