@@ -16,6 +16,12 @@
             border: 1px white solid;
             padding: 0px 0px 35px 30px;
             background-color: rgba(0,0,0,0.7);
+            @include tablet{
+                width: 80%;
+            }
+            @include mobile{
+                width: 95%;
+            }
         }
         label{
             display: block;
@@ -24,8 +30,9 @@
         }
         textArea{
             display: block;
-            width: 100%;
+            width: 90%;
             padding: 15px;
+            margin-right: 2%;
             font-size: 0.8rem;
                 &::placeholder{
                     font-size: 0.8rem;
@@ -38,9 +45,18 @@
         }
         button{
             display: block;
-            margin: 10px 0 0 10px;
-            float: left;
-            width: 75px;
+            border-radius: 0;
+            background: $mainBlue;
+            margin: 10px 20px;
+            text-align: center;
+            float: right;
+            width: 65px;
+            @include mobile{
+                margin: 10px 10px;
+            }
+        }
+        .cancelBtn{
+            background: $mainPurple;
         }
     
 }
@@ -57,6 +73,12 @@
         }
         button{
             margin: 10px auto; 
+        }
+        .cancelBtn{
+            background: $mainPurple;
+        }
+        @include tablet{
+            width: 80%;
         }
 }
 .textField{
@@ -78,6 +100,9 @@
         label{
             text-align: center;
         }
+    .cancelBtn{
+            background: $mainPurple;
+        }    
 }
 
 

@@ -209,6 +209,7 @@ class Pantry extends React.Component {
             <div className='userPantry'>
                 <Heading />
                 <h1>My Wine Pantry</h1>
+                <h2 className="mobileTitle">Pantry</h2>
                 <Navigation />
                 <div className="searchPantry clearfix">
                     <div className="searchPantryButtons">
@@ -377,7 +378,7 @@ class Pantry extends React.Component {
                                 </select>
                                 <div className="modalButtons clearfix">
                                     <button>Submit</button>
-                                    <button onClick={this.cancelEdit}>Cancel</button>
+                                    <button className="cancelBtn" onClick={this.cancelEdit}>Cancel</button>
                                 </div>
                             </div>
                         </div>

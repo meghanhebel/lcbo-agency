@@ -39,22 +39,22 @@ export default class Navigation extends React.Component {
                             <NavLink to="/pantry" activeClassName="current">
                             {/* winery SVG Created by Made from the Noun Project */}
                                 <img src="./public/images/rack.svg" alt="" />
+                                <h4>Pantry</h4>
                             </NavLink>
-                            <h4>Pantry</h4>
                         </li>
                         <li>
                             <NavLink to="/marketplace"activeClassName = "current">
                                 {/* Market SVG Created by Made from the Noun Project */}
                                 <img src="./public/images/market.svg" alt=""/>
+                                <h4>Search</h4>
                             </NavLink>
-                            <h4>Search</h4>
                         </li>
                         <li>
                             <a href="#" onClick={this.logOutMsg}>
                                 {/* truck SVG Created by Made from the Noun Project */}
                                 <img src="./public/images/truck.svg" alt="" />
+                                <h4>Logout</h4>
                             </a>
-                            <h4>Logout</h4>
                         </li>
                     </ul>
                     <div className="logOutMsg modal" id="logOutMsg">
@@ -64,7 +64,7 @@ export default class Navigation extends React.Component {
                                 <button onClick={this.logOut}>Logout</button>
                             </NavLink>
                             <a href="">
-                                <button onClick={this.logOutCancel}>Cancel</button>
+                                <button className="cancelBtn" onClick={this.logOutCancel}>Cancel</button>
                             </a>
                         </div>
                     </div>
