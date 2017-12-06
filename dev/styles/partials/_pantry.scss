@@ -1,27 +1,4 @@
-.searchPantry{
-    background: $mainWhite;
-    color: black;
-    button{
-        border: none;
-        color: black;
-        border-radius: 0px;
-    }
-}
-.searchPantryButtons{
-    float: left;
-}
-.searchBox{
-    float: left;
-  
-}
-.sortBox{
-    float: left;
-   
-}
-.filterBox{
-    float: left;
 
-}
 .userPantry{
     height: 100vh;
     .logo{
@@ -66,6 +43,7 @@
     }
     ul {
         padding: 0;
+        margin: 0;
     }
 }
 
@@ -78,9 +56,12 @@
     border: 1px solid $mainRed;
     .pantryButtons {
         position: absolute;
-        bottom: 0;
+        bottom: 10px;
         left: 50%;
         transform: translateX(-50%);
+        @include mobile-only {
+            right: 10px;
+        }
     }
     button {
         text-transform: uppercase;
@@ -93,6 +74,12 @@
     }
     .deleteBtn {
         background: $mainRed;
+    }
+    @include desktop-lrg-only {
+        width: 50%;
+    }
+    @include desktop-sml-only {
+        width: 100%;
     }
 }
 
@@ -110,6 +97,22 @@
         }
         .wineInfo_indicators {
             width: 40%;
+            
+        }
+        .winePrice {
+            @include desktop-sml-only {
+                float: left;
+            }
+            @include tablet-only {
+                float: right;
+            }
+        }
+        @include desktop-sml-only {
+            width: 66%;
+        }
+        @include mobile-xsml {
+            width: 100%;
+            padding: 20px;
         }
     }
 
@@ -119,7 +122,9 @@
     font-size: 0.8rem;
     margin: 0;
     padding: 20px 0;
-    // height: 40px;
+    @include mobile-xsml-width {
+        height: 40px;
+    }
 }
 
 .pantry_imageBox {
@@ -132,6 +137,17 @@
         max-height: 350px;
         margin: 0 auto;
         object-fit: cover;
+        @include desktop-lrg-only {
+            max-height: 275px;
+            width: 100%;
+            max-width: 275px;
+        }
+    }
+    @include desktop-sml-only {
+        width: 33%;
+    }
+    @include mobile-xsml {
+        display: none;
     }
 }
 .pantry_textBox {
@@ -146,6 +162,7 @@
         font-family: $headingFont;
         text-align: left;
     }
+    
 }
 
 .userWineInfo {
@@ -179,6 +196,10 @@
             position: relative;
             top: 50%;
             transform: translateY(-50%);
+        }
+        
+        @include mobile-only {
+            width: 50%;
         }
     }
 }
