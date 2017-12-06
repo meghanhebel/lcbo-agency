@@ -37,7 +37,7 @@ export default class MarketPlace extends React.Component {
         const access_key = 'MDo5ODRjMDU2Ni1kNTBhLTExZTctYjFmYS1lN2UwOGZlNzE3OWY6WFJBVXV1Q2FkWDdBUkQ5aUtxc0ZYejl3ZTVCaDU0emFYRG56';
         axios.get(`https://lcboapi.com/products?`, {
                 params: {
-                        dataType: 'json',
+                        dataType: 'jsonp',
                         q: keywords,
                         where_not: 'is_dead,is_discontinued',
                         per_page: 100,
