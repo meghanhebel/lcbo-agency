@@ -10,5 +10,8 @@
         height: auto;
         margin: 0 20px;
         display: block;
+        @include mobile{
+            width: 50px;
+        }
     }
 }

@@ -7,6 +7,20 @@
         margin: 20px auto;
         display: block;
     }
+    .mobileTitle{
+        display: none;
+        position: relative;
+        color: black;
+        top: -80px;
+        font-family: $headingFont;
+        text-shadow: 0 0 10px white;
+        @include mobile-xsml{
+            display: block;
+            font-size: 1.2rem;
+            top: -60px;
+
+        }
+    }
     h1{
         position: relative;
         color: black;
@@ -19,6 +33,11 @@
             top: -75px;
         }
         @include mobile{
+            // display: none;
+            font-size: 1rem;
+            top: -60px;
+        }
+        @include mobile-xsml{
             display: none;
         }
     }
